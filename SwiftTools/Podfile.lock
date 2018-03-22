@@ -1,12 +1,18 @@
 PODS:
+  - ESTabBarController-swift (2.5)
+  - Kingfisher (4.3.1)
   - SnapKit (4.0.0)
 
 DEPENDENCIES:
+  - ESTabBarController-swift
+  - Kingfisher
   - SnapKit
 
 SPEC CHECKSUMS:
+  ESTabBarController-swift: 8daa432f2a9be8ebd25101dc46c84472fd760512
+  Kingfisher: 75541c4b62f02e1fde6f9772303de3d9ebe8f5b3
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
 
-PODFILE CHECKSUM: d2ac8d8b1f0eebf3e0e3580d5adb20d6d1d9d963
+PODFILE CHECKSUM: eceaad432727030a916379389af8d1c176576dbf
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.4.0

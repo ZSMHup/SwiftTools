@@ -7,6 +7,7 @@ target 'SwiftTools' do
 
   # Pods for SwiftTools
 pod 'SnapKit'
-
+pod 'ESTabBarController-swift'
+pod 'Kingfisher'
 
 end
