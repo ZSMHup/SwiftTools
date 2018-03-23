@@ -348,7 +348,6 @@
 				E17A0816206113B600887C69 /* Controller */,
 				E17A0817206113B600887C69 /* Model */,
 				E17A0818206113B600887C69 /* View */,
-				E1771B872063B77B0050C244 /* TYSPersonalViewController.swift */,
 			);
 			path = Person;
 			sourceTree = "<group>";
@@ -356,6 +355,7 @@
 		E17A0816206113B600887C69 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				E1771B872063B77B0050C244 /* TYSPersonalViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -453,12 +453,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SwiftTools/Pods-SwiftTools-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ESTabBarController-swift/ESTabBarController_swift.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ESTabBarController_swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);

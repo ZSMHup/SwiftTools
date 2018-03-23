@@ -22,8 +22,8 @@ class NavigationViewController: UINavigationController, UIGestureRecognizerDeleg
             let backBtn = UIButton()
             backBtn.setImage(UIImage(named:"default_nav_back"), for: .normal)
             backBtn.setImage(UIImage(named:"default_nav_back"), for: .highlighted)
-            backBtn.frame = CGRect(x: 0, y: 0, width: 40, height: 70)
-            backBtn.contentEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0)
+            backBtn.frame = CGRect(x: 0, y: 0, width: 20, height: 40)
+            backBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
             backBtn.addTarget(self, action: #selector(backBtnClick), for: .touchUpInside)
             viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
         }

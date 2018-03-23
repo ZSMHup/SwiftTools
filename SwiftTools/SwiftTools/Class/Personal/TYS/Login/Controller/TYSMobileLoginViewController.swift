@@ -21,12 +21,12 @@ class TYSMobileLoginViewController: BaseViewController {
         navigationController?.navigationBar.isHidden = true
         setupUI()
         
-        telNumTextField?.addTextDidChangeHandler(tempChangeHandler: { (textField) in
-            self.mobileLoginhandler()
+        telNumTextField?.addTextDidChangeHandler(tempChangeHandler: {[weak self] (textField) in
+            self?.mobileLoginhandler()
         })
         
-        captchaInput?.addTextDidChangeHandler(tempChangeHandler: { (textField) in
-            self.mobileLoginhandler()
+        captchaInput?.addTextDidChangeHandler(tempChangeHandler: {[weak self] (textField) in
+            self?.mobileLoginhandler()
         })
         
     }
@@ -34,11 +34,6 @@ class TYSMobileLoginViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = false
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -65,96 +60,6 @@ class TYSMobileLoginViewController: BaseViewController {
             make.centerX.equalTo(view.snp.centerX)
             make.top.equalTo(view.snp.top).offset(AdaptH(h: 181))
             make.size.equalTo(CGSize(width: AdaptW(w: 76), height: AdaptH(h: 76)))
-        }
-        
-        telNumTextField = TextField() // 手机号码
-        telNumTextField?.tintColor = tys_inputTintColor
-        telNumTextField?.placeholder = "请输入手机号码"
-        telNumTextField?.textColor = tys_titleColor
-        telNumTextField?.clearButtonMode = .whileEditing
-        telNumTextField?.keyboardType = .numberPad
-        telNumTextField?.font = SystemFont(fontSize: 16)
-        telNumTextField?.borderStyle = .none
-        telNumTextField?.maxLength = 11
-        view.addSubview(telNumTextField!)
-        telNumTextField?.snp.makeConstraints { (make) in
-            make.left.equalTo(view.snp.left).offset(AdaptW(w: 39))
-            make.top.equalTo(logImg.snp.bottom).offset(AdaptH(h: 69))
-            make.right.equalTo(view.snp.right).offset(AdaptW(w: -39))
-            make.height.equalTo(AdaptH(h: 25))
-        }
-        
-        let lineView1 = UIView()
-        lineView1.backgroundColor = hexString("#FFDDDDDD")
-        view.addSubview(lineView1)
-        lineView1.snp.makeConstraints { (make) in
-            make.left.equalTo((telNumTextField?.snp.left)!)
-            make.right.equalTo((telNumTextField?.snp.right)!)
-            make.top.equalTo((telNumTextField?.snp.bottom)!).offset(AdaptH(h: 10))
-            make.height.equalTo(0.5)
-        }
-        
-        captchaInput = TextField() // 验证码
-        captchaInput?.tintColor = tys_inputTintColor
-        captchaInput?.placeholder = "请输入验证码"
-        captchaInput?.textColor = tys_titleColor
-        captchaInput?.clearButtonMode = .whileEditing
-        captchaInput?.keyboardType = .numberPad
-        captchaInput?.font = SystemFont(fontSize: 16)
-        captchaInput?.borderStyle = .none
-        captchaInput?.maxLength = 6
-        view.addSubview(captchaInput!)
-        captchaInput?.snp.makeConstraints { (make) in
-            make.left.equalTo(view.snp.left).offset(AdaptW(w: 39))
-            make.top.equalTo(lineView1.snp.bottom).offset(AdaptH(h: 30))
-            make.right.equalTo(view.snp.right).offset(AdaptW(w: -150))
-            make.height.equalTo(AdaptH(h: 25))
-        }
-        
-        let lineView2 = UIView()
-        lineView2.backgroundColor = hexString("#FFDDDDDD")
-        view.addSubview(lineView2)
-        lineView2.snp.makeConstraints { (make) in
-            make.left.equalTo((captchaInput?.snp.left)!)
-            make.right.equalTo((telNumTextField?.snp.right)!)
-            make.top.equalTo((captchaInput?.snp.bottom)!).offset(AdaptH(h: 10))
-            make.height.equalTo(0.5)
-        }
-        
-        getCaptchaBtn = UIButton()
-        getCaptchaBtn?.setTitle("| 获取验证码", for: .normal)
-        getCaptchaBtn?.setTitleColor(tys_titleColor, for: .normal)
-        getCaptchaBtn?.titleLabel?.font = AdaptFont(fontSize: 16)
-        getCaptchaBtn?.contentHorizontalAlignment = .right
-        getCaptchaBtn?.addTarget(self, action: #selector(getCaptchaBtnClick(button:)), for: .touchUpInside)
-        view.addSubview(getCaptchaBtn!)
-        getCaptchaBtn?.snp.makeConstraints { (make) in
-            make.centerY.equalTo((captchaInput?.snp.centerY)!)
-            make.right.equalTo((telNumTextField?.snp.right)!)
-            make.size.equalTo(CGSize(width: AdaptW(w: 100), height: AdaptH(h: 30)))
-        }
-        
-        checkBox = UIButton()
-        checkBox?.setImage(UIImage(named:"login_checkbox_normal"), for: .normal)
-        checkBox?.setImage(UIImage(named:"login_checkbox_selected"), for: .selected)
-        checkBox?.addTarget(self, action: #selector(chechboxClick(button:)), for: .touchUpInside)
-        checkBox?.isSelected = true
-        view.addSubview(checkBox!)
-        checkBox?.snp.makeConstraints { (make) in
-            make.left.equalTo(view.snp.left).offset(AdaptW(w: 39))
-            make.top.equalTo(lineView2.snp.bottom).offset(AdaptH(h: 20))
-            make.size.equalTo(CGSize(width: 12, height: 12))
-        }
-        
-        let disclaimerBtn = UIButton() // 免责
-        disclaimerBtn.setTitle("登录即表示您已阅读并遵守《投研社用户免责声明》", for: .normal)
-        disclaimerBtn.setTitleColor(tys_grayColor, for: .normal)
-        disclaimerBtn.titleLabel?.font = AdaptFont(fontSize: 12)
-        disclaimerBtn.addTarget(self, action: #selector(disclaimerBtnClick), for: .touchUpInside)
-        view.addSubview(disclaimerBtn)
-        disclaimerBtn.snp.makeConstraints { (make) in
-            make.centerY.equalTo((checkBox?.snp.centerY)!)
-            make.left.equalTo((checkBox?.snp.right)!).offset(AdaptW(w: 5))
         }
         
         let wechatLoginBtn = UIButton() // 微信登录
@@ -187,6 +92,96 @@ class TYSMobileLoginViewController: BaseViewController {
             make.left.equalTo(wechatLoginBtn.snp.left)
             make.height.equalTo(AdaptH(h: 50))
         }
+        
+        checkBox = UIButton()
+        checkBox?.setImage(UIImage(named:"login_checkbox_normal"), for: .normal)
+        checkBox?.setImage(UIImage(named:"login_checkbox_selected"), for: .selected)
+        checkBox?.addTarget(self, action: #selector(chechboxClick(button:)), for: .touchUpInside)
+        checkBox?.isSelected = true
+        view.addSubview(checkBox!)
+        checkBox?.snp.makeConstraints { (make) in
+            make.left.equalTo(view.snp.left).offset(AdaptW(w: 39))
+            make.bottom.equalTo((phoneLoginBtn?.snp.top)!).offset(AdaptH(h: -37))
+            make.size.equalTo(CGSize(width: 12, height: 12))
+        }
+        
+        let disclaimerBtn = UIButton() // 免责
+        disclaimerBtn.setTitle("登录即表示您已阅读并遵守《投研社用户免责声明》", for: .normal)
+        disclaimerBtn.setTitleColor(tys_grayColor, for: .normal)
+        disclaimerBtn.titleLabel?.font = AdaptFont(fontSize: 12)
+        disclaimerBtn.addTarget(self, action: #selector(disclaimerBtnClick), for: .touchUpInside)
+        view.addSubview(disclaimerBtn)
+        disclaimerBtn.snp.makeConstraints { (make) in
+            make.centerY.equalTo((checkBox?.snp.centerY)!)
+            make.left.equalTo((checkBox?.snp.right)!).offset(AdaptW(w: 5))
+        }
+        
+        let lineView2 = UIView()
+        lineView2.backgroundColor = hexString("#FFDDDDDD")
+        view.addSubview(lineView2)
+        lineView2.snp.makeConstraints { (make) in
+            make.left.equalTo(view.snp.left).offset(AdaptW(w: 39))
+            make.right.equalTo(view.snp.right).offset(AdaptW(w: -39))
+            make.bottom.equalTo((checkBox?.snp.top)!).offset(AdaptH(h: -20))
+            make.height.equalTo(0.5)
+        }
+        
+        captchaInput = TextField() // 验证码
+        captchaInput?.tintColor = tys_inputTintColor
+        captchaInput?.placeholder = "请输入验证码"
+        captchaInput?.textColor = tys_titleColor
+        captchaInput?.clearButtonMode = .whileEditing
+        captchaInput?.keyboardType = .numberPad
+        captchaInput?.font = AdaptFont(fontSize: 16)
+        captchaInput?.borderStyle = .none
+        captchaInput?.maxLength = 6
+        view.addSubview(captchaInput!)
+        captchaInput?.snp.makeConstraints { (make) in
+            make.left.equalTo(view.snp.left).offset(AdaptW(w: 39))
+            make.bottom.equalTo(lineView2.snp.top).offset(AdaptH(h: -10))
+            make.right.equalTo(view.snp.right).offset(AdaptW(w: -150))
+            make.height.equalTo(AdaptH(h: 25))
+        }
+        
+        getCaptchaBtn = UIButton()
+        getCaptchaBtn?.setTitle("| 获取验证码", for: .normal)
+        getCaptchaBtn?.setTitleColor(tys_titleColor, for: .normal)
+        getCaptchaBtn?.titleLabel?.font = AdaptFont(fontSize: 15)
+        getCaptchaBtn?.contentHorizontalAlignment = .right
+        getCaptchaBtn?.addTarget(self, action: #selector(getCaptchaBtnClick(button:)), for: .touchUpInside)
+        view.addSubview(getCaptchaBtn!)
+        getCaptchaBtn?.snp.makeConstraints { (make) in
+            make.centerY.equalTo((captchaInput?.snp.centerY)!)
+            make.right.equalTo(view.snp.right).offset(AdaptW(w: -39))
+            make.size.equalTo(CGSize(width: AdaptW(w: 100), height: AdaptH(h: 30)))
+        }
+        
+        let lineView1 = UIView()
+        lineView1.backgroundColor = hexString("#FFDDDDDD")
+        view.addSubview(lineView1)
+        lineView1.snp.makeConstraints { (make) in
+            make.left.equalTo((captchaInput?.snp.left)!)
+            make.right.equalTo((captchaInput?.snp.right)!)
+            make.bottom.equalTo((captchaInput?.snp.top)!).offset(AdaptH(h: -30))
+            make.height.equalTo(0.5)
+        }
+        
+        telNumTextField = TextField() // 手机号码
+        telNumTextField?.tintColor = tys_inputTintColor
+        telNumTextField?.placeholder = "请输入手机号码"
+        telNumTextField?.textColor = tys_titleColor
+        telNumTextField?.clearButtonMode = .whileEditing
+        telNumTextField?.keyboardType = .numberPad
+        telNumTextField?.font = AdaptFont(fontSize: 16)
+        telNumTextField?.borderStyle = .none
+        telNumTextField?.maxLength = 11
+        view.addSubview(telNumTextField!)
+        telNumTextField?.snp.makeConstraints { (make) in
+            make.left.equalTo(view.snp.left).offset(AdaptW(w: 39))
+            make.bottom.equalTo(lineView1.snp.top).offset(AdaptH(h: -10))
+            make.right.equalTo(view.snp.right).offset(AdaptW(w: -39))
+            make.height.equalTo(AdaptH(h: 25))
+        }
     }
     
     func mobileLoginhandler() {
@@ -210,7 +205,6 @@ class TYSMobileLoginViewController: BaseViewController {
         
         phoneLoginBtn?.backgroundColor = tys_backgroundColor
         phoneLoginBtn?.isEnabled = true
-        
     }
 }
 

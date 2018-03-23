@@ -1,18 +1,21 @@
 PODS:
   - ESTabBarController-swift (2.5)
+  - IQKeyboardManagerSwift (5.0.6)
   - Kingfisher (4.3.1)
   - SnapKit (4.0.0)
 
 DEPENDENCIES:
   - ESTabBarController-swift
+  - IQKeyboardManagerSwift
   - Kingfisher
   - SnapKit
 
 SPEC CHECKSUMS:
   ESTabBarController-swift: 8daa432f2a9be8ebd25101dc46c84472fd760512
+  IQKeyboardManagerSwift: 02bfbb0dff71c66d0ab77d80d25dfce0c3717735
   Kingfisher: 75541c4b62f02e1fde6f9772303de3d9ebe8f5b3
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
 
-PODFILE CHECKSUM: eceaad432727030a916379389af8d1c176576dbf
+PODFILE CHECKSUM: 462e71ba911d6449fb85ec3457f5e1392421763a
 
 COCOAPODS: 1.4.0

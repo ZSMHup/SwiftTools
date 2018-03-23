@@ -9,5 +9,6 @@ target 'SwiftTools' do
 pod 'SnapKit'
 pod 'ESTabBarController-swift'
 pod 'Kingfisher'
+pod 'IQKeyboardManagerSwift'
 
 end

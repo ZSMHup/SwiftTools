@@ -33,7 +33,7 @@ class TYSHomeViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationController?.navigationBar.isHidden = false
         setupUI()
     }
 }
@@ -77,7 +77,7 @@ extension TYSHomeViewController {
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { (make) in
             make.left.right.bottom.equalTo(view)
-            make.top.equalTo(view.snp.top).offset(-64.0)
+            make.top.equalTo(view.snp.top).offset(-kNavigationBarHeight)
         }
     }
     
@@ -99,8 +99,14 @@ extension TYSHomeViewController {
 // MARK: event response
 extension TYSHomeViewController {
     @objc private func personalCenter() {
-        print("个人中心")
-        navigationController?.pushViewController(TYSPersonalViewController(), animated: true)
+        let personalVc = TYSPersonalViewController()
+        personalVc.postValue = "个人中心"
+        personalVc.delegate = self
+        
+        personalVc.addPostValueToUpPageBlock { (str) in
+            print(str)
+        }
+        navigationController?.pushViewController(personalVc, animated: true)
     }
     
     @objc private func searchBtnClick() {
@@ -109,7 +115,7 @@ extension TYSHomeViewController {
 }
 
 // MARK: delegate
-extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, WRCycleScrollViewDelegate {
+extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, WRCycleScrollViewDelegate, TYSPersonalViewControllerDelegate {
     
     //flow layout
     /**
@@ -254,6 +260,10 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
     /// 图片滚动事件
     func cycleScrollViewDidScroll(to index:Int, cycleScrollView:WRCycleScrollView) {
 //        print("滚动到了第\(index+1)个图片")
+    }
+    
+    func postValueToUpPage(str: String) {
+        print(str)
     }
 
 }

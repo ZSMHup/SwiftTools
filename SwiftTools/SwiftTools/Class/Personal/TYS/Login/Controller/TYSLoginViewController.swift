@@ -16,16 +16,16 @@ class TYSLoginViewController: BaseViewController {
         setupUI()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = false
-    }
-    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        navigationController?.navigationBar.isHidden = true
+//    }
+//    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        navigationController?.navigationBar.isHidden = false
+//    }
+//    
     private func setupUI () {
         let skipBtn = UIButton() //跳过
         skipBtn.setTitle("跳过", for: .normal)
