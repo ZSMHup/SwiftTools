@@ -37,6 +37,8 @@
 		E17A0808206112BD00887C69 /* UIButton+Countdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17A0807206112BD00887C69 /* UIButton+Countdown.swift */; };
 		E17A081B206113EC00887C69 /* TYSLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17A081A206113EC00887C69 /* TYSLoginViewController.swift */; };
 		E181FC5F20624B2600E6684A /* TYSSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E181FC5E20624B2600E6684A /* TYSSectionView.swift */; };
+		E18AE3C220649FC200655AD2 /* TYSMobileLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18AE3C120649FC200655AD2 /* TYSMobileLoginViewController.swift */; };
+		E18AE3C42064A53800655AD2 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18AE3C32064A53800655AD2 /* TextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +76,8 @@
 		E17A0807206112BD00887C69 /* UIButton+Countdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Countdown.swift"; sourceTree = "<group>"; };
 		E17A081A206113EC00887C69 /* TYSLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSLoginViewController.swift; sourceTree = "<group>"; };
 		E181FC5E20624B2600E6684A /* TYSSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSSectionView.swift; sourceTree = "<group>"; };
+		E18AE3C120649FC200655AD2 /* TYSMobileLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSMobileLoginViewController.swift; sourceTree = "<group>"; };
+		E18AE3C32064A53800655AD2 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +252,7 @@
 		E17A08012061113100887C69 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				E18AE3C32064A53800655AD2 /* TextField.swift */,
 				E17A08052061127000887C69 /* UIColor+HexString.swift */,
 				E17A0807206112BD00887C69 /* UIButton+Countdown.swift */,
 			);
@@ -318,6 +323,7 @@
 			isa = PBXGroup;
 			children = (
 				E17A081A206113EC00887C69 /* TYSLoginViewController.swift */,
+				E18AE3C120649FC200655AD2 /* TYSMobileLoginViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -514,6 +520,7 @@
 				E16088FB2061E80300580484 /* TYSHomeViewController.swift in Sources */,
 				E1771B7C20639D510050C244 /* TYSHotCollectionViewCell.swift in Sources */,
 				E1771B822063A5ED0050C244 /* TYSCommonLikelyPeoCollectionViewCell.swift in Sources */,
+				E18AE3C220649FC200655AD2 /* TYSMobileLoginViewController.swift in Sources */,
 				E17A081B206113EC00887C69 /* TYSLoginViewController.swift in Sources */,
 				E1771B732063586A0050C244 /* WRCycleScrollView.swift in Sources */,
 				E1771B742063586A0050C244 /* WRPageControl.swift in Sources */,
@@ -522,6 +529,7 @@
 				E1771B882063B77B0050C244 /* TYSPersonalViewController.swift in Sources */,
 				E1771B752063586A0050C244 /* WRProxy.swift in Sources */,
 				E1771B6B206348DA0050C244 /* TYSCommonCollectionViewCell.swift in Sources */,
+				E18AE3C42064A53800655AD2 /* TextField.swift in Sources */,
 				E17A07DA2060CB5200887C69 /* AppDelegate.swift in Sources */,
 				E181FC5F20624B2600E6684A /* TYSSectionView.swift in Sources */,
 				E160890020620E1B00580484 /* TYSSearchButton.swift in Sources */,

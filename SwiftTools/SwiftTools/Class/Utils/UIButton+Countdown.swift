@@ -20,13 +20,13 @@ extension UIButton {
                 timer.cancel()
                 DispatchQueue.main.async {
                     self.isEnabled = true
-                    self.setTitle("重新获取", for: .normal)
+                    self.setTitle("| 重新获取", for: .normal)
                 }
             } else {
                 tempSecond -= 1
                 DispatchQueue.main.async {
                     self.isEnabled = false
-                    self.setTitle("\(tempSecond)s后重获取", for: .normal)
+                    self.setTitle("| \(tempSecond)s后重获取", for: .normal)
                 }
             }
         }

@@ -12,8 +12,18 @@ class TYSLoginViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationController?.navigationBar.isHidden = true
         setupUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
     }
     
     private func setupUI () {
@@ -84,7 +94,7 @@ extension TYSLoginViewController {
     }
     
     @objc private func phoneLoginBtnClick() {
-        let homeVc = TYSHomeViewController()
+        let homeVc = TYSMobileLoginViewController()
         self.navigationController?.pushViewController(homeVc, animated: true)
     }
 }
