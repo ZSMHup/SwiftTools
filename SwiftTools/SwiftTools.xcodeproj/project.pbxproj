@@ -23,6 +23,7 @@
 		E1771B822063A5ED0050C244 /* TYSCommonLikelyPeoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1771B812063A5ED0050C244 /* TYSCommonLikelyPeoCollectionViewCell.swift */; };
 		E1771B842063A9EE0050C244 /* TYSHomeTabCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1771B832063A9EE0050C244 /* TYSHomeTabCollectionViewCell.swift */; };
 		E1771B862063AB1B0050C244 /* TYSHomeTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1771B852063AB1B0050C244 /* TYSHomeTabCell.swift */; };
+		E1771B882063B77B0050C244 /* TYSPersonalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1771B872063B77B0050C244 /* TYSPersonalViewController.swift */; };
 		E17A07DA2060CB5200887C69 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17A07D92060CB5200887C69 /* AppDelegate.swift */; };
 		E17A07E12060CB5200887C69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E17A07E02060CB5200887C69 /* Assets.xcassets */; };
 		E17A07E42060CB5200887C69 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E17A07E22060CB5200887C69 /* LaunchScreen.storyboard */; };
@@ -57,6 +58,7 @@
 		E1771B812063A5ED0050C244 /* TYSCommonLikelyPeoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSCommonLikelyPeoCollectionViewCell.swift; sourceTree = "<group>"; };
 		E1771B832063A9EE0050C244 /* TYSHomeTabCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSHomeTabCollectionViewCell.swift; sourceTree = "<group>"; };
 		E1771B852063AB1B0050C244 /* TYSHomeTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSHomeTabCell.swift; sourceTree = "<group>"; };
+		E1771B872063B77B0050C244 /* TYSPersonalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSPersonalViewController.swift; sourceTree = "<group>"; };
 		E17A07D62060CB5200887C69 /* SwiftTools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftTools.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E17A07D92060CB5200887C69 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E17A07E02060CB5200887C69 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 				E17A0816206113B600887C69 /* Controller */,
 				E17A0817206113B600887C69 /* Model */,
 				E17A0818206113B600887C69 /* View */,
+				E1771B872063B77B0050C244 /* TYSPersonalViewController.swift */,
 			);
 			path = Person;
 			sourceTree = "<group>";
@@ -516,6 +519,7 @@
 				E1771B742063586A0050C244 /* WRPageControl.swift in Sources */,
 				E17A07FF20610CC900887C69 /* DimensMacros.swift in Sources */,
 				E1771B842063A9EE0050C244 /* TYSHomeTabCollectionViewCell.swift in Sources */,
+				E1771B882063B77B0050C244 /* TYSPersonalViewController.swift in Sources */,
 				E1771B752063586A0050C244 /* WRProxy.swift in Sources */,
 				E1771B6B206348DA0050C244 /* TYSCommonCollectionViewCell.swift in Sources */,
 				E17A07DA2060CB5200887C69 /* AppDelegate.swift in Sources */,
@@ -655,6 +659,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5ZB67NUCDZ;
 				INFOPLIST_FILE = "$(SRCROOT)/SwiftTools/Other/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -672,6 +677,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5ZB67NUCDZ;
 				INFOPLIST_FILE = "$(SRCROOT)/SwiftTools/Other/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

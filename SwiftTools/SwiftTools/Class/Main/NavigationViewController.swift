@@ -30,25 +30,8 @@ class NavigationViewController: UINavigationController, UIGestureRecognizerDeleg
         super.pushViewController(viewController, animated: animated)
     }
     
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if viewControllers.count <= 1 {
-            return false
-        } else {
-            return true
-        }
-    }
-    
     private func setup() {
-        /*
         interactivePopGestureRecognizer?.delegate = self
-
-        let navigationBarAppearance = UINavigationBar.appearance()
-        navigationBarAppearance.setBackgroundImage(imageWithColor(color: UIColor.white), for: .default)
-        let textAttributes = [NSAttributedStringKey.foregroundColor : UIColor.black,
-                              NSAttributedStringKey.font : UIFont.systemFont(ofSize: 22.0)]
-        navigationBarAppearance.titleTextAttributes = textAttributes
-        navigationBarAppearance.tintColor = UIColor.black
-         */
         setNavBarAppearence()
     }
     
@@ -58,6 +41,15 @@ class NavigationViewController: UINavigationController, UIGestureRecognizerDeleg
         WRNavigationBar.defaultNavBarBarTintColor = UIColor.white
         // 设置导航栏标题默认颜色
         WRNavigationBar.defaultNavBarTitleColor = .black
+        WRNavigationBar.defaultShadowImageHidden = true
+    }
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if viewControllers.count <= 1 {
+            return false
+        } else {
+            return true
+        }
     }
 
     private func imageWithColor(color: UIColor) -> UIImage {

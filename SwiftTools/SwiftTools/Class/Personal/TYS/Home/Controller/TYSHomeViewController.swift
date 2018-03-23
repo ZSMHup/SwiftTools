@@ -10,7 +10,6 @@ import UIKit
 
 let kBannerHeight = kScreenW * 9 / 16
 
-
 class TYSHomeViewController: BaseViewController {
     private var searchBtn: TYSSearchButton?
     private lazy var collectionView: UICollectionView = {
@@ -49,13 +48,9 @@ extension TYSHomeViewController {
     }
     
     private func setupNav() {
-        
         navBarBackgroundAlpha = 0
-        
         searchBtn = TYSSearchButton(title: "路演/电话会议/荐读分析师")
         searchBtn?.addTarget(self, action: #selector(searchBtnClick), for: .touchUpInside)
-        self.navigationItem.titleView = searchBtn
-        
         
         let userImgView = UIView()
         userImgView.frame = CGRect(x: 0, y: 0, width: 50, height: 40)
@@ -105,6 +100,7 @@ extension TYSHomeViewController {
 extension TYSHomeViewController {
     @objc private func personalCenter() {
         print("个人中心")
+        navigationController?.pushViewController(TYSPersonalViewController(), animated: true)
     }
     
     @objc private func searchBtnClick() {
@@ -232,19 +228,20 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let height = lround(Double(kBannerHeight + kNavigationBarHeight))
-
-//        print("\(offsetY) --- \((height))")
         if offsetY < 0 {
             if offsetY > -CGFloat(height) {
                 let alpha = -kBannerHeight / offsetY
                 navBarBackgroundAlpha = alpha
+                navigationItem.titleView = searchBtn
                 searchBtn?.alpha = alpha
             } else {
                 navBarBackgroundAlpha = 0
+                navigationItem.titleView = nil
                 searchBtn?.alpha = 0
             }
         } else {
             navBarBackgroundAlpha = 1.0
+            navigationItem.titleView = searchBtn
             searchBtn?.alpha = 1.0
         }
     }
@@ -252,7 +249,7 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     /// 点击图片事件
     func cycleScrollViewDidSelect(at index:Int, cycleScrollView:WRCycleScrollView) {
-//        print("点击了第\(index+1)个图片")
+        print("点击了第\(index+1)个图片")
     }
     /// 图片滚动事件
     func cycleScrollViewDidScroll(to index:Int, cycleScrollView:WRCycleScrollView) {
