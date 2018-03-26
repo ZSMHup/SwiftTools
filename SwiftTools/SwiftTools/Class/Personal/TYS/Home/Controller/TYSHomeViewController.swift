@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MJRefresh
 
 let kBannerHeight = kScreenW * 9 / 16
 
@@ -79,6 +80,22 @@ extension TYSHomeViewController {
             make.left.right.bottom.equalTo(view)
             make.top.equalTo(view.snp.top).offset(-kNavigationBarHeight)
         }
+        
+        collectionView.mj_header = MJRefreshNormalHeader(refreshingBlock: {[weak self] in
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0, execute: {
+                self?.collectionView.mj_header.endRefreshing()
+            })
+        })
+        
+        collectionView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: {[weak self] in
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0, execute: {
+                self?.collectionView.mj_footer.endRefreshing()
+            })
+        })
+        collectionView.mj_header.ignoredScrollViewContentInsetTop = kBannerHeight
+        
     }
     
     private func createCycleScrollView() {

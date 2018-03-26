@@ -10,5 +10,7 @@ pod 'SnapKit'
 pod 'ESTabBarController-swift'
 pod 'Kingfisher'
 pod 'IQKeyboardManagerSwift'
+pod 'MJRefresh'
+pod 'Alamofire'
 
 end
