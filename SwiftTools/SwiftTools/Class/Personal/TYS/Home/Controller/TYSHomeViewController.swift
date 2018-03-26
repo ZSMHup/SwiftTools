@@ -12,6 +12,7 @@ import MJRefresh
 let kBannerHeight = kScreenW * 9 / 16
 
 class TYSHomeViewController: BaseViewController {
+    
     private var searchBtn: TYSSearchButton?
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -36,7 +37,19 @@ class TYSHomeViewController: BaseViewController {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = false
         setupUI()
+        
     }
+    
+    private func requestHomeData() {
+        let param = ["page" : "1", "requestCode" : "19004", "limit" : "10", "user_id" : "110430", "type" : "2", "login_user_id" : "110430"]
+//        requestHomeListData(paramterDic: param)
+        requestHomeListData(paramterDic: param) { (value) in
+            
+        }
+
+    }
+    
+    
 }
 
 // MARK: setupUI
@@ -46,6 +59,7 @@ extension TYSHomeViewController {
         setupNav()
         createCollectionView()
         createCycleScrollView()
+        self.collectionView.mj_header.beginRefreshing()
     }
     
     private func setupNav() {
@@ -82,18 +96,9 @@ extension TYSHomeViewController {
         }
         
         collectionView.mj_header = MJRefreshNormalHeader(refreshingBlock: {[weak self] in
-            
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0, execute: {
-                self?.collectionView.mj_header.endRefreshing()
-            })
+            self?.requestHomeData()
         })
-        
-        collectionView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: {[weak self] in
-            
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0, execute: {
-                self?.collectionView.mj_footer.endRefreshing()
-            })
-        })
+
         collectionView.mj_header.ignoredScrollViewContentInsetTop = kBannerHeight
         
     }

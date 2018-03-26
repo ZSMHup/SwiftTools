@@ -39,6 +39,12 @@
 		E181FC5F20624B2600E6684A /* TYSSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E181FC5E20624B2600E6684A /* TYSSectionView.swift */; };
 		E18AE3C220649FC200655AD2 /* TYSMobileLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18AE3C120649FC200655AD2 /* TYSMobileLoginViewController.swift */; };
 		E18AE3C42064A53800655AD2 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18AE3C32064A53800655AD2 /* TextField.swift */; };
+		E19991592068CF5300DB24FC /* CacheKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19991582068CF5300DB24FC /* CacheKey.swift */; };
+		E19991612068E60A00DB24FC /* AYNetTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19991602068E60A00DB24FC /* AYNetTools.swift */; };
+		E19991632068E63600DB24FC /* AYRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19991622068E63600DB24FC /* AYRequestManager.swift */; };
+		E19991652068E65E00DB24FC /* AYCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19991642068E65E00DB24FC /* AYCacheManager.swift */; };
+		E19991672068E67E00DB24FC /* AYValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19991662068E67E00DB24FC /* AYValue.swift */; };
+		E19991692068ED3E00DB24FC /* TYSNetTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19991682068ED3E00DB24FC /* TYSNetTools.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +84,12 @@
 		E181FC5E20624B2600E6684A /* TYSSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSSectionView.swift; sourceTree = "<group>"; };
 		E18AE3C120649FC200655AD2 /* TYSMobileLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSMobileLoginViewController.swift; sourceTree = "<group>"; };
 		E18AE3C32064A53800655AD2 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		E19991582068CF5300DB24FC /* CacheKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheKey.swift; sourceTree = "<group>"; };
+		E19991602068E60A00DB24FC /* AYNetTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AYNetTools.swift; sourceTree = "<group>"; };
+		E19991622068E63600DB24FC /* AYRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AYRequestManager.swift; sourceTree = "<group>"; };
+		E19991642068E65E00DB24FC /* AYCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AYCacheManager.swift; sourceTree = "<group>"; };
+		E19991662068E67E00DB24FC /* AYValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AYValue.swift; sourceTree = "<group>"; };
+		E19991682068ED3E00DB24FC /* TYSNetTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSNetTools.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +257,12 @@
 			isa = PBXGroup;
 			children = (
 				E16088FC2061EA4300580484 /* Tools.swift */,
+				E19991682068ED3E00DB24FC /* TYSNetTools.swift */,
+				E19991602068E60A00DB24FC /* AYNetTools.swift */,
+				E19991622068E63600DB24FC /* AYRequestManager.swift */,
+				E19991642068E65E00DB24FC /* AYCacheManager.swift */,
+				E19991662068E67E00DB24FC /* AYValue.swift */,
+				E19991582068CF5300DB24FC /* CacheKey.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -453,6 +471,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SwiftTools/Pods-SwiftTools-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
 				"${BUILT_PRODUCTS_DIR}/ESTabBarController-swift/ESTabBarController_swift.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
@@ -462,6 +481,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ESTabBarController_swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
@@ -513,17 +533,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E19991672068E67E00DB24FC /* AYValue.swift in Sources */,
 				E17A08062061127000887C69 /* UIColor+HexString.swift in Sources */,
 				E1771B7E2063A43E0050C244 /* TYSLikelyPeopleCollectionViewCell.swift in Sources */,
+				E19991652068E65E00DB24FC /* AYCacheManager.swift in Sources */,
 				E17A0808206112BD00887C69 /* UIButton+Countdown.swift in Sources */,
 				E17A07F92060FDB000887C69 /* NavigationViewController.swift in Sources */,
 				E1771B7A20635F910050C244 /* WRNavigationBar.swift in Sources */,
 				E1771B7920635F910050C244 /* WRCustomNavigationBar.swift in Sources */,
+				E19991632068E63600DB24FC /* AYRequestManager.swift in Sources */,
 				E16088FD2061EA4300580484 /* Tools.swift in Sources */,
 				E17A07F72060EBCF00887C69 /* TabBarItemContentView.swift in Sources */,
 				E1771B722063586A0050C244 /* WRCycleCell.swift in Sources */,
 				E1771B862063AB1B0050C244 /* TYSHomeTabCell.swift in Sources */,
 				E16088FB2061E80300580484 /* TYSHomeViewController.swift in Sources */,
+				E19991692068ED3E00DB24FC /* TYSNetTools.swift in Sources */,
 				E1771B7C20639D510050C244 /* TYSHotCollectionViewCell.swift in Sources */,
 				E1771B822063A5ED0050C244 /* TYSCommonLikelyPeoCollectionViewCell.swift in Sources */,
 				E18AE3C220649FC200655AD2 /* TYSMobileLoginViewController.swift in Sources */,
@@ -531,12 +555,14 @@
 				E1771B732063586A0050C244 /* WRCycleScrollView.swift in Sources */,
 				E1771B742063586A0050C244 /* WRPageControl.swift in Sources */,
 				E17A07FF20610CC900887C69 /* DimensMacros.swift in Sources */,
+				E19991592068CF5300DB24FC /* CacheKey.swift in Sources */,
 				E1771B842063A9EE0050C244 /* TYSHomeTabCollectionViewCell.swift in Sources */,
 				E1771B882063B77B0050C244 /* TYSPersonalViewController.swift in Sources */,
 				E1771B752063586A0050C244 /* WRProxy.swift in Sources */,
 				E1771B6B206348DA0050C244 /* TYSCommonCollectionViewCell.swift in Sources */,
 				E18AE3C42064A53800655AD2 /* TextField.swift in Sources */,
 				E17A07DA2060CB5200887C69 /* AppDelegate.swift in Sources */,
+				E19991612068E60A00DB24FC /* AYNetTools.swift in Sources */,
 				E181FC5F20624B2600E6684A /* TYSSectionView.swift in Sources */,
 				E160890020620E1B00580484 /* TYSSearchButton.swift in Sources */,
 				E17A07EF2060D0D800887C69 /* BaseViewController.swift in Sources */,
@@ -680,7 +706,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.aiyi.SwiftTools;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -698,7 +724,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.aiyi.SwiftTools;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

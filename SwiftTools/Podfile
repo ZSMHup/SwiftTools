@@ -12,5 +12,6 @@ pod 'Kingfisher'
 pod 'IQKeyboardManagerSwift'
 pod 'MJRefresh'
 pod 'Alamofire'
+pod 'Cache'
 
 end

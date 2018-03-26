@@ -161,7 +161,7 @@ class TYSMobileLoginViewController: BaseViewController {
         view.addSubview(lineView1)
         lineView1.snp.makeConstraints { (make) in
             make.left.equalTo((captchaInput?.snp.left)!)
-            make.right.equalTo((captchaInput?.snp.right)!)
+            make.right.equalTo(lineView2.snp.right)
             make.bottom.equalTo((captchaInput?.snp.top)!).offset(AdaptH(h: -30))
             make.height.equalTo(0.5)
         }
