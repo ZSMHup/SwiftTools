@@ -31,6 +31,7 @@ class TYSHomeViewController: BaseViewController {
         return tempCollectionView
     }()
     private var cycleScrollView: WRCycleScrollView?
+    private var dataSource = [TYSHomeLiveModel]()
     
     
     override func viewDidLoad() {
@@ -41,10 +42,22 @@ class TYSHomeViewController: BaseViewController {
     }
     
     private func requestHomeData() {
-        let param = ["page" : "1", "requestCode" : "19004", "limit" : "10", "user_id" : "110430", "type" : "2", "login_user_id" : "110430"]
-//        requestHomeListData(paramterDic: param)
-        requestHomeListData(paramterDic: param) { (value) in
+//        let param = ["page" : "1", "requestCode" : "19004", "limit" : "10", "user_id" : "110430", "type" : "2", "login_user_id" : "110430"]
+        let param = ["requestCode" : "89000", "user_id" : "110430"]
+        requestHomeListData(paramterDic: param, cacheCompletion: { (cacheValue) in
             
+            self.dataSource.removeAll()
+            self.dataSource.append(cacheValue)
+            self.collectionView.reloadData()
+            
+        }, successCompletion: { (value) in
+            self.collectionView.mj_header.endRefreshing()
+            self.dataSource.removeAll()
+            self.dataSource.append(value)
+            self.collectionView.reloadData()
+        }) { (failure) in
+            self.collectionView.mj_header.endRefreshing()
+            print("\(failure)")
         }
 
     }
@@ -209,7 +222,10 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
             return cell
             
         default:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSCommonCollectionViewCell", for: indexPath)
+            let cell: TYSCommonCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSCommonCollectionViewCell", for: indexPath) as! TYSCommonCollectionViewCell
+            let model = dataSource.first?.home_tj_live
+            
+//            cell.setModel(model: model!)
             return cell
         }
     }

@@ -25,7 +25,13 @@ class TYSCommonCollectionViewCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setModel(model: TYSLiveCommonModel) {
+        
+    }
 }
+
+
 
 extension TYSCommonCollectionViewCell {
     
@@ -90,6 +96,5 @@ extension TYSCommonCollectionViewCell {
             make.left.equalTo(contentView)
             make.right.equalTo(contentView).offset(AdaptW(w: 80))
         })
-        
     }
 }
