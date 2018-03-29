@@ -7,18 +7,18 @@
 //
 
 import Foundation
-import SwiftyJSON
+import HandyJSON
 
-class TYSRequestModel  {
-    var statusCode: String = ""
-    var msg: String = ""
-    var responseResultList = [Any]()
-    var responseResultString: String = ""
+class TYSRequestModel: HandyJSON {
+    var statusCode: String?
+    var msg: String?
+    var responseResultList = [TYSRequestModel]()
+    var object = [TYSRequestModel]()
+    var responseResultString: String?
     
     required init() {
         
     }
-    
 }
 
 

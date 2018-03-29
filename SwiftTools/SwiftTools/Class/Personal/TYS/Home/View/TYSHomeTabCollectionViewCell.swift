@@ -9,6 +9,7 @@
 import UIKit
 
 class TYSHomeTabCollectionViewCell: UICollectionViewCell {
+    private var tabDataSource = [Dictionary<String, Any>]()
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         
@@ -35,6 +36,10 @@ class TYSHomeTabCollectionViewCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setTabArray(tabArray: [Dictionary<String, Any>]) {
+        tabDataSource = tabArray
+    }
 }
 
 extension TYSHomeTabCollectionViewCell {
@@ -50,12 +55,12 @@ extension TYSHomeTabCollectionViewCell: UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return 4
+        return tabDataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSHomeTabCell", for: indexPath)
-        
+        let cell: TYSHomeTabCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSHomeTabCell", for: indexPath) as! TYSHomeTabCell
+        cell.setTabConfig(tabDataSource: tabDataSource[indexPath.item] as! [String : String])
         return cell
     }
 }

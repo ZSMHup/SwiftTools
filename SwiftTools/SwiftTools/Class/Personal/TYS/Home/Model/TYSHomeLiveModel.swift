@@ -9,10 +9,10 @@
 import Foundation
 
 class TYSHomeLiveModel: TYSRequestModel {
-    var home_hot_live = [TYSLiveCommonModel]() // 推荐热门数据集合
-    var home_tj_live = [TYSLiveCommonModel]() // 首页推荐数据集合
-    var home_theme = [HomeTheme]() // 主题列表数据集合
-    var home_ind = [HomeInd]() // 一级分类数据集合
+    var home_hot_live: [TYSLiveCommonModel]? // 推荐热门数据集合
+    var home_tj_live: [TYSLiveCommonModel]? // 首页推荐数据集合
+    var home_theme: [HomeTheme]? // 主题列表数据集合
+    var home_ind: [HomeInd]? // 一级分类数据集合
 }
 
 class HomeTheme: TYSRequestModel {
@@ -24,9 +24,17 @@ class HomeTheme: TYSRequestModel {
     var live_count: String? // 直播数量
     var meeting_count: String? // 会议数量
     var easemob_group_id: String? // 环信组ID
+    
+//    required init() {
+//
+//    }
 }
 
 class HomeInd: TYSRequestModel {
     var name: String? // 分类名称
     var id: String? // 分类id
+    
+//    required init() {
+//
+//    }
 }

@@ -21,6 +21,11 @@ class TYSHomeTabCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setTabConfig(tabDataSource: [String : String]) {
+        userImgView?.image = UIImage(named: tabDataSource["featureImg"]!)
+        titleLabel?.text = tabDataSource["featureTitle"]!
+    }
 }
 
 extension TYSHomeTabCell {

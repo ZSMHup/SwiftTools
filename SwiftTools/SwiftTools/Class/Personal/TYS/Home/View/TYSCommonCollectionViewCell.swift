@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class TYSCommonCollectionViewCell: UICollectionViewCell {
     var commonImgView: UIImageView?
@@ -27,7 +28,27 @@ class TYSCommonCollectionViewCell: UICollectionViewCell {
     }
     
     func setModel(model: TYSLiveCommonModel) {
-        
+        guard let iconURL = URL(string: model.live_img_path ?? "") else { return }
+        commonImgView?.kf.setImage(with: iconURL, placeholder:UIImage(named: "default_live_cover"))
+        stateImgView?.image = UIImage(named: getLiveStateImageNameByConfig(state: model.state!))
+        watchCountLabel?.text = model.entry_count ?? ""
+        titleLabel?.text = model.subject ?? ""
+        nameLabel?.text = model.name ?? ""
+        dateLabel?.text = model.startTime ?? ""
+    }
+    
+    private func getLiveStateImageNameByConfig(state: String) -> String {
+        var liveState = ""
+        if state == "1" {
+            liveState = "default_label_tomorrow"
+        } else if state == "2" {
+            liveState = "default_label_live"
+        } else if state == "2" {
+            liveState = "default_label_yestday"
+        } else {
+            liveState = ""
+        }
+        return liveState
     }
 }
 
@@ -54,7 +75,7 @@ extension TYSCommonCollectionViewCell {
         })
         
         watchCountLabel = UILabel()
-        watchCountLabel?.text = "123人"
+        watchCountLabel?.text = "100人"
         watchCountLabel?.textColor = tys_titleColor
         watchCountLabel?.font = SystemFont(fontSize: 10)
         contentView.addSubview(watchCountLabel!)
@@ -64,7 +85,7 @@ extension TYSCommonCollectionViewCell {
         })
         
         titleLabel = UILabel()
-        titleLabel?.text = "太平洋证券非银百万亿大资监管新政解读太平洋证券非银百万亿大资"
+        titleLabel?.text = "投研社投研社投研社投研社投研社投研社投研社投研社投研社投研社投研社投研社投研社投研社"
         titleLabel?.textColor = tys_blackColor
         titleLabel?.font = SystemFont(fontSize: 15)
         titleLabel?.numberOfLines = 3
@@ -75,7 +96,7 @@ extension TYSCommonCollectionViewCell {
         })
         
         dateLabel = UILabel()
-        dateLabel?.text = "03/21 20:00"
+        dateLabel?.text = "2018-03-29 00:00:00"
         dateLabel?.textAlignment = .left
         dateLabel?.textColor = tys_lightColor
         dateLabel?.font = SystemFont(fontSize: 11)
@@ -86,7 +107,7 @@ extension TYSCommonCollectionViewCell {
         })
         
         nameLabel = UILabel()
-        nameLabel?.text = "申万宏源策略"
+        nameLabel?.text = "投研社"
         nameLabel?.textAlignment = .left
         nameLabel?.textColor = tys_titleColor
         nameLabel?.font = SystemFont(fontSize: 11)

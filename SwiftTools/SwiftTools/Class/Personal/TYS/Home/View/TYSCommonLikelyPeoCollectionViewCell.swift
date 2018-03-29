@@ -22,13 +22,18 @@ class TYSCommonLikelyPeoCollectionViewCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setModel(model: TYSInterestedPeopleModel) {
+        guard let iconURL = URL(string: model.head_img ?? "") else { return }
+        userImgView?.kf.setImage(with: iconURL, placeholder:UIImage(named: "defaut_avatar"))
+        nameLabel?.text = model.name ?? "暂无数据"
+    }
 }
 
 extension TYSCommonLikelyPeoCollectionViewCell {
     
     private func addSubViews() {
         userImgView = UIImageView()
-        userImgView?.image = UIImage(named: "defaut_avatar")
         userImgView?.layer.cornerRadius = AdaptW(w: 54) / 2
         userImgView?.layer.masksToBounds = true
         contentView.addSubview(userImgView!)
@@ -39,7 +44,6 @@ extension TYSCommonLikelyPeoCollectionViewCell {
         })
         
         nameLabel = UILabel()
-        nameLabel?.text = "申万宏源"
         nameLabel?.textAlignment = .left
         nameLabel?.textColor = tys_titleColor
         nameLabel?.font = SystemFont(fontSize: 12)

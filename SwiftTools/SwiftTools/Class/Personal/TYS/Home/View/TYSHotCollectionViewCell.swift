@@ -10,6 +10,8 @@ import UIKit
 
 class TYSHotCollectionViewCell: UICollectionViewCell {
     
+    var hotArr: [TYSLiveCommonModel] = [TYSLiveCommonModel]()
+    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: AdaptW(w: 158), height: AdaptH(h: 210))
@@ -31,8 +33,13 @@ class TYSHotCollectionViewCell: UICollectionViewCell {
         addSubViews()
     }
     
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setHotArray(hotArray: [TYSLiveCommonModel]) {
+        hotArr = hotArray
     }
 }
 
@@ -54,12 +61,13 @@ extension TYSHotCollectionViewCell: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
        
-        return 2
+        return hotArr.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSCommonCollectionViewCell", for: indexPath)
-        
+        let cell: TYSCommonCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSCommonCollectionViewCell", for: indexPath) as! TYSCommonCollectionViewCell
+        let hotModel = hotArr[indexPath.item]
+        cell.setModel(model: hotModel)
         return cell
     }
     

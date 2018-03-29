@@ -8,12 +8,17 @@
 
 import UIKit
 
+typealias rightBtnBlock = (UIButton) -> Void
+
 class TYSSectionView: UIView {
     private lazy var bgView = UIView()
     private lazy var leftLabel = UILabel()
     private lazy var rightBtn = UIButton()
     var leftText = String()
     var rightImgText = ""
+    
+    var rightBtnAction: rightBtnBlock?
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -72,8 +77,14 @@ extension TYSSectionView {
         }
     }
     
+    func addRightBtnAction(tempRightBtnAction: @escaping rightBtnBlock) {
+        rightBtnAction = tempRightBtnAction
+    }
+    
     @objc private func rightBtnClick() {
-        
+        if rightBtnAction != nil {
+            rightBtnAction!(rightBtn)
+        }
     }
     
 }

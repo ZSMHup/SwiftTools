@@ -32,7 +32,12 @@ class TYSHomeViewController: BaseViewController {
     }()
     private var cycleScrollView: WRCycleScrollView?
     private var dataSource = [TYSHomeLiveModel]()
-    
+    private var interestedPeoDataSource = [TYSInterestedPeopleModel]()
+    private var featureDataSource = [
+        ["featureImg": "home_icon_roadshow", "featureTitle": "路演"],
+        ["featureImg": "home_icon_metting", "featureTitle": "电话会议"],
+        ["featureImg": "home_icon_reading", "featureTitle": "荐读"],
+        ["featureImg": "home_icon_connection", "featureTitle": "人脉"]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +47,6 @@ class TYSHomeViewController: BaseViewController {
     }
     
     private func requestHomeData() {
-//        let param = ["page" : "1", "requestCode" : "19004", "limit" : "10", "user_id" : "110430", "type" : "2", "login_user_id" : "110430"]
         let param = ["requestCode" : "89000", "user_id" : "110430"]
         requestHomeListData(paramterDic: param, cacheCompletion: { (cacheValue) in
             
@@ -59,10 +63,22 @@ class TYSHomeViewController: BaseViewController {
             self.collectionView.mj_header.endRefreshing()
             print("\(failure)")
         }
-
     }
     
-    
+    func requestInterestedPeopleData() {
+        let param = ["requestCode" : "V219001", "page" : "1", "limit" : "10", "login_user_id" : "110430"]
+        
+        requestInterestedPeople(paramterDic: param, cacheCompletion: { (cacheValue) in
+//            self.interestedPeoDataSource.removeAll()
+//            self.interestedPeoDataSource = cacheValue.responseResultList as! [TYSInterestedPeopleModel]
+//            self.collectionView.reloadData()
+        }, successCompletion: { (value) in
+            
+        }) { (failure) in
+            self.collectionView.mj_header.endRefreshing()
+            print("\(failure)")
+        }
+    }
 }
 
 // MARK: setupUI
@@ -110,6 +126,7 @@ extension TYSHomeViewController {
         
         collectionView.mj_header = MJRefreshNormalHeader(refreshingBlock: {[weak self] in
             self?.requestHomeData()
+            self?.requestInterestedPeopleData()
         })
 
         collectionView.mj_header.ignoredScrollViewContentInsetTop = kBannerHeight
@@ -196,10 +213,25 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 3 {
-            return 6
+        
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return 1
+        case 2:
+            if dataSource.first?.home_tj_live == nil {
+                return 0
+            } else {
+                return 1
+            }
+        default:
+            if dataSource.first?.home_tj_live == nil {
+                return 0
+            } else {
+                return (dataSource.first?.home_tj_live?.count)!
+            }
         }
-        return 1
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -207,25 +239,27 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
         switch indexPath.section {
         case 0:
             
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSHomeTabCollectionViewCell", for: indexPath)
+            let cell: TYSHomeTabCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSHomeTabCollectionViewCell", for: indexPath) as! TYSHomeTabCollectionViewCell
+            cell.setTabArray(tabArray: featureDataSource)
             return cell
             
         case 1:
             
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSLikelyPeopleCollectionViewCell", for: indexPath)
-            cell.backgroundColor = UIColor.red
+            let cell: TYSLikelyPeopleCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSLikelyPeopleCollectionViewCell", for: indexPath) as! TYSLikelyPeopleCollectionViewCell
+            cell.setInterestedPeoArray(interestedPeoArray: interestedPeoDataSource)
             return cell
             
         case 2:
             
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSHotCollectionViewCell", for: indexPath)
+            let cell: TYSHotCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSHotCollectionViewCell", for: indexPath) as! TYSHotCollectionViewCell
+            let modelArr = dataSource.first?.home_hot_live
+            cell.hotArr = modelArr!
             return cell
             
         default:
             let cell: TYSCommonCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSCommonCollectionViewCell", for: indexPath) as! TYSCommonCollectionViewCell
-            let model = dataSource.first?.home_tj_live
-            
-//            cell.setModel(model: model!)
+            let model = dataSource.first?.home_tj_live![indexPath.item]
+            cell.setModel(model: model!)
             return cell
         }
     }
@@ -251,16 +285,25 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
                 title = "可能感兴趣的人"
                 image = "default_arrow_renew"
                 let sectionView = TYSSectionView.initWithLeftTitle(title: title!, image: image!)
+                sectionView.addRightBtnAction(tempRightBtnAction: {(button) in
+                    print("可能感兴趣的人")
+                })
                 reusableview.addSubview(sectionView)
             } else if indexPath.section == 2 {
                 title = "热门"
                 image = "default_arrow_right"
                 let sectionView = TYSSectionView.initWithLeftTitle(title: title!, image: image!)
+                sectionView.addRightBtnAction(tempRightBtnAction: {[weak self] (button) in
+                    self?.navigationController?.pushViewController(TYSHotLiveViewController(), animated: true)
+                })
                 reusableview.addSubview(sectionView)
             } else {
                 title = "推荐"
                 image = "default_arrow_right"
                 let sectionView = TYSSectionView.initWithLeftTitle(title: title!, image: image!)
+                sectionView.addRightBtnAction(tempRightBtnAction: {[weak self] (button) in
+                    self?.navigationController?.pushViewController(TYSRecLiveViewController(), animated: true)
+                })
                 reusableview.addSubview(sectionView)
             }
             

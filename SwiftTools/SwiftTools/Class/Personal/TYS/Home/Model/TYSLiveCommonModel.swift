@@ -10,6 +10,7 @@ import Foundation
 
 class TYSLiveCommonModel: TYSRequestModel {
     var industry_name: String? // 行业名称
+    var live_img_path: String? // 行业名称
     var is_melive: String? // 是否我的直播 1是 2不是
     var is_signup: String? // 是否报名 1报名 2未报名
     var entry_count: String? // 报名人数
@@ -27,4 +28,11 @@ class TYSLiveCommonModel: TYSRequestModel {
     var up_down: String? // 直播上下架状态 1已上架 2已下架
     var easemob_group_id: String? // 环信组ID
     var free_money: String? // 收费金额
+    var dialing_number: String? // 拨号号码 多个,号分割
+    var room_number: String? // 房间号码
+    var room_pwd: String? // 房间密码
+    
+//    required init() {
+//        
+//    }
 }

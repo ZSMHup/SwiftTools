@@ -9,7 +9,7 @@
 import UIKit
 
 class TYSLikelyPeopleCollectionViewCell: UICollectionViewCell {
-    
+    var interestedPeoArr: [TYSInterestedPeopleModel] = [TYSInterestedPeopleModel]()
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: AdaptW(w: 54), height: AdaptH(h: 80))
@@ -34,6 +34,10 @@ class TYSLikelyPeopleCollectionViewCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setInterestedPeoArray(interestedPeoArray: [TYSInterestedPeopleModel]) {
+        interestedPeoArr = interestedPeoArray
+    }
 }
 
 extension TYSLikelyPeopleCollectionViewCell {
@@ -53,12 +57,13 @@ extension TYSLikelyPeopleCollectionViewCell: UICollectionViewDelegate, UICollect
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return 12
+        return interestedPeoArr.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSCommonLikelyPeoCollectionViewCell", for: indexPath)
+        let cell: TYSCommonLikelyPeoCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSCommonLikelyPeoCollectionViewCell", for: indexPath) as! TYSCommonLikelyPeoCollectionViewCell
         
+        cell.setModel(model: interestedPeoArr[indexPath.item])
         return cell
     }
 }
