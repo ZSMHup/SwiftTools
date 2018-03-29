@@ -57,6 +57,9 @@
 		E1EF4AA7206CCC8B00C93303 /* TYSTelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4AA6206CCC8B00C93303 /* TYSTelViewController.swift */; };
 		E1EF4AA9206CCC9900C93303 /* TYSRecReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4AA8206CCC9900C93303 /* TYSRecReadViewController.swift */; };
 		E1EF4AAB206CCCB600C93303 /* TYSConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4AAA206CCCB600C93303 /* TYSConnectionViewController.swift */; };
+		E1EF4AAD206CDB8B00C93303 /* TYSPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4AAC206CDB8B00C93303 /* TYSPageMenu.swift */; };
+		E1EF4AAF206CECFD00C93303 /* AYPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4AAE206CECFD00C93303 /* AYPageMenu.swift */; };
+		E1EF4AB1206CEE7600C93303 /* AYPageMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4AB0206CEE7600C93303 /* AYPageMenuCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,6 +117,9 @@
 		E1EF4AA6206CCC8B00C93303 /* TYSTelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSTelViewController.swift; sourceTree = "<group>"; };
 		E1EF4AA8206CCC9900C93303 /* TYSRecReadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSRecReadViewController.swift; sourceTree = "<group>"; };
 		E1EF4AAA206CCCB600C93303 /* TYSConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSConnectionViewController.swift; sourceTree = "<group>"; };
+		E1EF4AAC206CDB8B00C93303 /* TYSPageMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSPageMenu.swift; sourceTree = "<group>"; };
+		E1EF4AAE206CECFD00C93303 /* AYPageMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AYPageMenu.swift; sourceTree = "<group>"; };
+		E1EF4AB0206CEE7600C93303 /* AYPageMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AYPageMenuCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -324,6 +330,9 @@
 				E18AE3C32064A53800655AD2 /* TextField.swift */,
 				E17A08052061127000887C69 /* UIColor+HexString.swift */,
 				E17A0807206112BD00887C69 /* UIButton+Countdown.swift */,
+				E1EF4AAC206CDB8B00C93303 /* TYSPageMenu.swift */,
+				E1EF4AAE206CECFD00C93303 /* AYPageMenu.swift */,
+				E1EF4AB0206CEE7600C93303 /* AYPageMenuCell.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -659,13 +668,16 @@
 				E1771B742063586A0050C244 /* WRPageControl.swift in Sources */,
 				E17A07FF20610CC900887C69 /* DimensMacros.swift in Sources */,
 				E1771B842063A9EE0050C244 /* TYSHomeTabCollectionViewCell.swift in Sources */,
+				E1EF4AAD206CDB8B00C93303 /* TYSPageMenu.swift in Sources */,
 				E1771B882063B77B0050C244 /* TYSPersonalViewController.swift in Sources */,
 				E1029F242069E91600157324 /* TYSBaseModel.swift in Sources */,
 				E1029F2A206A3B9100157324 /* TYSHomeRequestNetworking.swift in Sources */,
 				E1771B752063586A0050C244 /* WRProxy.swift in Sources */,
 				E1771B6B206348DA0050C244 /* TYSCommonCollectionViewCell.swift in Sources */,
 				E1EF4A9D206CC3E500C93303 /* TYSHotLiveViewController.swift in Sources */,
+				E1EF4AB1206CEE7600C93303 /* AYPageMenuCell.swift in Sources */,
 				E18AE3C42064A53800655AD2 /* TextField.swift in Sources */,
+				E1EF4AAF206CECFD00C93303 /* AYPageMenu.swift in Sources */,
 				E17A07DA2060CB5200887C69 /* AppDelegate.swift in Sources */,
 				E181FC5F20624B2600E6684A /* TYSSectionView.swift in Sources */,
 				E160890020620E1B00580484 /* TYSSearchButton.swift in Sources */,

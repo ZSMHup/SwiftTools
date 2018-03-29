@@ -8,7 +8,13 @@
 
 import UIKit
 
+typealias itemClickBlock = (Int) -> Void
+
 class TYSHomeTabCollectionViewCell: UICollectionViewCell {
+    
+    var didSelectedItemClick: itemClickBlock?
+    
+    
     private var tabDataSource = [Dictionary<String, Any>]()
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -40,6 +46,10 @@ class TYSHomeTabCollectionViewCell: UICollectionViewCell {
     func setTabArray(tabArray: [Dictionary<String, Any>]) {
         tabDataSource = tabArray
     }
+    
+    func didSelectedItemAction(tempClick: @escaping itemClickBlock) {
+        didSelectedItemClick = tempClick
+    }
 }
 
 extension TYSHomeTabCollectionViewCell {
@@ -62,6 +72,12 @@ extension TYSHomeTabCollectionViewCell: UICollectionViewDelegate, UICollectionVi
         let cell: TYSHomeTabCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSHomeTabCell", for: indexPath) as! TYSHomeTabCell
         cell.setTabConfig(tabDataSource: tabDataSource[indexPath.item] as! [String : String])
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if didSelectedItemClick != nil {
+            didSelectedItemClick!(indexPath.item)
+        }
     }
 }
 

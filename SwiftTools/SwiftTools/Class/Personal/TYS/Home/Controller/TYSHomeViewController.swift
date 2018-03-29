@@ -238,9 +238,26 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
         
         switch indexPath.section {
         case 0:
-            
             let cell: TYSHomeTabCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSHomeTabCollectionViewCell", for: indexPath) as! TYSHomeTabCollectionViewCell
             cell.setTabArray(tabArray: featureDataSource)
+            
+            cell.didSelectedItemAction(tempClick: {[weak self] (index) in
+                switch index {
+                case 0:
+                    self?.navigationController?.pushViewController(TYSRoadShowViewController(), animated: true)
+                    break
+                case 1:
+                    self?.navigationController?.pushViewController(TYSTelViewController(), animated: true)
+                    break
+                case 2:
+                    self?.navigationController?.pushViewController(TYSRecReadViewController(), animated: true)
+                    break
+                    
+                default:
+                    self?.navigationController?.pushViewController(TYSConnectionViewController(), animated: true)
+                    break
+                }
+            })
             return cell
             
         case 1:
