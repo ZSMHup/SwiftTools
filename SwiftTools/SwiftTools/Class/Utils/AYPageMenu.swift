@@ -117,8 +117,10 @@ class AYPageMenu: UIView {
 class AYSwitchVCContentView: UIView {
     private var _items: [String]?
     private var _controllers : [String]?
+    private var _didShowControllers = [UIViewController]()
     private lazy var pageMenu: AYPageMenu = {
         let tempPageMenu = AYPageMenu()
+        tempPageMenu.delegate = self
         return tempPageMenu
     }()
     
@@ -149,21 +151,26 @@ class AYSwitchVCContentView: UIView {
         switchVCContentView.frame = frame
         switchVCContentView._items = items
         switchVCContentView._controllers = controllers
+
         switchVCContentView.addSubViews()
-        switchVCContentView.scrollViewDidEndScrollingAnimation(switchVCContentView.contentScrollView)
         return switchVCContentView
     }
     
     // MARK: 添加子控件
     private func addSubViews() {
+        for vc in _controllers! {
+            let cla = NSClassFromString(getAPPName() + "." + vc) as! UIViewController.Type
+            let willShowVC = cla.init()
+            _didShowControllers.append(willShowVC)
+            
+        }
         pageMenu = AYPageMenu(frame: CGRect(x: 0, y: 0, width: kScreenW, height: 30)).pageMenu(items: _items!)
-        pageMenu.delegate = self
         self.addSubview(pageMenu)
         
         contentScrollView.frame = CGRect(x: 0, y: pageMenu.frame.size.height, width: kScreenW, height: kScreenH - pageMenu.frame.size.height)
         contentScrollView.contentSize = CGSize(width: kScreenW * CGFloat((_controllers?.count)!), height: 0)
-        
         self.addSubview(contentScrollView)
+        scrollViewDidEndScrollingAnimation(contentScrollView)
     }
 }
 
@@ -179,14 +186,14 @@ extension AYSwitchVCContentView: UIScrollViewDelegate, AYPageMenuDelegate{
         
         pageMenu.selectedIndex = index
         
-        let vc: String = _controllers![index]
-        let cla = NSClassFromString(getAPPName() + "." + vc) as! UIViewController.Type
-        let willShowVc = cla.init()
-        if willShowVc.isViewLoaded {
-            return
+        if !(_didShowControllers.isEmpty) {
+            let willShowVc = _didShowControllers[index]
+            if willShowVc.isViewLoaded {
+                return
+            }
+            willShowVc.view.frame = CGRect(x: offsetX, y: 0, width: width, height: height)
+            scrollView.addSubview(willShowVc.view)
         }
-        willShowVc.view.frame = CGRect(x: offsetX, y: 0, width: width, height: height)
-        scrollView.addSubview(willShowVc.view)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

@@ -14,7 +14,7 @@ class TYSHotCollectionViewCell: UICollectionViewCell {
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: AdaptW(w: 158), height: AdaptH(h: 210))
+        layout.itemSize = CGSize(width: AdaptW(w: 158), height: AdaptH(h: 215))
         layout.scrollDirection = .horizontal
         let tempCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         tempCollectionView.delegate = self

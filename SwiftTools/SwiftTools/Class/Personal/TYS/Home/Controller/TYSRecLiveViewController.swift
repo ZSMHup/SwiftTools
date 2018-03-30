@@ -12,7 +12,7 @@ import MJRefresh
 class TYSRecLiveViewController: BaseViewController {
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: AdaptW(w: 158), height: AdaptH(h: 210))
+        layout.itemSize = CGSize(width: AdaptW(w: 158), height: AdaptH(h: 215))
         let tempCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         tempCollectionView.delegate = self
         tempCollectionView.dataSource = self
@@ -39,13 +39,13 @@ extension TYSRecLiveViewController {
         }
         
         collectionView.mj_header = MJRefreshNormalHeader(refreshingBlock: {[weak self] in
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0, execute: {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
                 self?.collectionView.mj_header.endRefreshing()
             })
         })
         
         collectionView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: {[weak self] in
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0, execute: {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
                 self?.collectionView.mj_footer.endRefreshing()
             })
         })
@@ -58,7 +58,7 @@ extension TYSRecLiveViewController {
 extension TYSRecLiveViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets{
-        return UIEdgeInsetsMake(0, AdaptW(w: 24), 0, AdaptW(w: 24))
+        return UIEdgeInsetsMake(AdaptH(h: 24), AdaptW(w: 24), 0, AdaptW(w: 24))
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

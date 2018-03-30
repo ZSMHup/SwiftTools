@@ -14,9 +14,8 @@ class TYSRoadShowViewController: BaseViewController {
         super.viewDidLoad()
         navigationItem.title = "路演"
         
-        let items = ["第一页","第二页","第三页"]
+        let items = ["最新","回放","我的"]
         let controllers = ["TYSRoadShowNewsViewController", "TYSRoadShowBackViewController", "TYSRoadShowMyViewController"]
-        
         let pageMenu = AYSwitchVCContentView(frame: CGRect(x: 0, y: kNavigationBarHeight, width: kScreenW, height: kScreenH - kNavigationBarHeight)).initWithItems(items: items, controllers: controllers)
         view.addSubview(pageMenu)
     }

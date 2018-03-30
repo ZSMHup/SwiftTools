@@ -184,7 +184,7 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
             
         } else {
             
-            return CGSize(width: AdaptW(w: 158), height: AdaptH(h: 210))
+            return CGSize(width: AdaptW(w: 158), height: AdaptH(h: 215))
         }
     }
     
