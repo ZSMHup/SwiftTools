@@ -29,6 +29,12 @@ func AdaptFont(fontSize: CGFloat) -> UIFont {
 func SystemFont(fontSize: CGFloat) -> UIFont {
     return UIFont.systemFont(ofSize: fontSize)
 }
+// 获取项目名称
+func getAPPName() -> String {
+    let nameKey = "CFBundleName"
+    let appName = Bundle.main.object(forInfoDictionaryKey: nameKey) as? String
+    return appName!
+}
 
 // color
 let tys_grayColor = hexString("#696969")

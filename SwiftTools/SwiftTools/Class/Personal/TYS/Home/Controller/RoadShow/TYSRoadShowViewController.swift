@@ -14,17 +14,11 @@ class TYSRoadShowViewController: BaseViewController {
         super.viewDidLoad()
         navigationItem.title = "路演"
         
-//        let pageMenu = TYSPageMenu(frame: CGRect(x: 0, y: 100, width: kScreenW, height: 50)).pageMenu(trackerStyle: .line)
-//        let items = ["第一页","第二页","第三页","第四页"]
-//        pageMenu.setItems(items: items, selectedItemIndex: 0)
-//        view.addSubview(pageMenu)
+        let items = ["第一页","第二页","第三页"]
+        let controllers = ["TYSRoadShowNewsViewController", "TYSRoadShowBackViewController", "TYSRoadShowMyViewController"]
         
-        let items = ["第一页","第二页","第三页","第四页"]
-        let pageMenu = AYPageMenu(frame: CGRect(x: 0, y: 100, width: kScreenW, height: 50)).pageMenu(items: items)
-        pageMenu.setItems(items: items, selectedItemIndex: 0)
+        let pageMenu = AYSwitchVCContentView(frame: CGRect(x: 0, y: kNavigationBarHeight, width: kScreenW, height: kScreenH - kNavigationBarHeight)).initWithItems(items: items, controllers: controllers)
         view.addSubview(pageMenu)
     }
-
-
 
 }

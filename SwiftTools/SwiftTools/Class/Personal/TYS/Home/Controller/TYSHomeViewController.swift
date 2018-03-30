@@ -152,12 +152,7 @@ extension TYSHomeViewController {
 extension TYSHomeViewController {
     @objc private func personalCenter() {
         let personalVc = TYSPersonalViewController()
-        personalVc.postValue = "个人中心"
-        personalVc.delegate = self
-        
-        personalVc.addPostValueToUpPageBlock { (str) in
-            print(str)
-        }
+
         navigationController?.pushViewController(personalVc, animated: true)
     }
     
@@ -167,7 +162,7 @@ extension TYSHomeViewController {
 }
 
 // MARK: delegate
-extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, WRCycleScrollViewDelegate, TYSPersonalViewControllerDelegate {
+extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, WRCycleScrollViewDelegate {
     
     //flow layout
     /**
@@ -358,10 +353,6 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
     /// 图片滚动事件
     func cycleScrollViewDidScroll(to index:Int, cycleScrollView:WRCycleScrollView) {
 //        print("滚动到了第\(index+1)个图片")
-    }
-    
-    func postValueToUpPage(str: String) {
-        print(str)
     }
 
 }

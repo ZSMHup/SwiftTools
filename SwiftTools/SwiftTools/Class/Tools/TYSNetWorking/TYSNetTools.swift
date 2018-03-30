@@ -48,12 +48,6 @@ func requestHanlder(
     }
 }
 
-private func getAPPName() -> String {
-    let nameKey = "CFBundleName"
-    let appName = Bundle.main.object(forInfoDictionaryKey: nameKey) as? String
-    return appName!
-}
-
 func getDictionaryFromJSONString(jsonString: String) -> Dictionary<String, Any> {
     
     let jsonData:Data = jsonString.data(using: .utf8)!

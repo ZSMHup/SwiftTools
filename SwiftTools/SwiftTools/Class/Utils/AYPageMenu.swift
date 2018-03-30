@@ -8,69 +8,202 @@
 
 import UIKit
 
+/////////////////////////////////////// AYPageMenu /////////////////////////////////////
+
+protocol AYPageMenuDelegate {
+    func didSelectedItemChange(pageMen: AYPageMenu, selectedIndex: Int)
+}
+
 class AYPageMenu: UIView {
     
-    var _items: [String]?
-    var _selectedItemIndex: Int?
+    private var _items: [String]?
+    private var selectedBtn: UIButton?
+    private var menuBtn: UIButton?
+    private var indexView: UIView?
+    private var lineView: UIView?
+    var selectedIndex: Int = 0 {
+        didSet {
+            changeMenu(index: selectedIndex)
+        }
+    }
     
-    private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: AdaptW(w: 54), height: AdaptH(h: 80))
-        layout.scrollDirection = .horizontal
-        let tempCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        tempCollectionView.delegate = self
-        tempCollectionView.dataSource = self
-        tempCollectionView.backgroundColor = tys_whiteColor
-        tempCollectionView.showsVerticalScrollIndicator = false
-        tempCollectionView.showsHorizontalScrollIndicator = false
-        tempCollectionView.register(AYPageMenuCell.self, forCellWithReuseIdentifier: "AYPageMenuCell")
-        return tempCollectionView
-        
-    }()
+    var delegate: AYPageMenuDelegate?
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// 创建 AYPageMenu
+    ///
+    /// - Parameter items: 标题（数组[String]）
+    /// - Returns: self
     public func pageMenu(items: [String]) -> AYPageMenu {
         let pageMenu = AYPageMenu()
         pageMenu.frame = frame
-        pageMenu.backgroundColor = UIColor.red
         pageMenu._items = items
+        pageMenu.addSubViews()
         return pageMenu
     }
-
-}
-
-extension AYPageMenu {
+    
+    // MARK: 初始化
     private func addSubViews() {
-        self.addSubview(collectionView)
-        collectionView.snp.makeConstraints { (make) in
-            make.edges.equalTo(self)
+        indexView = UIView(frame: CGRect(x: 0, y: self.frame.size.height - 2, width: 50, height: 1))
+        indexView?.backgroundColor = UIColor.red
+        self.addSubview(indexView!)
+        
+        for i in 0..<(_items?.count)! {
+            menuBtn = UIButton(frame: CGRect(x: 10 + 60 * CGFloat(i) , y: 0, width: 60, height: self.frame.size.height - 1))
+            menuBtn?.setTitleColor(UIColor.gray, for: .normal)
+            menuBtn?.setTitleColor(UIColor.red, for: .selected)
+            menuBtn?.titleLabel?.font = UIFont.systemFont(ofSize: 13.0)
+            menuBtn?.setTitle(_items?[i], for: .normal)
+            menuBtn?.tag = 1000+i
+            menuBtn?.addTarget(self, action: #selector(menuBtnClick(sender:)), for: .touchUpInside)
+            self.addSubview(menuBtn!)
+            if i == 0 {
+                menuBtnClick(sender: menuBtn!)
+            }
         }
+        
+        lineView = UIView(frame: CGRect(x: 0, y: self.frame.size.height - 1, width: kScreenH, height: 1))
+        lineView?.backgroundColor = RGBA(0, 0, 0, 0.1)
+        self.addSubview(lineView!)
+    }
+    
+    private func changeMenu(index: Int) {
+        menuBtn = self.viewWithTag(1000 + index) as? UIButton
+        for i in 0..<(_items?.count)! {
+            selectedBtn = self.viewWithTag(1000 + i) as? UIButton
+            if menuBtn == selectedBtn {
+                selectedBtn?.setTitleColor(UIColor.red, for: .normal)
+                UIView.animate(withDuration: 0.25, animations: {[weak self] in
+                    self?.indexView?.center.x = (self?.selectedBtn?.center.x)!
+                })
+            } else {
+                selectedBtn?.setTitleColor(UIColor.gray, for: .normal)
+            }
+        }
+        menuBtn = selectedBtn
+    }
+    
+    // MARK: event response
+    @objc func menuBtnClick(sender: UIButton?) {
+        var sender = sender
+        for i in 0..<(_items?.count)! {
+            selectedBtn = self.viewWithTag(1000 + i) as? UIButton
+            if sender == selectedBtn {
+                selectedBtn?.setTitleColor(UIColor.red, for: .normal)
+                UIView.animate(withDuration: 0.25, animations: {[weak self] in
+                    self?.indexView?.center.x = (self?.selectedBtn?.center.x)!
+                })
+                
+                delegate?.didSelectedItemChange(pageMen: self, selectedIndex: i)
+                
+            } else {
+                selectedBtn?.setTitleColor(UIColor.gray, for: .normal)
+            }
+        }
+        sender = selectedBtn
     }
 }
 
-extension AYPageMenu: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+/////////////////////////////////////// AYSwitchVCContentView /////////////////////////////////////
+
+class AYSwitchVCContentView: UIView {
+    private var _items: [String]?
+    private var _controllers : [String]?
+    private lazy var pageMenu: AYPageMenu = {
+        let tempPageMenu = AYPageMenu()
+        return tempPageMenu
+    }()
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets{
-        return UIEdgeInsetsMake(0, AdaptW(w: 24), 0, AdaptW(w: 24))
+    private lazy var contentScrollView: UIScrollView = {
+        let tempContentScrollView = UIScrollView()
+        tempContentScrollView.isPagingEnabled = true
+        tempContentScrollView.showsHorizontalScrollIndicator = false
+        tempContentScrollView.showsVerticalScrollIndicator = false
+        tempContentScrollView.delegate = self
+        return tempContentScrollView
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    /// 构造方法
+    ///
+    /// - Parameters:
+    ///   - items: 标题(数组[String])
+    ///   - controllers: 控制器(数组[String])
+    public func initWithItems(items: [String], controllers: [String]) -> AYSwitchVCContentView {
+        let switchVCContentView = AYSwitchVCContentView()
+        switchVCContentView.frame = frame
+        switchVCContentView._items = items
+        switchVCContentView._controllers = controllers
+        switchVCContentView.addSubViews()
+        switchVCContentView.scrollViewDidEndScrollingAnimation(switchVCContentView.contentScrollView)
+        return switchVCContentView
+    }
+    
+    // MARK: 添加子控件
+    private func addSubViews() {
+        pageMenu = AYPageMenu(frame: CGRect(x: 0, y: 0, width: kScreenW, height: 30)).pageMenu(items: _items!)
+        pageMenu.delegate = self
+        self.addSubview(pageMenu)
         
-        return (_items?.count)!
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: AYPageMenuCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AYPageMenuCell", for: indexPath) as! AYPageMenuCell
-       
-        cell.setItems(item: _items![indexPath.item])
-        return cell
+        contentScrollView.frame = CGRect(x: 0, y: pageMenu.frame.size.height, width: kScreenW, height: kScreenH - pageMenu.frame.size.height)
+        contentScrollView.contentSize = CGSize(width: kScreenW * CGFloat((_controllers?.count)!), height: 0)
+        
+        self.addSubview(contentScrollView)
     }
 }
+
+// MARK: UIScrollViewDelegate
+extension AYSwitchVCContentView: UIScrollViewDelegate, AYPageMenuDelegate{
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        let width = scrollView.frame.size.width
+        let height = scrollView.frame.size.height
+        let offsetX = scrollView.contentOffset.x
+        
+        let index: Int = Int(offsetX / width)
+        
+        pageMenu.selectedIndex = index
+        
+        let vc: String = _controllers![index]
+        let cla = NSClassFromString(getAPPName() + "." + vc) as! UIViewController.Type
+        let willShowVc = cla.init()
+        if willShowVc.isViewLoaded {
+            return
+        }
+        willShowVc.view.frame = CGRect(x: offsetX, y: 0, width: width, height: height)
+        scrollView.addSubview(willShowVc.view)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        scrollViewDidEndScrollingAnimation(scrollView)
+    }
+    
+    func didSelectedItemChange(pageMen: AYPageMenu, selectedIndex: Int) {
+        var offset = contentScrollView.contentOffset
+        offset.x = CGFloat(selectedIndex) * contentScrollView.frame.size.width
+        contentScrollView.setContentOffset(offset, animated: true)
+    }
+}
+
+
+
+
+
+
+
+
