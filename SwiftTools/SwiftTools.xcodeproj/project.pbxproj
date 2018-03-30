@@ -58,6 +58,7 @@
 		E1906531206DD90D00E9F7F9 /* TYSTelBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1906530206DD90D00E9F7F9 /* TYSTelBackViewController.swift */; };
 		E1906533206DD91900E9F7F9 /* TYSTelMyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1906532206DD91900E9F7F9 /* TYSTelMyViewController.swift */; };
 		E1906535206DD94000E9F7F9 /* TYSTelCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1906534206DD94000E9F7F9 /* TYSTelCalendarViewController.swift */; };
+		E1906545206E41F700E9F7F9 /* UIButton+Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1906544206E41F700E9F7F9 /* UIButton+Time.swift */; };
 		E1EF4A9D206CC3E500C93303 /* TYSHotLiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4A9C206CC3E400C93303 /* TYSHotLiveViewController.swift */; };
 		E1EF4A9F206CC77F00C93303 /* TYSRecLiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4A9E206CC77F00C93303 /* TYSRecLiveViewController.swift */; };
 		E1EF4AA5206CCC7900C93303 /* TYSRoadShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4AA4206CCC7900C93303 /* TYSRoadShowViewController.swift */; };
@@ -123,6 +124,7 @@
 		E1906530206DD90D00E9F7F9 /* TYSTelBackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSTelBackViewController.swift; sourceTree = "<group>"; };
 		E1906532206DD91900E9F7F9 /* TYSTelMyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSTelMyViewController.swift; sourceTree = "<group>"; };
 		E1906534206DD94000E9F7F9 /* TYSTelCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSTelCalendarViewController.swift; sourceTree = "<group>"; };
+		E1906544206E41F700E9F7F9 /* UIButton+Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Time.swift"; sourceTree = "<group>"; };
 		E1EF4A9C206CC3E400C93303 /* TYSHotLiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSHotLiveViewController.swift; sourceTree = "<group>"; };
 		E1EF4A9E206CC77F00C93303 /* TYSRecLiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSRecLiveViewController.swift; sourceTree = "<group>"; };
 		E1EF4AA4206CCC7900C93303 /* TYSRoadShowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSRoadShowViewController.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 			isa = PBXGroup;
 			children = (
 				E18AE3C32064A53800655AD2 /* TextField.swift */,
+				E1906544206E41F700E9F7F9 /* UIButton+Time.swift */,
 				E17A08052061127000887C69 /* UIColor+HexString.swift */,
 				E17A0807206112BD00887C69 /* UIButton+Countdown.swift */,
 				E1EF4AAE206CECFD00C93303 /* AYPageMenu.swift */,
@@ -687,6 +690,7 @@
 				E17A07FF20610CC900887C69 /* DimensMacros.swift in Sources */,
 				E1771B842063A9EE0050C244 /* TYSHomeTabCollectionViewCell.swift in Sources */,
 				E1906531206DD90D00E9F7F9 /* TYSTelBackViewController.swift in Sources */,
+				E1906545206E41F700E9F7F9 /* UIButton+Time.swift in Sources */,
 				E1906529206DD8B700E9F7F9 /* TYSRoadShowNewsViewController.swift in Sources */,
 				E1771B882063B77B0050C244 /* TYSPersonalViewController.swift in Sources */,
 				E1029F242069E91600157324 /* TYSBaseModel.swift in Sources */,

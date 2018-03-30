@@ -119,7 +119,7 @@ class AYSwitchVCContentView: UIView {
     private var _controllers : [String]?
     private var _didShowControllers = [UIViewController]()
     private lazy var pageMenu: AYPageMenu = {
-        let tempPageMenu = AYPageMenu()
+        let tempPageMenu = AYPageMenu(frame: CGRect(x: 0, y: 0, width: kScreenW, height: 30)).pageMenu(items: _items!)
         tempPageMenu.delegate = self
         return tempPageMenu
     }()
@@ -164,7 +164,7 @@ class AYSwitchVCContentView: UIView {
             _didShowControllers.append(willShowVC)
             
         }
-        pageMenu = AYPageMenu(frame: CGRect(x: 0, y: 0, width: kScreenW, height: 30)).pageMenu(items: _items!)
+        
         self.addSubview(pageMenu)
         
         contentScrollView.frame = CGRect(x: 0, y: pageMenu.frame.size.height, width: kScreenW, height: kScreenH - pageMenu.frame.size.height)
