@@ -12,11 +12,17 @@ class TYSCommonLikelyPeoCollectionViewCell: UICollectionViewCell {
     
     var userImgView: UIImageView?
     var nameLabel: UILabel?
+    var orgLabel: UILabel?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        addSubViews()
+        if reuseIdentifier == "TYSCommonLikelyPeoAddOrgCell" {
+            addSubViews()
+            addOrgLabel()
+        } else {
+            addSubViews()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,6 +42,7 @@ extension TYSCommonLikelyPeoCollectionViewCell {
         userImgView = UIImageView()
         userImgView?.layer.cornerRadius = AdaptW(w: 54) / 2
         userImgView?.layer.masksToBounds = true
+        userImgView?.image = UIImage(named: "defaut_avatar")
         contentView.addSubview(userImgView!)
         userImgView?.snp.makeConstraints({ (make) in
             make.top.equalTo(contentView)
@@ -44,9 +51,10 @@ extension TYSCommonLikelyPeoCollectionViewCell {
         })
         
         nameLabel = UILabel()
-        nameLabel?.textAlignment = .left
+        nameLabel?.textAlignment = .center
         nameLabel?.textColor = tys_titleColor
         nameLabel?.font = SystemFont(fontSize: 12)
+        nameLabel?.text = "投研社"
         contentView.addSubview(nameLabel!)
         nameLabel?.snp.makeConstraints({ (make) in
             make.centerX.equalTo((userImgView?.snp.centerX)!)
@@ -54,5 +62,19 @@ extension TYSCommonLikelyPeoCollectionViewCell {
             make.top.equalTo((userImgView?.snp.bottom)!).offset(AdaptH(h: 8))
         })
         
+    }
+    
+    private func addOrgLabel() {
+        orgLabel = UILabel()
+        orgLabel?.textAlignment = .center
+        orgLabel?.textColor = tys_titleColor
+        orgLabel?.font = SystemFont(fontSize: 12)
+        orgLabel?.text = "投研社"
+        contentView.addSubview(orgLabel!)
+        orgLabel?.snp.makeConstraints({ (make) in
+            make.centerX.equalTo((userImgView?.snp.centerX)!)
+            make.left.equalTo((userImgView?.snp.left)!)
+            make.top.equalTo((nameLabel?.snp.bottom)!).offset(AdaptH(h: 8))
+        })
     }
 }

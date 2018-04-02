@@ -47,19 +47,13 @@ func requestInterestedPeople(
     
     request(url: url, params: params).cache(true).responseCacheAndString { (stringValue) in
         switch stringValue.result {
-        case .success(let json):
+        case .success(let string):
             if stringValue.isCacheData {
-//                print(json)
-                
                 
             } else {
-                print("==========\n \(json) \n========")
-//                var models = TYSInterestedPeopleModel()
-                
-//                let model = JSONDeserializer<TYSRequestModel>.deserializeFrom(json: json)
-//                let models = JSONDeserializer<TYSInterestedPeopleModel>.deserializeModelArrayFrom(array: model?.object)
-//                print(models)
-                
+                let resultDic = getDictionaryFromJSONString(jsonString: string)
+                let object = resultDic["object"]
+                print("========\n \(object ?? "") \n============")
             }
         case .failure(let error):
             print(error)

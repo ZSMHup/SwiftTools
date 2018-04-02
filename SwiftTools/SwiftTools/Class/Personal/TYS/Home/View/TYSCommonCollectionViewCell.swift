@@ -43,7 +43,7 @@ class TYSCommonCollectionViewCell: UICollectionViewCell {
             liveState = "default_label_tomorrow"
         } else if state == "2" {
             liveState = "default_label_live"
-        } else if state == "2" {
+        } else if state == "3" {
             liveState = "default_label_yestday"
         } else {
             liveState = ""
@@ -51,8 +51,6 @@ class TYSCommonCollectionViewCell: UICollectionViewCell {
         return liveState
     }
 }
-
-
 
 extension TYSCommonCollectionViewCell {
     

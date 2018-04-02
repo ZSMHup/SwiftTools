@@ -45,6 +45,7 @@ let tys_disabledBackgroundColor = hexString("#FF9F9B9A")
 let tys_searchBackgroundColor = hexString("#FFF3F0F0")
 let tys_titleColor = hexString("#FF777777")
 let tys_lightColor = hexString("#BBBBBB")
+let tys_lineColor = hexString("#DDDDDD")
 let tys_middleDarkColor = hexString("#FF222222")
 let tys_inputTintColor = hexString("#F65038")
 

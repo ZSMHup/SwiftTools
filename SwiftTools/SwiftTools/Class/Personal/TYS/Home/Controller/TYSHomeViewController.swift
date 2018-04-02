@@ -42,8 +42,8 @@ class TYSHomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = false
-        setupUI()
         
+        setupUI()
     }
     
     private func requestHomeData() {
@@ -296,7 +296,7 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
             } else if indexPath.section == 1 {
                 title = "可能感兴趣的人"
                 image = "default_arrow_renew"
-                let sectionView = TYSSectionView.initWithLeftTitle(title: title!, image: image!)
+                let sectionView = TYSSectionView().initWithLeftTitle(title: title!, image: image!)
                 sectionView.addRightBtnAction(tempRightBtnAction: {(button) in
                     print("可能感兴趣的人")
                 })
@@ -304,7 +304,7 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
             } else if indexPath.section == 2 {
                 title = "热门"
                 image = "default_arrow_right"
-                let sectionView = TYSSectionView.initWithLeftTitle(title: title!, image: image!)
+                let sectionView = TYSSectionView().initWithLeftTitle(title: title!, image: image!)
                 sectionView.addRightBtnAction(tempRightBtnAction: {[weak self] (button) in
                     self?.navigationController?.pushViewController(TYSHotLiveViewController(), animated: true)
                 })
@@ -312,7 +312,7 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
             } else {
                 title = "推荐"
                 image = "default_arrow_right"
-                let sectionView = TYSSectionView.initWithLeftTitle(title: title!, image: image!)
+                let sectionView = TYSSectionView().initWithLeftTitle(title: title!, image: image!)
                 sectionView.addRightBtnAction(tempRightBtnAction: {[weak self] (button) in
                     self?.navigationController?.pushViewController(TYSRecLiveViewController(), animated: true)
                 })

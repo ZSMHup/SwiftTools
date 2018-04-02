@@ -29,19 +29,36 @@ class TYSSectionView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    class func initWithLeftTitle(title: String, image: String) -> TYSSectionView {
+    func initWithLeftTitle(title: String, image: String) -> TYSSectionView {
+        let sectionView = TYSSectionView()
+        sectionView.backgroundColor = UIColor.white
+        sectionView.frame = CGRect(x: 0, y: 0, width: kScreenW, height: AdaptH(h: 60))
+        sectionView.leftText = title
+        sectionView.rightImgText = image
+        sectionView.setupUI()
+//        if sectionView === nil {
+//            sectionView = TYSSectionView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: AdaptH(h: 60)))
+//            sectionView?.leftText = title
+//            sectionView?.rightImgText = image
+//            sectionView?.setupUI()
+//        }
         
-        var sectionView: TYSSectionView?
-        
-        if sectionView === nil {
-            sectionView = TYSSectionView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: AdaptH(h: 60)))
-            sectionView?.leftText = title
-            sectionView?.rightImgText = image
-            sectionView?.setupUI()
-        }
-        
-        return sectionView!
+        return sectionView
     }
+    
+//    class func initWithLeftTitle(title: String, image: String) -> TYSSectionView {
+//        
+//        var sectionView: TYSSectionView?
+//        
+//        if sectionView === nil {
+//            sectionView = TYSSectionView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: AdaptH(h: 60)))
+//            sectionView?.leftText = title
+//            sectionView?.rightImgText = image
+//            sectionView?.setupUI()
+//        }
+//        
+//        return sectionView!
+//    }
 }
 
 

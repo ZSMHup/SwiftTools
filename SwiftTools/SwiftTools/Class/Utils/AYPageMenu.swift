@@ -18,9 +18,11 @@ class AYPageMenu: UIView {
     
     private var _items: [String]?
     private var selectedBtn: UIButton?
-    private var menuBtn: UIButton?
     private var indexView: UIView?
     private var lineView: UIView?
+    var menuBtn: UIButton?
+    var isTimer = true
+    
     var selectedIndex: Int = 0 {
         didSet {
             changeMenu(index: selectedIndex)
@@ -36,6 +38,10 @@ class AYPageMenu: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+       print("deinit: \(self.classForCoder)")
     }
     
     /// 创建 AYPageMenu
@@ -58,11 +64,12 @@ class AYPageMenu: UIView {
         
         for i in 0..<(_items?.count)! {
             menuBtn = UIButton(frame: CGRect(x: 10 + 60 * CGFloat(i) , y: 0, width: 60, height: self.frame.size.height - 1))
+            
             menuBtn?.setTitleColor(UIColor.gray, for: .normal)
             menuBtn?.setTitleColor(UIColor.red, for: .selected)
             menuBtn?.titleLabel?.font = UIFont.systemFont(ofSize: 13.0)
             menuBtn?.setTitle(_items?[i], for: .normal)
-            menuBtn?.tag = 1000+i
+            menuBtn?.tag = 1000 + i
             menuBtn?.addTarget(self, action: #selector(menuBtnClick(sender:)), for: .touchUpInside)
             self.addSubview(menuBtn!)
             if i == 0 {
@@ -93,6 +100,7 @@ class AYPageMenu: UIView {
     
     // MARK: event response
     @objc func menuBtnClick(sender: UIButton?) {
+        
         var sender = sender
         for i in 0..<(_items?.count)! {
             selectedBtn = self.viewWithTag(1000 + i) as? UIButton
@@ -101,11 +109,16 @@ class AYPageMenu: UIView {
                 UIView.animate(withDuration: 0.25, animations: {[weak self] in
                     self?.indexView?.center.x = (self?.selectedBtn?.center.x)!
                 })
-                
                 delegate?.didSelectedItemChange(pageMen: self, selectedIndex: i)
+                if isTimer {
+                    selectedBtn?.buttonTimer(sec: 1.0)
+                }
                 
             } else {
                 selectedBtn?.setTitleColor(UIColor.gray, for: .normal)
+                if isTimer {
+                    selectedBtn?.buttonTimer(sec: 1.0)
+                }
             }
         }
         sender = selectedBtn
@@ -141,6 +154,10 @@ class AYSwitchVCContentView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        print("deinit: \(self.classForCoder)")
+    }
+    
     /// 构造方法
     ///
     /// - Parameters:
@@ -162,7 +179,6 @@ class AYSwitchVCContentView: UIView {
             let cla = NSClassFromString(getAPPName() + "." + vc) as! UIViewController.Type
             let willShowVC = cla.init()
             _didShowControllers.append(willShowVC)
-            
         }
         
         self.addSubview(pageMenu)
@@ -176,7 +192,7 @@ class AYSwitchVCContentView: UIView {
 
 // MARK: UIScrollViewDelegate
 extension AYSwitchVCContentView: UIScrollViewDelegate, AYPageMenuDelegate{
-    
+
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         let width = scrollView.frame.size.width
         let height = scrollView.frame.size.height
@@ -189,6 +205,7 @@ extension AYSwitchVCContentView: UIScrollViewDelegate, AYPageMenuDelegate{
         if !(_didShowControllers.isEmpty) {
             let willShowVc = _didShowControllers[index]
             if willShowVc.isViewLoaded {
+                pageMenu.isTimer = false
                 return
             }
             willShowVc.view.frame = CGRect(x: offsetX, y: 0, width: width, height: height)
@@ -206,11 +223,3 @@ extension AYSwitchVCContentView: UIScrollViewDelegate, AYPageMenuDelegate{
         contentScrollView.setContentOffset(offset, animated: true)
     }
 }
-
-
-
-
-
-
-
-
