@@ -17,10 +17,17 @@ class TYSConnectionViewController: BaseViewController {
         tempTableView.dataSource = self
         tempTableView.separatorStyle = .none
         tempTableView.register(TYSCommonPersonalCell.self, forCellReuseIdentifier: "TYSCommonPersonalCellIsMe")
+        tempTableView.register(TYSBehaviorCell.self, forCellReuseIdentifier: "TYSBehaviorCell")
         tempTableView.register(TYSConnectionLikelyPeoCell.self, forCellReuseIdentifier: "TYSConnectionLikelyPeoCell")
-        tempTableView.register(TYSCommonPersonalCell.self, forCellReuseIdentifier: "TYSCommonPersonalAddMoveBtnCell")
+        tempTableView.register(TYSConnectionAnalystCell.self, forCellReuseIdentifier: "TYSConnectionAnalystCell")
         return tempTableView
     }()
+    
+    private var featureDataSource = [
+        ["featureTitle" : "贡献值", "count" : "10000"],
+        ["featureTitle" : "粉丝", "count" : "100"],
+        ["featureTitle" : "关注", "count" : "1000"]
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,8 +72,12 @@ extension TYSConnectionViewController: UITableViewDelegate, UITableViewDataSourc
             cell.selectionStyle = .none
             return cell
         case 1:
-            let cell: TYSCommonPersonalCell = tableView.dequeueReusableCell(withIdentifier: "TYSCommonPersonalCellIsMe")! as! TYSCommonPersonalCell
+            let cell: TYSBehaviorCell = tableView.dequeueReusableCell(withIdentifier: "TYSBehaviorCell")! as! TYSBehaviorCell
             cell.selectionStyle = .none
+            cell.didSelectedItemAction(tempClick: { (index) in
+                print(index)
+            })
+            cell.setTabArray(tabArray: featureDataSource)
             return cell
         case 2:
             let cell: TYSConnectionLikelyPeoCell = tableView.dequeueReusableCell(withIdentifier: "TYSConnectionLikelyPeoCell")! as! TYSConnectionLikelyPeoCell
@@ -74,7 +85,7 @@ extension TYSConnectionViewController: UITableViewDelegate, UITableViewDataSourc
             return cell
             
         default:
-            let cell: TYSCommonPersonalCell = tableView.dequeueReusableCell(withIdentifier: "TYSCommonPersonalCellIsMe")! as! TYSCommonPersonalCell
+            let cell: TYSConnectionAnalystCell = tableView.dequeueReusableCell(withIdentifier: "TYSConnectionAnalystCell")! as! TYSConnectionAnalystCell
             cell.selectionStyle = .none
             return cell
         }
@@ -110,17 +121,16 @@ extension TYSConnectionViewController: UITableViewDelegate, UITableViewDataSourc
         
     }
     
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            return 60
+            return AdaptH(h: 60)
         case 1:
-            return 100
+            return AdaptH(h: 110)
         case 2:
-            return 90
+            return AdaptH(h: 90)
         default:
-            return 120
+            return AdaptH(h: 120)
         }
     }
     
@@ -131,7 +141,7 @@ extension TYSConnectionViewController: UITableViewDelegate, UITableViewDataSourc
         case 1:
             return 0
         default:
-            return 60
+            return AdaptH(h: 60)
         }
     }
     

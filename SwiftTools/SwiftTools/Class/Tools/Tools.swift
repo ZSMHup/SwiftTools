@@ -83,5 +83,24 @@ func getCurrentWindow() -> UIWindow? {
     return window
 }
 
+// 计算文字高度或者宽度
+
+func ay_getWidth(string: String, fontSize: CGFloat, height: CGFloat = 15) -> CGFloat {
+    let font = UIFont.systemFont(ofSize: fontSize)
+    let rect = NSString(string: string).boundingRect(with: CGSize(width: CGFloat(MAXFLOAT), height: height), options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: font], context: nil)
+    return ceil(rect.width)
+}
+
+func ay_getHeight(string: String, fontSize: CGFloat, width: CGFloat) -> CGFloat {
+    let font = UIFont.systemFont(ofSize: fontSize)
+    let rect = NSString(string: string).boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: font], context: nil)
+    return ceil(rect.height)
+}
+
+func ay_getHeight(string: String, fontSize: CGFloat, width: CGFloat, maxHeight: CGFloat) -> CGFloat {
+    let font = UIFont.systemFont(ofSize: fontSize)
+    let rect = NSString(string: string).boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: font], context: nil)
+    return ceil(rect.height)>maxHeight ? maxHeight : ceil(rect.height)
+}
 
 

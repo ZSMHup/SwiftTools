@@ -1,24 +1,21 @@
 //
-//  TYSHomeTabCollectionViewCell.swift
+//  TYSBehaviorCell.swift
 //  SwiftTools
 //
-//  Created by 张书孟 on 2018/3/22.
+//  Created by 张书孟 on 2018/4/3.
 //  Copyright © 2018年 ZSM. All rights reserved.
 //
 
 import UIKit
 
-typealias itemClickBlock = (Int) -> Void
-
-class TYSHomeTabCollectionViewCell: UICollectionViewCell {
+class TYSBehaviorCell: UITableViewCell {
     
     private var didSelectedItemClick: itemClickBlock?
-    
     private var tabDataSource = [Dictionary<String, Any>]()
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         
-        layout.itemSize = CGSize(width: kScreenW/4, height: AdaptH(h: 75))
+        layout.itemSize = CGSize(width: (kScreenW - AdaptW(w: 48))/3, height: AdaptH(h: 100))
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         let tempCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
@@ -27,14 +24,13 @@ class TYSHomeTabCollectionViewCell: UICollectionViewCell {
         tempCollectionView.backgroundColor = tys_whiteColor
         tempCollectionView.showsVerticalScrollIndicator = false
         tempCollectionView.showsHorizontalScrollIndicator = false
-        tempCollectionView.register(TYSHomeTabCell.self, forCellWithReuseIdentifier: "TYSHomeTabCell")
+        tempCollectionView.register(TYSBeHaviorCollectionViewCell.self, forCellWithReuseIdentifier: "TYSBeHaviorCollectionViewCell")
         return tempCollectionView
         
     }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
+
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubViews()
     }
     
@@ -49,9 +45,10 @@ class TYSHomeTabCollectionViewCell: UICollectionViewCell {
     func didSelectedItemAction(tempClick: @escaping itemClickBlock) {
         didSelectedItemClick = tempClick
     }
+    
 }
 
-extension TYSHomeTabCollectionViewCell {
+extension TYSBehaviorCell {
     private func addSubViews() {
         contentView.addSubview(collectionView)
         collectionView.snp.makeConstraints { (make) in
@@ -60,15 +57,18 @@ extension TYSHomeTabCollectionViewCell {
     }
 }
 
-extension TYSHomeTabCollectionViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension TYSBehaviorCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets{
+        return UIEdgeInsetsMake(0, AdaptW(w: 24), 0, AdaptW(w: 24))
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return tabDataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: TYSHomeTabCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSHomeTabCell", for: indexPath) as! TYSHomeTabCell
+        let cell: TYSBeHaviorCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSBeHaviorCollectionViewCell", for: indexPath) as! TYSBeHaviorCollectionViewCell
         cell.setTabConfig(tabDataSource: tabDataSource[indexPath.item] as! [String : String])
         return cell
     }
@@ -79,4 +79,3 @@ extension TYSHomeTabCollectionViewCell: UICollectionViewDelegate, UICollectionVi
         }
     }
 }
-

@@ -16,6 +16,7 @@ class TYSCommonPersonalCell: UITableViewCell {
     
     private var addAttentionBtn: UIButton?
     private var commonBtn: UIButton?
+    private var authLabel: AYEdgeInsetsLabel?
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -24,7 +25,10 @@ class TYSCommonPersonalCell: UITableViewCell {
         } else if reuseIdentifier == "TYSCommonPersonalAddMoveBtnCell" { // 带移组的cell
             addCommonSubViews()
             addMoveBtn()
-        } else { //个人
+        } else if reuseIdentifier == "TYSCommonPersonalCenterCell" { //个人中心
+            personalCell()
+            addAuthLabel()
+        } else {
             personalCell()
         }
         
@@ -63,7 +67,7 @@ extension TYSCommonPersonalCell {
         })
         
         orgLabel = UILabel()
-        orgLabel?.text = "测试测试测试测试测试测试测试测试测试"
+        orgLabel?.text = "测试"
         orgLabel?.textColor = tys_titleColor
         orgLabel?.font = SystemFont(fontSize: 14)
         contentView.addSubview(orgLabel!)
@@ -107,15 +111,40 @@ extension TYSCommonPersonalCell {
     private func personalCell() {
         addCommonSubViews()
         addAttentionBtn?.isHidden = true
-        nameLabel?.snp.updateConstraints({ (make) in
-            make.right.equalTo(contentView.snp.right).offset(AdaptW(w: -23))
+       
+        nameLabel?.snp.removeConstraints()
+        nameLabel?.snp.makeConstraints({ (make) in
+            make.centerY.equalTo((userImgView?.snp.centerY)!).offset(AdaptH(h: -10))
+            make.left.equalTo((userImgView?.snp.right)!).offset(8.0)
         })
         
-        orgLabel?.snp.updateConstraints({ (make) in
-            make.right.equalTo(contentView.snp.right).offset(AdaptW(w: -23))
+        orgLabel?.snp.removeConstraints()
+        orgLabel?.snp.makeConstraints({ (make) in
+            make.centerY.equalTo((userImgView?.snp.centerY)!).offset(AdaptH(h: 10))
+            make.left.equalTo((userImgView?.snp.right)!).offset(8.0)
         })
+        
     }
     
+    private func addAuthLabel() {
+        authLabel = AYEdgeInsetsLabel()
+        authLabel?.text = "直播已认证"
+        authLabel?.textColor = hexString("#E25039")
+        authLabel?.font = SystemFont(fontSize: 10)
+        authLabel?.layer.borderColor = hexString("#F8D7D1").cgColor
+        authLabel?.layer.borderWidth = 0.5
+        authLabel?.layer.cornerRadius = 0.5
+        authLabel?.layer.masksToBounds = true
+        authLabel?.setContentInset(contentInset: UIEdgeInsetsMake(5, 5, 5, 5))
+        
+        contentView.addSubview(authLabel!)
+        authLabel?.snp.makeConstraints({ (make) in
+            make.centerY.equalTo((nameLabel?.snp.centerY)!)
+            make.left.equalTo((nameLabel?.snp.right)!).offset(8.0)
+            make.height.equalTo(20)
+            make.width.equalTo(AdaptW(w: ay_getWidth(string: (authLabel?.text)!, fontSize: 10, height: 20) + 10))
+        })
+    }
     
     
 }
