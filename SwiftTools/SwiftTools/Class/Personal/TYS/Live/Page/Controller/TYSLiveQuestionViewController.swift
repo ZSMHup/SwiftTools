@@ -29,6 +29,7 @@ class TYSLiveQuestionViewController: BaseViewController {
         super.viewDidLoad()
         
         addSubViews()
+        baseScrollView = tableView
     }
     
     private func addSubViews() {
@@ -78,6 +79,13 @@ extension TYSLiveQuestionViewController: UITableViewDelegate, UITableViewDataSou
         tableView.deselectRow(at: indexPath, animated: true)
         print("\(classForCoder) --- \(indexPath.row)")
         print("\(String(describing: getCurrentController()))")
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetDifference = scrollView.contentOffset.y - lastContentOffset.y;
+        
+        NotificationCenter.default.post(name: ChildScrollViewDidScrollNSNotification, object: nil, userInfo: ["scrollingScrollView" : scrollView, "offsetDifference" : offsetDifference])
+        lastContentOffset = scrollView.contentOffset;
     }
     
 }

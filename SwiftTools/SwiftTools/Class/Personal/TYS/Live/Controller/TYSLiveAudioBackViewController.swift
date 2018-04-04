@@ -53,6 +53,25 @@ class TYSLiveAudioBackViewController: BaseViewController {
         addSubviews()
         
         NotificationCenter.default.addObserver(self, selector: #selector(subScrollViewDidScroll(notification:)), name: ChildScrollViewDidScrollNSNotification, object: nil)
+        
+        
+    }
+    
+    private func follow(scrollingScrollView: UIScrollView, distanceY: CGFloat) {
+        //        var baseVc: BaseViewController?
+        
+        for i in 0..<childViewControllers.count {
+            let baseVc: BaseViewController = childViewControllers[i] as! BaseViewController
+            if baseVc.baseScrollView === scrollingScrollView {
+                continue
+            } else {
+                var contentOffSet = baseVc.baseScrollView?.contentOffset
+                contentOffSet?.y += -distanceY
+                baseVc.baseScrollView?.contentOffset = contentOffSet!
+                
+            }
+        }
+        
     }
 }
 
@@ -83,7 +102,7 @@ extension TYSLiveAudioBackViewController {
         
         if (scrollingScrollView === baseVc.baseScrollView) {
             var pageMenuFrame = pageMenu.frame
-            if pageMenuFrame.origin.y > kNavigationBarHeight {
+            if pageMenuFrame.origin.y >= kNavigationBarHeight {
                 // 往上移
                 if offsetDifference > 0 && scrollingScrollView.contentOffset.y+230+kNavigationBarHeight > 0 {
                     if ((scrollingScrollView.contentOffset.y+230+kNavigationBarHeight+pageMenu.frame.origin.y)>=200) || scrollingScrollView.contentOffset.y+230+kNavigationBarHeight < 0 {
@@ -95,10 +114,11 @@ extension TYSLiveAudioBackViewController {
                     }
                 } else {
                     // 往下移
-                    if ((scrollingScrollView.contentOffset.y+230+kNavigationBarHeight+pageMenu.frame.origin.y)<200) {
-                        pageMenuFrame.origin.y = -scrollingScrollView.contentOffset.y-230-kNavigationBarHeight+200
-                        if (pageMenuFrame.origin.y >= 200) {
-                            pageMenuFrame.origin.y = 200;
+                    if ((scrollingScrollView.contentOffset.y+230+pageMenu.frame.origin.y)<200) {
+                        pageMenuFrame.origin.y = -scrollingScrollView.contentOffset.y-30
+                        print(pageMenuFrame.origin.y)
+                        if (pageMenuFrame.origin.y >= 200+kNavigationBarHeight) {
+                            pageMenuFrame.origin.y = 200+kNavigationBarHeight;
                         }
                     }
                 }
@@ -112,10 +132,13 @@ extension TYSLiveAudioBackViewController {
             // 记录悬浮菜单的y值改变量
             distanceY = pageMenuFrame.origin.y - lastPageMenuY!
             lastPageMenuY = pageMenu.frame.origin.y;
+            
+            follow(scrollingScrollView: scrollingScrollView, distanceY: distanceY)
         }
-        
-        
     }
+    
+    
+    
 }
 
 extension TYSLiveAudioBackViewController: UIScrollViewDelegate, AYPageMenuDelegate {

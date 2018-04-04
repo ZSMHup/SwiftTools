@@ -29,6 +29,7 @@ class TYSLiveSyncViewController: BaseViewController {
         super.viewDidLoad()
         
         addSubViews()
+        baseScrollView = tableView
     }
     
     private func addSubViews() {
@@ -80,5 +81,11 @@ extension TYSLiveSyncViewController: UITableViewDelegate, UITableViewDataSource 
         print("\(String(describing: getCurrentController()))")
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetDifference = scrollView.contentOffset.y - lastContentOffset.y;
+        
+        NotificationCenter.default.post(name: ChildScrollViewDidScrollNSNotification, object: nil, userInfo: ["scrollingScrollView" : scrollView, "offsetDifference" : offsetDifference])
+        lastContentOffset = scrollView.contentOffset;
+    }
 }
 
