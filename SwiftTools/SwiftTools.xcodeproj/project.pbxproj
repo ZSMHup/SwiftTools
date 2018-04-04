@@ -77,9 +77,11 @@
 		E197E55620732AB100B18E86 /* TYSPersonalPublishCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E197E55520732AB100B18E86 /* TYSPersonalPublishCollectionCell.swift */; };
 		E197E558207349D900B18E86 /* TYSPersonalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E197E557207349D900B18E86 /* TYSPersonalCell.swift */; };
 		E197E55A2073569E00B18E86 /* AYEdgeInsetsLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E197E5592073569E00B18E86 /* AYEdgeInsetsLabel.swift */; };
+		E197E55C2073602100B18E86 /* AYWKWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E197E55B2073602100B18E86 /* AYWKWebView.swift */; };
 		E1EF4A9D206CC3E500C93303 /* TYSHotLiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4A9C206CC3E400C93303 /* TYSHotLiveViewController.swift */; };
 		E1EF4A9F206CC77F00C93303 /* TYSRecLiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4A9E206CC77F00C93303 /* TYSRecLiveViewController.swift */; };
 		E1EF4AAF206CECFD00C93303 /* AYPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4AAE206CECFD00C93303 /* AYPageMenu.swift */; };
+		E1FE70082073772A004B336B /* TYSHomeWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FE70072073772A004B336B /* TYSHomeWebViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -157,9 +159,11 @@
 		E197E55520732AB100B18E86 /* TYSPersonalPublishCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSPersonalPublishCollectionCell.swift; sourceTree = "<group>"; };
 		E197E557207349D900B18E86 /* TYSPersonalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSPersonalCell.swift; sourceTree = "<group>"; };
 		E197E5592073569E00B18E86 /* AYEdgeInsetsLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AYEdgeInsetsLabel.swift; sourceTree = "<group>"; };
+		E197E55B2073602100B18E86 /* AYWKWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AYWKWebView.swift; sourceTree = "<group>"; };
 		E1EF4A9C206CC3E400C93303 /* TYSHotLiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSHotLiveViewController.swift; sourceTree = "<group>"; };
 		E1EF4A9E206CC77F00C93303 /* TYSRecLiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSRecLiveViewController.swift; sourceTree = "<group>"; };
 		E1EF4AAE206CECFD00C93303 /* AYPageMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AYPageMenu.swift; sourceTree = "<group>"; };
+		E1FE70072073772A004B336B /* TYSHomeWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSHomeWebViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -524,10 +528,11 @@
 			children = (
 				E18AE3C32064A53800655AD2 /* TextField.swift */,
 				E197E5592073569E00B18E86 /* AYEdgeInsetsLabel.swift */,
+				E197E55B2073602100B18E86 /* AYWKWebView.swift */,
+				E1EF4AAE206CECFD00C93303 /* AYPageMenu.swift */,
 				E1906544206E41F700E9F7F9 /* UIButton+Time.swift */,
 				E17A08052061127000887C69 /* UIColor+HexString.swift */,
 				E17A0807206112BD00887C69 /* UIButton+Countdown.swift */,
-				E1EF4AAE206CECFD00C93303 /* AYPageMenu.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -560,6 +565,7 @@
 				E16088FA2061E80300580484 /* TYSHomeViewController.swift */,
 				E1EF4A9C206CC3E400C93303 /* TYSHotLiveViewController.swift */,
 				E1EF4A9E206CC77F00C93303 /* TYSRecLiveViewController.swift */,
+				E1FE70072073772A004B336B /* TYSHomeWebViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -841,6 +847,7 @@
 				E15191BC2071E2A900C419A0 /* TYSRecReadAboutMeViewController.swift in Sources */,
 				E17A0808206112BD00887C69 /* UIButton+Countdown.swift in Sources */,
 				E17A07F92060FDB000887C69 /* NavigationViewController.swift in Sources */,
+				E1FE70082073772A004B336B /* TYSHomeWebViewController.swift in Sources */,
 				E1771B7A20635F910050C244 /* WRNavigationBar.swift in Sources */,
 				E1771B7920635F910050C244 /* WRCustomNavigationBar.swift in Sources */,
 				E16088FD2061EA4300580484 /* Tools.swift in Sources */,
@@ -878,6 +885,7 @@
 				E1EF4A9D206CC3E500C93303 /* TYSHotLiveViewController.swift in Sources */,
 				E18AE3C42064A53800655AD2 /* TextField.swift in Sources */,
 				E1EF4AAF206CECFD00C93303 /* AYPageMenu.swift in Sources */,
+				E197E55C2073602100B18E86 /* AYWKWebView.swift in Sources */,
 				E197E554207329C800B18E86 /* TYSPersonalPublishCell.swift in Sources */,
 				E17A07DA2060CB5200887C69 /* AppDelegate.swift in Sources */,
 				E15191C42071E2A900C419A0 /* TYSTelCalendarViewController.swift in Sources */,

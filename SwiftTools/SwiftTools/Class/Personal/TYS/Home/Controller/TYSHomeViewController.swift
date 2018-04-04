@@ -38,7 +38,13 @@ class TYSHomeViewController: BaseViewController {
         ["featureImg": "home_icon_metting", "featureTitle": "电话会议"],
         ["featureImg": "home_icon_reading", "featureTitle": "荐读"],
         ["featureImg": "home_icon_connection", "featureTitle": "人脉"]]
-    
+    private let cycleDataSource = [
+        "https://www.cnswift.org/protocols",
+        "https://www.cnswift.org/closures",
+        "https://www.cnswift.org/enumerations",
+        "https://www.cnswift.org/classes-and-structures",
+        "https://www.cnswift.org/properties"
+    ]
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = false
@@ -349,6 +355,11 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
     /// 点击图片事件
     func cycleScrollViewDidSelect(at index:Int, cycleScrollView:WRCycleScrollView) {
         print("点击了第\(index+1)个图片")
+        
+        let VC = TYSHomeWebViewController()
+        VC.url = cycleDataSource[index]
+        
+        navigationController?.pushViewController(VC, animated: true)
     }
     /// 图片滚动事件
     func cycleScrollViewDidScroll(to index:Int, cycleScrollView:WRCycleScrollView) {

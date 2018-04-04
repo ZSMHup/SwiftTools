@@ -10,7 +10,7 @@ import UIKit
 
 /////////////////////////////////////// AYPageMenu /////////////////////////////////////
 
-protocol AYPageMenuDelegate {
+protocol AYPageMenuDelegate: NSObjectProtocol {
     func didSelectedItemChange(pageMen: AYPageMenu, selectedIndex: Int)
 }
 
@@ -29,7 +29,7 @@ class AYPageMenu: UIView {
         }
     }
     
-    var delegate: AYPageMenuDelegate?
+    weak var delegate: AYPageMenuDelegate?
     
     
     override init(frame: CGRect) {
