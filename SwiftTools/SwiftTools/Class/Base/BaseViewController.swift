@@ -11,6 +11,9 @@ import SnapKit
 
 class BaseViewController: UIViewController {
 
+    var lastContentOffset: CGPoint = CGPoint(x: 0, y: 0)
+    var baseScrollView: UIScrollView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias itemClickBlock = (Int) -> Void
+
 /// 手机号码校验
 ///
 /// - Parameter num: 输入的号码

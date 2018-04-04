@@ -75,9 +75,7 @@ class TYSHomeViewController: BaseViewController {
         let param = ["requestCode" : "V219001", "page" : "1", "limit" : "10", "login_user_id" : "110430"]
         
         requestInterestedPeople(paramterDic: param, cacheCompletion: { (cacheValue) in
-//            self.interestedPeoDataSource.removeAll()
-//            self.interestedPeoDataSource = cacheValue.responseResultList as! [TYSInterestedPeopleModel]
-//            self.collectionView.reloadData()
+            
         }, successCompletion: { (value) in
             
         }) { (failure) in
@@ -164,6 +162,43 @@ extension TYSHomeViewController {
     
     @objc private func searchBtnClick() {
         print("首页搜索")
+    }
+}
+
+// MARK:
+extension TYSHomeViewController {
+    private func liveDetail(modelArray: [TYSLiveCommonModel], index: Int) {
+        let liveId: String = modelArray[index].id!
+        let liveImgPath: String = modelArray[index].live_img_path!
+        print("liveId: \(liveId) -- liveImgPath: \(liveImgPath)")
+        
+        if modelArray[index].up_down! == "2" {
+            print("该直播已下架")
+            return
+        }
+        
+        if (modelArray[index].dialing_number != nil) {
+            print("电话会议拨打页面")
+            return
+        }
+        
+        let liveState = modelArray[index].state!
+        
+        if liveState == "3" {
+            let vc = TYSLiveAudioBackViewController()
+            vc.navigationItem.title = modelArray[index].subject!
+            navigationController?.pushViewController(vc, animated: true)
+        } else {
+            if modelArray[index].is_melive! == "1" {
+                let vc = TYSLivePersonalRoomViewController()
+                vc.navigationItem.title = modelArray[index].subject!
+                navigationController?.pushViewController(vc, animated: true)
+            } else {
+                let vc = TYSLiveOtherPeopleRoomViewController()
+                vc.navigationItem.title = modelArray[index].subject!
+                navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
 }
 
@@ -272,6 +307,12 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
             let cell: TYSHotCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSHotCollectionViewCell", for: indexPath) as! TYSHotCollectionViewCell
             let modelArr = dataSource.first?.home_hot_live
             cell.hotArr = modelArr!
+            
+            cell.didSelectedItemAction(tempDidselectedItem: {[weak self] (index) in
+                print(index)
+                self?.liveDetail(modelArray: modelArr!, index: index)
+            })
+            
             return cell
             
         default:
@@ -328,6 +369,12 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
 
         return reusableview
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 3 {
+            liveDetail(modelArray: (dataSource.first?.home_tj_live)!, index: indexPath.item)
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

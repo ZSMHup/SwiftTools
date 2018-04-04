@@ -50,6 +50,7 @@ class AYPageMenu: UIView {
     /// - Returns: self
     public func pageMenu(items: [String]) -> AYPageMenu {
         let pageMenu = AYPageMenu()
+        pageMenu.backgroundColor = UIColor.white
         pageMenu.frame = frame
         pageMenu._items = items
         pageMenu.addSubViews()

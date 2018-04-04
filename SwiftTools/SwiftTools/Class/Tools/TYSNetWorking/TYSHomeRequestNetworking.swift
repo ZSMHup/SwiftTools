@@ -54,6 +54,9 @@ func requestInterestedPeople(
                 let resultDic = getDictionaryFromJSONString(jsonString: string)
                 let object = resultDic["object"]
                 print("========\n \(object ?? "") \n============")
+                
+                
+                
             }
         case .failure(let error):
             print(error)

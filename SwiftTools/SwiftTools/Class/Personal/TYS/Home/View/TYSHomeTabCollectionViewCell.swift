@@ -8,8 +8,6 @@
 
 import UIKit
 
-typealias itemClickBlock = (Int) -> Void
-
 class TYSHomeTabCollectionViewCell: UICollectionViewCell {
     
     private var didSelectedItemClick: itemClickBlock?

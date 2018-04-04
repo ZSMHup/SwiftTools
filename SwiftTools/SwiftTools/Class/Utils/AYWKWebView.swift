@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import MJRefresh
 
 @objc protocol AYWKWebViewDelegate: NSObjectProtocol {
     
@@ -51,6 +52,18 @@ class AYWKWebView: UIView {
     }
     /// 导航栏标题
     var navigationItemTitle: String?
+    
+    /// 是否使用MJRefresh下拉刷新
+    var isUserMJRefresh: Bool = false {
+        willSet {
+            if newValue == true {
+                wkWebView.scrollView.mj_header = MJRefreshNormalHeader(refreshingBlock: {[weak self] in
+                    self?.reloadData()
+                })
+            }
+        }
+    }
+    
     /*
     /// 导航栏存在且有穿透效果(默认导航栏存在且有穿透效果)
     var isNavigationBarOrTranslucent: Bool = true {
@@ -173,12 +186,23 @@ extension AYWKWebView: WKNavigationDelegate, WKUIDelegate {
         navigationItemTitle = webView.title
         delegate?.wkWebView?(wkWebView: self, didFinishLoadWithURL: webView.url!)
         progressView.alpha = 0.0;
+        if isUserMJRefresh {
+            if wkWebView.scrollView.mj_header.isRefreshing {
+                wkWebView.scrollView.mj_header.endRefreshing()
+            }
+        }
+        
     }
     
     /// 页面加载失败时调用
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         delegate?.wkWebView?(wkWebView: self, didFailLoadWithError: error)
         progressView.alpha = 0.0;
+        if isUserMJRefresh {
+            if wkWebView.scrollView.mj_header.isRefreshing {
+                wkWebView.scrollView.mj_header.endRefreshing()
+            }
+        }
     }
 }
 

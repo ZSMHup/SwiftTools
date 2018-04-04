@@ -8,9 +8,11 @@
 
 import UIKit
 
+
 class TYSHotCollectionViewCell: UICollectionViewCell {
     
     var hotArr: [TYSLiveCommonModel] = [TYSLiveCommonModel]()
+    private var didSelectedItemClick: itemClickBlock?
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -41,6 +43,10 @@ class TYSHotCollectionViewCell: UICollectionViewCell {
     func setHotArray(hotArray: [TYSLiveCommonModel]) {
         hotArr = hotArray
     }
+    
+    func didSelectedItemAction(tempDidselectedItem: @escaping itemClickBlock) {
+        didSelectedItemClick = tempDidselectedItem
+    }
 }
 
 extension TYSHotCollectionViewCell {
@@ -69,6 +75,12 @@ extension TYSHotCollectionViewCell: UICollectionViewDelegate, UICollectionViewDa
         let hotModel = hotArr[indexPath.item]
         cell.setModel(model: hotModel)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if didSelectedItemClick != nil {
+            didSelectedItemClick!(indexPath.item)
+        }
     }
     
 }
