@@ -187,6 +187,7 @@ extension TYSHomeViewController {
         if liveState == "3" {
             let vc = TYSLiveAudioBackViewController()
             vc.navigationItem.title = modelArray[index].subject!
+            vc.liveListModel = modelArray[index]
             navigationController?.pushViewController(vc, animated: true)
         } else {
             if modelArray[index].is_melive! == "1" {

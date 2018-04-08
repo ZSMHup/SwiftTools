@@ -9,17 +9,19 @@
 import UIKit
 import MJRefresh
 
-class TYSLiveChatViewController: BaseViewController {
+class TYSLiveChatViewController: AYBaseViewController {
 
     private lazy var tableView: UITableView = {
         let tempTableView = UITableView(frame: CGRect.zero, style: .plain)
-        tempTableView.contentInset = UIEdgeInsetsMake(200 + 30, 0, 0, 0)
-        tempTableView.scrollIndicatorInsets = UIEdgeInsetsMake(200 + 30, 0, 0, 0)
+        tempTableView.contentInset = UIEdgeInsetsMake(kScrollViewBeginTopInset, 0, 0, 0)
+        tempTableView.scrollIndicatorInsets = UIEdgeInsetsMake(kScrollViewBeginTopInset, 0, 0, 0)
         tempTableView.delegate = self
         tempTableView.dataSource = self
         tempTableView.separatorInset = UIEdgeInsetsMake(0, AdaptW(w: 23), 0, AdaptW(w: 23))
         tempTableView.separatorColor = tys_lineColor
         tempTableView.tableFooterView = UIView()
+        tempTableView.rowHeight = UITableViewAutomaticDimension
+        tempTableView.estimatedRowHeight = 100
         tempTableView.register(TYSRecReadContentCell.self, forCellReuseIdentifier: "TYSRecReadContentCell")
         tempTableView.register(TYSRecReadContentCell.self, forCellReuseIdentifier: "TYSRecReadContentCell1")
         return tempTableView
@@ -78,13 +80,6 @@ extension TYSLiveChatViewController: UITableViewDelegate, UITableViewDataSource 
         tableView.deselectRow(at: indexPath, animated: true)
         print("\(classForCoder) --- \(indexPath.row)")
         print("\(String(describing: getCurrentController()))")
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetDifference = scrollView.contentOffset.y - lastContentOffset.y;
-        
-        NotificationCenter.default.post(name: ChildScrollViewDidScrollNSNotification, object: nil, userInfo: ["scrollingScrollView" : scrollView, "offsetDifference" : offsetDifference])
-        lastContentOffset = scrollView.contentOffset;
     }
     
 }

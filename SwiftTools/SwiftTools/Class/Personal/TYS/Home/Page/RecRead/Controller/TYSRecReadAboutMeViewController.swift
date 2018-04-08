@@ -18,6 +18,8 @@ class TYSRecReadAboutMeViewController: BaseViewController {
         tempTableView.separatorInset = UIEdgeInsetsMake(0, AdaptW(w: 23), 0, AdaptW(w: 23))
         tempTableView.separatorColor = tys_lineColor
         tempTableView.tableFooterView = UIView()
+        tempTableView.rowHeight = UITableViewAutomaticDimension
+        tempTableView.estimatedRowHeight = 100
         tempTableView.register(TYSRecReadAboutMeCell.self, forCellReuseIdentifier: "TYSRecReadAboutMeCell")
         return tempTableView
     }()
