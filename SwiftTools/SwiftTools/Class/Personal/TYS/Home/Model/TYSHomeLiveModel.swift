@@ -24,17 +24,9 @@ class HomeTheme: TYSRequestModel {
     var live_count: String? // 直播数量
     var meeting_count: String? // 会议数量
     var easemob_group_id: String? // 环信组ID
-    
-//    required init() {
-//
-//    }
 }
 
 class HomeInd: TYSRequestModel {
     var name: String? // 分类名称
     var id: String? // 分类id
-    
-//    required init() {
-//
-//    }
 }

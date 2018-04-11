@@ -13,9 +13,12 @@ class AYCacheManager {
     static let `default` = AYCacheManager()
     /// Manage storage
     private var storage: Storage?
+    
+    private var filePath: String?
     /// init
     init() {
-        let diskConfig = DiskConfig(name: "AYCache")
+        let diskConfig = DiskConfig(name: "AYCache", directory: try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("TYSCache"))
+        filePath = diskConfig.directory?.path
         let memoryConfig = MemoryConfig(expiry: .never)
         do {
             storage = try Storage(diskConfig: diskConfig, memoryConfig: memoryConfig)
@@ -63,5 +66,39 @@ class AYCacheManager {
     func setObject<T: Codable>(_ object: T, forKey: String) {
         storage?.async.setObject(object, forKey: forKey, completion: { _ in
         })
+    }
+    
+    func getFileSize() -> Double  {
+        var size: Double = 0
+        let fileManager = FileManager.default
+        var isDir: ObjCBool = false
+        let isExists = fileManager.fileExists(atPath: filePath!, isDirectory: &isDir)
+        // 判断文件存在
+        if isExists {
+            // 是否为文件夹
+            if isDir.boolValue {
+                // 迭代器 存放文件夹下的所有文件名
+                let enumerator = fileManager.enumerator(atPath: filePath!)
+                for subPath in enumerator! {
+                    // 获得全路径
+                    let fullPath = filePath?.appending("/\(subPath)")
+                    do {
+                        let attr = try fileManager.attributesOfItem(atPath: fullPath!)
+                        size += attr[FileAttributeKey.size] as! Double
+                    } catch  {
+                        print("error :\(error)")
+                    }
+                }
+            } else {    // 单文件
+                do {
+                    let attr = try fileManager.attributesOfItem(atPath: filePath!)
+                    size += attr[FileAttributeKey.size] as! Double
+                    
+                } catch  {
+                    print("error :\(error)")
+                }
+            }
+        }
+        return size
     }
 }

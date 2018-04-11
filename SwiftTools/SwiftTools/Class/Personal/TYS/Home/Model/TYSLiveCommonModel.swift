@@ -25,14 +25,11 @@ class TYSLiveCommonModel: TYSRequestModel {
     var p_post_name: String? // 个人信息职位信息
     var company_profile: String? // 公司名称
     var org_name: String? // 券商名称
+    var score: String? // 评分
     var up_down: String? // 直播上下架状态 1已上架 2已下架
     var easemob_group_id: String? // 环信组ID
     var free_money: String? // 收费金额
     var dialing_number: String? // 拨号号码 多个,号分割
     var room_number: String? // 房间号码
     var room_pwd: String? // 房间密码
-    
-//    required init() {
-//        
-//    }
 }

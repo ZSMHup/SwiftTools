@@ -21,5 +21,4 @@ class TYSInterestedPeopleModel: TYSRequestModel {
     var org_name: String? // 券商名称
     var user_id: String? // 用户ID
     var gz_id: String? // 关注ID >0 返回关注ID
-    
 }

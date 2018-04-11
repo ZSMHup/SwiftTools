@@ -8,6 +8,7 @@ PODS:
   - MJRefresh (3.1.15.1)
   - SnapKit (4.0.0)
   - SwiftyJSON (4.0.0)
+  - VerifyCode (2.0.3)
 
 DEPENDENCIES:
   - Alamofire
@@ -19,6 +20,7 @@ DEPENDENCIES:
   - MJRefresh
   - SnapKit
   - SwiftyJSON
+  - VerifyCode
 
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
@@ -30,7 +32,8 @@ SPEC CHECKSUMS:
   MJRefresh: 5f8552bc25ca8751c010f621c1098dbdaacbccd6
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
+  VerifyCode: 4b53458bf56f35cabe00f28e385bf2cd15888a9f
 
-PODFILE CHECKSUM: a9be6959ccde53791aee480ea88703a016638243
+PODFILE CHECKSUM: 501fdefd95b4f961185aa17fbc7e41cea1f85f4b
 
 COCOAPODS: 1.4.0

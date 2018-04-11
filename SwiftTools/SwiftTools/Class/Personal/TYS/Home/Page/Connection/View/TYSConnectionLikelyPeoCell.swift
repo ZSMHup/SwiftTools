@@ -51,7 +51,6 @@ extension TYSConnectionLikelyPeoCell: UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return 10
     }
     

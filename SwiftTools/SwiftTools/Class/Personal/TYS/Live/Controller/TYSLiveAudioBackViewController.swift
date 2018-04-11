@@ -18,7 +18,17 @@ class TYSLiveAudioBackViewController: BaseViewController {
     private var lastPoint: CGPoint = CGPoint.zero
     var liveListModel: TYSLiveCommonModel?
     
-
+    var vodplayer: VodPlayer?
+    var voddownloader: VodDownLoader?
+    var VodParam: VodParam?
+    
+    var isVideoFinished: Bool?
+    var isDragging: Bool?
+    var isPlayer: Bool?
+    var isDownloadClick: Bool?
+    var videoRestartValue: Float?
+    var downloadItem: downItem?
+    
     private lazy var scrollView: UIScrollView = {
        let tempScrollView = UIScrollView(frame: view.bounds)
         tempScrollView.delegate = self

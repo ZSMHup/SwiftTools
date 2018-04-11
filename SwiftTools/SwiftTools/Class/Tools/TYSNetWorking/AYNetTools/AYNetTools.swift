@@ -9,7 +9,6 @@
 import Foundation
 import Alamofire
 
-
 /// 网络请求
 ///
 /// - Parameters:
@@ -30,6 +29,11 @@ public func request(
     headers: HTTPHeaders? = nil) -> AYRequestTaskManager {
     
     return AYRequestManager.default.request(url: url, method: method, params: params, dynamicParams: dynamicParams, encoding: encoding, heards: headers)
+}
+
+/// 取消请求
+public func cancel(url: String, params: Parameters? = nil, dynamicParams: Parameters? = nil) {
+    AYRequestManager.default.cancel(url: url, params: params, dynamicParams: dynamicParams)
 }
 
 /// 清除所有缓存

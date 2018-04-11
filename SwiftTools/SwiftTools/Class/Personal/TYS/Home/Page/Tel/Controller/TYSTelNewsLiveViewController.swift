@@ -24,13 +24,55 @@ class TYSTelNewsLiveViewController: BaseViewController {
         return tempCollectionView
     }()
     
+    private var page: Int = 1
+    private var dataSource = [TYSLiveCommonModel]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addSubViews()
     }
 
-
+    private func requestLiveListData() {
+        let param = [
+            "requestCode" : "80003",
+            "page" : String(describing: page),
+            "limit" : "10",
+            "user_id" : "36738",
+            "q_t" : "2",
+            "type" : "3",
+            "state" : "4"
+        ]
+        requestLiveList(paramterDic: param, cacheCompletion: { (cacheValue) in
+            if self.collectionView.mj_header.isRefreshing {
+                if !cacheValue.isEmpty {
+                    self.dataSource.removeAll()
+                    self.dataSource = cacheValue
+                    self.collectionView.reloadData()
+                }
+            }
+        }, successCompletion: { (successValue) in
+            if self.collectionView.mj_header.isRefreshing {
+                self.collectionView.mj_header.endRefreshing()
+                self.dataSource.removeAll()
+            }
+            
+            if self.collectionView.mj_footer.isRefreshing {
+                self.collectionView.mj_footer.endRefreshing()
+            }
+            self.dataSource.append(contentsOf: successValue)
+            self.collectionView.reloadData()
+            
+        }) { (failure) in
+            showFail(text: "网络异常")
+            if self.collectionView.mj_header.isRefreshing {
+                self.collectionView.mj_header.endRefreshing()
+            }
+            if self.collectionView.mj_footer.isRefreshing {
+                self.collectionView.mj_footer.endRefreshing()
+            }
+        }
+    }
 
 }
 
@@ -43,15 +85,13 @@ extension TYSTelNewsLiveViewController {
         }
         
         collectionView.mj_header = MJRefreshNormalHeader(refreshingBlock: {[weak self] in
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
-                self?.collectionView.mj_header.endRefreshing()
-            })
+            self?.page = 1
+            self?.requestLiveListData()
         })
         
         collectionView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: {[weak self] in
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
-                self?.collectionView.mj_footer.endRefreshing()
-            })
+            self?.page += 1
+            self?.requestLiveListData()
         })
         
         collectionView.mj_header.beginRefreshing()
@@ -66,15 +106,17 @@ extension TYSTelNewsLiveViewController: UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return 10
+        return dataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: TYSCommonCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSCommonCollectionViewCell", for: indexPath) as! TYSCommonCollectionViewCell
-        //        let hotModel = hotArr[indexPath.item]
-        //        cell.setModel(model: hotModel)
+        let model = dataSource[indexPath.item]
+        cell.setModel(model: model)
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        liveDetail(liveListModel: dataSource[indexPath.item])
+    }
 }

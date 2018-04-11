@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class TYSMobileLoginViewController: BaseViewController {
     
     private var telNumTextField: TextField?
@@ -15,18 +16,27 @@ class TYSMobileLoginViewController: BaseViewController {
     private var getCaptchaBtn: UIButton?
     private var checkBox: UIButton?
     private var phoneLoginBtn: UIButton?
+    
+    private var mobile: String = ""
+    private var vstatus: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
         setupUI()
         
+        NTESVerifyCodeManager.sharedInstance().delegate = self
+        NTESVerifyCodeManager.sharedInstance().frame = CGRect.null
+        NTESVerifyCodeManager.sharedInstance().configureVerifyCode(kNetEaseCaptchaId, timeout: 8.0)
+        
         telNumTextField?.addTextDidChangeHandler(tempChangeHandler: {[weak self] (textField) in
             self?.mobileLoginhandler()
+            self?.mobile = textField.text!
         })
         
         captchaInput?.addTextDidChangeHandler(tempChangeHandler: {[weak self] (textField) in
             self?.mobileLoginhandler()
+            self?.vstatus = textField.text!
         })
         
     }
@@ -184,6 +194,41 @@ class TYSMobileLoginViewController: BaseViewController {
         }
     }
     
+    private func requestMoblieLoginData() {
+        let deviceID: String = AYKeychain.getDeviceIDInKeychain()
+        
+        let param = [
+            "requestCode" : "10000",
+            "mobile" : mobile,
+            "vstatus" : vstatus,
+            "eq_number" : deviceID
+        ]
+        
+        requestMobileLogin(paramterDic: param, successCompletion: { (successValue) in
+            let homeVc = TYSHomeViewController()
+            self.navigationController?.pushViewController(homeVc, animated: true)
+        }) { (failure) in
+            showOnlyText(text: failure as! String)
+        }
+    
+    }
+    
+    private func requestGetCaptchaData(
+        validate: String,
+        success: @escaping ()->()) {
+        let param = [
+            "requestCode" : "V210005",
+            "mobile" : mobile,
+            "type" : "1",
+            "validate" : validate,
+        ]
+        requestGetCaptcha(paramterDic: param, successCompletion: { (successValue) in
+            success()
+        }) { (failure) in
+            showOnlyText(text: failure as! String)
+        }
+    }
+    
     func mobileLoginhandler() {
         if !isTelNumber(num: (telNumTextField?.text)!) {
             phoneLoginBtn?.backgroundColor = tys_disabledBackgroundColor
@@ -222,12 +267,17 @@ extension TYSMobileLoginViewController {
     }
     
     @objc private func phoneLoginBtnClick() {
-        let homeVc = TYSHomeViewController()
-        self.navigationController?.pushViewController(homeVc, animated: true)
+        requestMoblieLoginData()
+        
     }
     
     @objc private func getCaptchaBtnClick(button: UIButton) {
-        button.countdownWithSec(sec: 15)
+        if !isTelNumber(num: (telNumTextField?.text)!) {
+            showOnlyText(text: "请输入正确的手机号码")
+            return
+        }
+        
+        NTESVerifyCodeManager.sharedInstance().openVerifyCodeView()
     }
     
     @objc private func chechboxClick(button: UIButton) {
@@ -237,5 +287,30 @@ extension TYSMobileLoginViewController {
     
     @objc private func disclaimerBtnClick() {
         print("免责声明")
+    }
+}
+
+extension TYSMobileLoginViewController: NTESVerifyCodeManagerDelegate {
+    func verifyCodeInitFinish() {
+        view.endEditing(true)
+    }
+    
+    func verifyCodeInitFailed(_ error: String!) {
+        showOnlyText(text: error)
+    }
+    
+    func verifyCodeValidateFinish(_ result: Bool, validate: String!, message: String!) {
+        if result {
+            requestGetCaptchaData(validate: validate) {  [weak self] in
+                self?.getCaptchaBtn?.countdownWithSec(sec: 60)
+                self?.captchaInput?.text = self?.vstatus
+            }
+        } else {
+            showOnlyText(text: "验证错误，请再试一次")
+        }
+    }
+    
+    func verifyCodeNetError(_ error: Error!) {
+        showOnlyText(text: error as! String)
     }
 }

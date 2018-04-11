@@ -38,13 +38,10 @@ class TYSHomeViewController: BaseViewController {
         ["featureImg": "home_icon_metting", "featureTitle": "电话会议"],
         ["featureImg": "home_icon_reading", "featureTitle": "荐读"],
         ["featureImg": "home_icon_connection", "featureTitle": "人脉"]]
-    private let cycleDataSource = [
-        "https://www.cnswift.org/protocols",
-        "https://www.cnswift.org/closures",
-        "https://www.cnswift.org/enumerations",
-        "https://www.cnswift.org/classes-and-structures",
-        "https://www.cnswift.org/properties"
-    ]
+    
+    private var cycleLinkPathDataSource = [String]()
+    private var cycleImgPathDataSource = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = false
@@ -53,7 +50,7 @@ class TYSHomeViewController: BaseViewController {
     }
     
     private func requestHomeData() {
-        let param = ["requestCode" : "89000", "user_id" : "110430"]
+        let param = ["requestCode" : "89000", "user_id" : "36738"]
         requestHomeListData(paramterDic: param, cacheCompletion: { (cacheValue) in
             
             self.dataSource.removeAll()
@@ -61,26 +58,69 @@ class TYSHomeViewController: BaseViewController {
             self.collectionView.reloadData()
             
         }, successCompletion: { (value) in
-            self.collectionView.mj_header.endRefreshing()
+            if self.collectionView.mj_header.isRefreshing {
+                self.collectionView.mj_header.endRefreshing()
+            }
             self.dataSource.removeAll()
             self.dataSource.append(value)
             self.collectionView.reloadData()
         }) { (failure) in
-            self.collectionView.mj_header.endRefreshing()
-            print("\(failure)")
+            showFail(text: "网络异常")
+            if self.collectionView.mj_header.isRefreshing {
+                self.collectionView.mj_header.endRefreshing()
+            }
         }
     }
     
-    func requestInterestedPeopleData() {
-        let param = ["requestCode" : "V219001", "page" : "1", "limit" : "10", "login_user_id" : "110430"]
+    private func requestInterestedPeopleData() {
+        let param = ["requestCode" : "V219001", "page" : "1", "limit" : "10", "login_user_id" : "36738"]
         
         requestInterestedPeople(paramterDic: param, cacheCompletion: { (cacheValue) in
+            self.interestedPeoDataSource.removeAll()
+            self.interestedPeoDataSource = cacheValue
+            self.collectionView.reloadData()
+        }, successCompletion: { (valueArray) in
+            if self.collectionView.mj_header.isRefreshing {
+               self.collectionView.mj_header.endRefreshing()
+            }
             
-        }, successCompletion: { (value) in
-            
+            self.interestedPeoDataSource.removeAll()
+            self.interestedPeoDataSource = valueArray
+            self.collectionView.reloadData()
         }) { (failure) in
-            self.collectionView.mj_header.endRefreshing()
-            print("\(failure)")
+            showFail(text: "网络异常")
+            if self.collectionView.mj_header.isRefreshing {
+                self.collectionView.mj_header.endRefreshing()
+            }
+        }
+    }
+    
+    private func requestHomeADData() {
+        let param = ["requestCode" : "95000", "page" : "1", "limit" : "10", "position" : "HOME"]
+        requestHomeAD(paramterDic: param, cacheCompletion: { (cacheValue) in
+            self.cycleLinkPathDataSource.removeAll()
+            self.cycleImgPathDataSource.removeAll()
+            for index in 0..<cacheValue.count {
+                self.cycleImgPathDataSource.append(cacheValue[index].img_path!)
+                self.cycleLinkPathDataSource.append(cacheValue[index].link_path!)
+            }
+            self.cycleScrollView?.serverImgArray = self.cycleImgPathDataSource
+        }, successCompletion: { (valueArray) in
+            if self.collectionView.mj_header.isRefreshing {
+                self.collectionView.mj_header.endRefreshing()
+            }
+            self.cycleLinkPathDataSource.removeAll()
+            self.cycleImgPathDataSource.removeAll()
+            for index in 0..<valueArray.count {
+                self.cycleImgPathDataSource.append(valueArray[index].img_path!)
+                self.cycleLinkPathDataSource.append(valueArray[index].link_path!)
+            }
+            self.cycleScrollView?.serverImgArray = self.cycleImgPathDataSource
+        }) { (failure) in
+            showFail(text: "网络异常")
+            if self.collectionView.mj_header.isRefreshing {
+                self.collectionView.mj_header.endRefreshing()
+            }
         }
     }
 }
@@ -129,23 +169,20 @@ extension TYSHomeViewController {
         }
         
         collectionView.mj_header = MJRefreshNormalHeader(refreshingBlock: {[weak self] in
+            self?.requestHomeADData()
             self?.requestHomeData()
             self?.requestInterestedPeopleData()
         })
 
         collectionView.mj_header.ignoredScrollViewContentInsetTop = kBannerHeight
-        
     }
     
     private func createCycleScrollView() {
         let height = kBannerHeight
         let frame = CGRect(x: 0, y: -height, width: kScreenW, height: height)
-        let serverImages = ["http://p.lrlz.com/data/upload/mobile/special/s252/s252_05471521705899113.png",
-                            "http://p.lrlz.com/data/upload/mobile/special/s303/s303_05442007678060723.png",
-                            "http://p.lrlz.com/data/upload/mobile/special/s303/s303_05442007587372591.png",
-                            "http://p.lrlz.com/data/upload/mobile/special/s303/s303_05442007388249407.png",
-                            "http://p.lrlz.com/data/upload/mobile/special/s303/s303_05442007470310935.png"]
-        cycleScrollView = WRCycleScrollView(frame: frame, type: .SERVER, imgs: serverImages, defaultDotImage: UIImage(named: "defaultDot"), currentDotImage: UIImage(named: "currentDot"), placeholderImage: UIImage(named: "defualt_banner"))
+        let imgs = ["defualt_banner"]
+        
+        cycleScrollView = WRCycleScrollView(frame: frame, type: .SERVER, imgs: imgs, defaultDotImage: UIImage(named: "defaultDot"), currentDotImage: UIImage(named: "currentDot"), placeholderImage: UIImage(named: "defualt_banner"))
         cycleScrollView?.delegate = self
         collectionView.addSubview(cycleScrollView!)
         
@@ -162,44 +199,6 @@ extension TYSHomeViewController {
     
     @objc private func searchBtnClick() {
         print("首页搜索")
-    }
-}
-
-// MARK:
-extension TYSHomeViewController {
-    private func liveDetail(modelArray: [TYSLiveCommonModel], index: Int) {
-        let liveId: String = modelArray[index].id!
-        let liveImgPath: String = modelArray[index].live_img_path!
-        print("liveId: \(liveId) -- liveImgPath: \(liveImgPath)")
-        
-        if modelArray[index].up_down! == "2" {
-            print("该直播已下架")
-            return
-        }
-        
-        if (modelArray[index].dialing_number != nil) {
-            print("电话会议拨打页面")
-            return
-        }
-        
-        let liveState = modelArray[index].state!
-        
-        if liveState == "3" {
-            let vc = TYSLiveAudioBackViewController()
-            vc.navigationItem.title = modelArray[index].subject!
-            vc.liveListModel = modelArray[index]
-            navigationController?.pushViewController(vc, animated: true)
-        } else {
-            if modelArray[index].is_melive! == "1" {
-                let vc = TYSLivePersonalRoomViewController()
-                vc.navigationItem.title = modelArray[index].subject!
-                navigationController?.pushViewController(vc, animated: true)
-            } else {
-                let vc = TYSLiveOtherPeopleRoomViewController()
-                vc.navigationItem.title = modelArray[index].subject!
-                navigationController?.pushViewController(vc, animated: true)
-            }
-        }
     }
 }
 
@@ -310,8 +309,7 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
             cell.hotArr = modelArr!
             
             cell.didSelectedItemAction(tempDidselectedItem: {[weak self] (index) in
-                print(index)
-                self?.liveDetail(modelArray: modelArr!, index: index)
+                self?.liveDetail(liveListModel: modelArr![index])
             })
             
             return cell
@@ -345,8 +343,8 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
                 title = "可能感兴趣的人"
                 image = "default_arrow_renew"
                 let sectionView = TYSSectionView().initWithLeftTitle(title: title!, image: image!)
-                sectionView.addRightBtnAction(tempRightBtnAction: {(button) in
-                    print("可能感兴趣的人")
+                sectionView.addRightBtnAction(tempRightBtnAction: {[weak self] (button) in
+                    self?.requestInterestedPeopleData()
                 })
                 reusableview.addSubview(sectionView)
             } else if indexPath.section == 2 {
@@ -374,7 +372,7 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 3 {
-            liveDetail(modelArray: (dataSource.first?.home_tj_live)!, index: indexPath.item)
+            liveDetail(liveListModel: (dataSource.first?.home_tj_live![indexPath.item])!)
         }
     }
     
@@ -405,7 +403,7 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
         print("点击了第\(index+1)个图片")
         
         let VC = TYSHomeWebViewController()
-        VC.url = cycleDataSource[index]
+        VC.url = cycleLinkPathDataSource[index]
         
         navigationController?.pushViewController(VC, animated: true)
     }

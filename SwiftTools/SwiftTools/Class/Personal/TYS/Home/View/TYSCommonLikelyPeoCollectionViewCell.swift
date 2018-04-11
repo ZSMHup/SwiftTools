@@ -24,7 +24,7 @@ class TYSCommonLikelyPeoCollectionViewCell: UICollectionViewCell {
     }
     
     func setModel(model: TYSInterestedPeopleModel) {
-        guard let iconURL = URL(string: model.head_img ?? "") else { return }
+        let iconURL = URL(string: model.head_img ?? "")
         userImgView?.kf.setImage(with: iconURL, placeholder:UIImage(named: "defaut_avatar"))
         nameLabel?.text = model.name ?? "暂无数据"
     }

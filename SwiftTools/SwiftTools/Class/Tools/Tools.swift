@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Foundation
+import Security
 
 typealias itemClickBlock = (Int) -> Void
 
@@ -105,4 +107,24 @@ func ay_getHeight(string: String, fontSize: CGFloat, width: CGFloat, maxHeight: 
     return ceil(rect.height)>maxHeight ? maxHeight : ceil(rect.height)
 }
 
+/// 日期处理
+///
+/// - Parameter date: 日期（string）
+/// - Returns: 返回想要的日期格式
+func formatDate(date: String) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.locale = Locale.current
+    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    let formatDate = dateFormatter.date(from: date)
+    
+    let calendar = Calendar.current
+    _ = calendar.component(.era, from: formatDate!)
+    let year = calendar.component(.year, from: formatDate!)
+    let month = calendar.component(.month, from: formatDate!)
+    let day = calendar.component(.day, from: formatDate!)
+    let hour = calendar.component(.hour, from: formatDate!)
+    let minute = calendar.component(.minute, from: formatDate!)
+    _ = calendar.component(.second, from: formatDate!)
+    return String(format: "%.2zd/%.2zd/%.2zd %.2zd:%.2zd", year, month, day, hour, minute)
+}
 

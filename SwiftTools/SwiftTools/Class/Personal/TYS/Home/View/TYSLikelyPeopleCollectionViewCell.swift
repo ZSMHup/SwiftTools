@@ -37,6 +37,7 @@ class TYSLikelyPeopleCollectionViewCell: UICollectionViewCell {
     
     func setInterestedPeoArray(interestedPeoArray: [TYSInterestedPeopleModel]) {
         interestedPeoArr = interestedPeoArray
+        collectionView.reloadData()
     }
 }
 
@@ -64,6 +65,7 @@ extension TYSLikelyPeopleCollectionViewCell: UICollectionViewDelegate, UICollect
         let cell: TYSCommonLikelyPeoCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSCommonLikelyPeoCollectionViewCell", for: indexPath) as! TYSCommonLikelyPeoCollectionViewCell
         
         cell.setModel(model: interestedPeoArr[indexPath.item])
+        
         return cell
     }
 }

@@ -65,7 +65,7 @@ class AYRequestManager {
 }
 
 // MARK: - 请求任务
-public class AYRequestTaskManager {
+public class AYRequestTaskManager: AYRequestProtocol {
     fileprivate var dataRequest: DataRequest?
     fileprivate var cache: Bool = false
     fileprivate var cacheKey: String!
@@ -96,6 +96,12 @@ public class AYRequestTaskManager {
     public func cacheData(completion: @escaping (Data)->()) -> AYDataResponse {
         let dataResponse = AYDataResponse(dataRequest: dataRequest!, cache: cache, cacheKey: cacheKey, completionClosure: completionClosure)
         return dataResponse.cacheData(completion: completion)
+    }
+    
+    /// 响应Data
+    public func responseData(completion: @escaping (AYValue<Data>)->()) {
+        let dataResponse = AYDataResponse(dataRequest: dataRequest!, cache: cache, cacheKey: cacheKey, completionClosure: completionClosure)
+        dataResponse.responseData(completion: completion)
     }
     
     /// 先获取Data缓存，再响应Data
@@ -159,14 +165,14 @@ public class AYResponse {
     fileprivate func responseCache<T>(response: DataResponse<T>, completion: @escaping (AYValue<T>)->()) {
         if completionClosure != nil { completionClosure!() }
         let result = AYValue(isCacheData: false, result: response.result, response: response.response)
-//        print("--------")
-//        switch response.result {
-//        case .success(let value): print(value)
+        print("--------")
+        switch response.result {
+        case .success(_):
         if self.cache {/// 写入缓存
             AYCacheManager.default.setObject(response.data, forKey: self.cacheKey)
             }
-//        case .failure(let error): print(error.localizedDescription)
-//        }
+        case .failure(let error): print(error.localizedDescription)
+        }
         completion(result)
     }
 }

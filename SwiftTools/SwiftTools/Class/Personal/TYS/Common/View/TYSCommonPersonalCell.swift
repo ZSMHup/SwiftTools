@@ -20,6 +20,7 @@ class TYSCommonPersonalCell: UITableViewCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
         if reuseIdentifier == "TYSCommonPersonalCell" {
             addCommonSubViews()
         } else if reuseIdentifier == "TYSCommonPersonalAddMoveBtnCell" { // 带移组的cell
@@ -31,13 +32,32 @@ class TYSCommonPersonalCell: UITableViewCell {
         } else {
             personalCell()
         }
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setModel(model: TYSPersonalModel) {
+        if reuseIdentifier == "TYSCommonPersonalCell" {
+            
+        } else if reuseIdentifier == "TYSCommonPersonalAddMoveBtnCell" { // 带移组的cell
+            
+        } else if reuseIdentifier == "TYSCommonPersonalCenterCell" { //个人中心
+            let url = URL(string: model.head_img ?? "")
+            userImgView?.kf.setImage(with: url, placeholder: UIImage(named: "defaut_avatar"))
+            nameLabel?.text = model.name ?? model.mobile ?? "暂无数据"
+            orgLabel?.text = model.identityName 
+            authLabel?.text = model.userAuthStatus
+            
+            authLabel?.snp.updateConstraints({ (make) in
+                make.width.equalTo(AdaptW(w: ay_getWidth(string: (authLabel?.text)!, fontSize: 10, height: 20) + 5))
+            })
+            
+        } else {
+            
+        }
+    }
 
 }
 
@@ -45,7 +65,7 @@ extension TYSCommonPersonalCell {
     
     private func addCommonSubViews() {
         userImgView = UIImageView()
-        userImgView?.image = UIImage(named: "defaut_avatar")
+//        userImgView?.image = UIImage(named: "defaut_avatar")
         userImgView?.layer.masksToBounds = true
         userImgView?.layer.cornerRadius = 25
         contentView.addSubview(userImgView!)
@@ -133,7 +153,7 @@ extension TYSCommonPersonalCell {
         authLabel?.font = SystemFont(fontSize: 10)
         authLabel?.layer.borderColor = hexString("#F8D7D1").cgColor
         authLabel?.layer.borderWidth = 0.5
-        authLabel?.layer.cornerRadius = 0.5
+        authLabel?.layer.cornerRadius = 1
         authLabel?.layer.masksToBounds = true
         authLabel?.setContentInset(contentInset: UIEdgeInsetsMake(5, 5, 5, 5))
         
@@ -142,7 +162,7 @@ extension TYSCommonPersonalCell {
             make.centerY.equalTo((nameLabel?.snp.centerY)!)
             make.left.equalTo((nameLabel?.snp.right)!).offset(8.0)
             make.height.equalTo(20)
-            make.width.equalTo(AdaptW(w: ay_getWidth(string: (authLabel?.text)!, fontSize: 10, height: 20) + 10))
+            make.width.equalTo(AdaptW(w: ay_getWidth(string: (authLabel?.text)!, fontSize: 10, height: 20) + 5))
         })
     }
     

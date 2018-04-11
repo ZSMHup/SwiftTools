@@ -28,13 +28,13 @@ class TYSCommonCollectionViewCell: UICollectionViewCell {
     }
     
     func setModel(model: TYSLiveCommonModel) {
-        guard let iconURL = URL(string: model.live_img_path ?? "") else { return }
+        let iconURL = URL(string: model.live_img_path ?? "")
         commonImgView?.kf.setImage(with: iconURL, placeholder:UIImage(named: "default_live_cover"))
         stateImgView?.image = UIImage(named: getLiveStateImageNameByConfig(state: model.state!))
         watchCountLabel?.text = model.entry_count ?? ""
         titleLabel?.text = model.subject ?? ""
         nameLabel?.text = model.name ?? ""
-        dateLabel?.text = model.startTime ?? ""
+        dateLabel?.text = formatDate(date: model.startTime ?? "2018-01-01 00:00:00")
     }
     
     private func getLiveStateImageNameByConfig(state: String) -> String {

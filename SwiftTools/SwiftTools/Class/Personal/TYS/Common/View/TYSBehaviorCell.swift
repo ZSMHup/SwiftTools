@@ -31,6 +31,7 @@ class TYSBehaviorCell: UITableViewCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
         addSubViews()
     }
     
@@ -40,6 +41,7 @@ class TYSBehaviorCell: UITableViewCell {
     
     func setTabArray(tabArray: [Dictionary<String, Any>]) {
         tabDataSource = tabArray
+        collectionView.reloadData()
     }
     
     func didSelectedItemAction(tempClick: @escaping itemClickBlock) {

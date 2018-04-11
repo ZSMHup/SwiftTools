@@ -26,13 +26,13 @@ class TYSPersonalViewController: BaseViewController {
     }()
     
     private var featureDataSource = [
-        ["featureTitle" : "研值", "count" : "10000"],
-        ["featureTitle" : "粉丝", "count" : "100"],
-        ["featureTitle" : "关注", "count" : "1000"]
+        ["featureTitle" : "研值", "count" : "0"],
+        ["featureTitle" : "粉丝", "count" : "0"],
+        ["featureTitle" : "关注", "count" : "0"]
     ]
     private var publishDataSource = [
-        ["image" : "personal_user_button_melive", "count" : "10000"],
-        ["image" : "personal_user_button_addfriends", "count" : "100"]
+        ["image" : "personal_user_button_melive", "count" : "0"],
+        ["image" : "personal_user_button_addfriends", "count" : "0"]
     ]
 
     private var personalDataSource = [
@@ -44,13 +44,42 @@ class TYSPersonalViewController: BaseViewController {
         ["leftImage" : "personal_user_settings", "leftText" : "设置"]
     ]
     
+    var personalModel: TYSPersonalModel = TYSPersonalModel() {
+        willSet {
+            featureDataSource[0]["count"] = newValue.activity
+            featureDataSource[1]["count"] = newValue.fans_count
+            featureDataSource[2]["count"] = newValue.follow_count
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addSubViews()
     }
-
-
+    
+    private func requestPersonalDetailData() {
+        let param = [
+            "requestCode" : "10002",
+            "user_id" : "36738",
+        ]
+        requestPersonalDetail(paramterDic: param, cacheCompletion: { (cacheValue) in
+            
+            
+        }, successCompletion: { (successValue) in
+            if self.tableView.mj_header.isRefreshing {
+                self.tableView.mj_header.endRefreshing()
+            }
+            self.personalModel = successValue
+            self.tableView.reloadData()
+        }) { (failure) in
+            showFail(text: "网络异常")
+            if self.tableView.mj_header.isRefreshing {
+                self.tableView.mj_header.endRefreshing()
+            }
+        }
+    }
 }
 
 // MARK: setup ui
@@ -72,9 +101,7 @@ extension TYSPersonalViewController {
         }
         
         tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {[weak self] in
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
-                self?.tableView.mj_header.endRefreshing()
-            })
+            self?.requestPersonalDetailData()
         })
         tableView.mj_header.beginRefreshing()
     }
@@ -98,12 +125,11 @@ extension TYSPersonalViewController: UITableViewDataSource, UITableViewDelegate 
         switch indexPath.row {
         case 0:
             let cell: TYSCommonPersonalCell = tableView.dequeueReusableCell(withIdentifier: "TYSCommonPersonalCenterCell")! as! TYSCommonPersonalCell
-            cell.selectionStyle = .none
             cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, kScreenW)
+            cell.setModel(model: personalModel)
             return cell
         case 1:
             let cell: TYSBehaviorCell = tableView.dequeueReusableCell(withIdentifier: "TYSBehaviorCell")! as! TYSBehaviorCell
-            cell.selectionStyle = .none
             cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, kScreenW)
             cell.setTabArray(tabArray: featureDataSource)
             cell.didSelectedItemAction(tempClick: { (index) in
@@ -112,7 +138,6 @@ extension TYSPersonalViewController: UITableViewDataSource, UITableViewDelegate 
             return cell
         case 2:
             let cell: TYSPersonalPublishCell = tableView.dequeueReusableCell(withIdentifier: "TYSPersonalPublishCell")! as! TYSPersonalPublishCell
-            cell.selectionStyle = .none
             cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, kScreenW)
             cell.setTabArray(tabArray: publishDataSource)
             cell.didSelectedItemAction(tempClick: { (index) in
@@ -140,7 +165,15 @@ extension TYSPersonalViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        
+        switch indexPath.row {
+        case 8:
+            navigationController?.pushViewController(TYSSettingViewController(), animated: true)
+            
+        default:
+            break
+        }
+        
     }
 }
 
