@@ -39,7 +39,7 @@ class TYSRoadShowMyViewController: BaseViewController {
             "requestCode" : "80003",
             "page" : String(describing: page),
             "limit" : "10",
-            "user_id" : "36738",
+            "user_id" : loginModel.user_id ?? "",
             "q_t" : "1",
             "type" : "2",
             "has_join_meeting" : "1"

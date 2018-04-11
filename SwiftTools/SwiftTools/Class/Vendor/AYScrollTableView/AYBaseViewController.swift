@@ -25,8 +25,6 @@ class AYBaseViewController: UIViewController, UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetDifference = scrollView.contentOffset.y - lastContentOffset.y;
         
-        print(scrollView.contentOffset.y)
-        
         NotificationCenter.default.post(name: ChildScrollViewDidScrollNSNotification, object: nil, userInfo: ["scrollingScrollView" : scrollView, "offsetDifference" : offsetDifference])
         lastContentOffset = scrollView.contentOffset;
     }

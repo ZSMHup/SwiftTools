@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import HandyJSON
 
-class TYSLiveCommonModel: TYSRequestModel {
+struct TYSLiveCommonModel: HandyJSON {
     var industry_name: String? // 行业名称
     var live_img_path: String? // 行业名称
     var is_melive: String? // 是否我的直播 1是 2不是
@@ -33,3 +34,4 @@ class TYSLiveCommonModel: TYSRequestModel {
     var room_number: String? // 房间号码
     var room_pwd: String? // 房间密码
 }
+

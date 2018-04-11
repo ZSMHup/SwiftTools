@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import HandyJSON
 
-class TYSInterestedPeopleModel: TYSRequestModel {
+struct TYSInterestedPeopleModel: HandyJSON {
     var industry_name: String? // 行业名称 二级海外市场1,二级期货市场2,二级新三板1,二级市场
     var p_post_name: String? // 用户职位名称
     var company_profile: String? // 公司简介

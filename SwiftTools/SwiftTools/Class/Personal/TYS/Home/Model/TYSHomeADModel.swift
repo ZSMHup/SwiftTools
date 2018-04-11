@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import HandyJSON
 
-class TYSHomeADModel: TYSRequestModel {
+struct TYSHomeADModel: HandyJSON {
     var link_type: String? // 跳转连接类型 1html跳转
     var img_path: String? // 图片地址
     var link_path: String? // 连接地址

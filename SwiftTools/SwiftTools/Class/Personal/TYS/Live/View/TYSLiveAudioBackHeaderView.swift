@@ -200,5 +200,31 @@ extension TYSLiveAudioBackHeaderView {
 }
 
 extension TYSLiveAudioBackHeaderView {
+    func setLeftTime(text: String) {
+        leftTimeLabel?.text = text
+    }
     
+    func setRightTime(text: String) {
+        rightTimeLabel?.text = text
+    }
+    
+    func setSlider(value: Int32) {
+        slider?.value = Float(value)
+    }
+    
+    func setSlider(maxValue: Int32) {
+        slider?.maximumValue = Float(maxValue)
+    }
+    
+    func setSlider(minValue: Int32) {
+        slider?.minimumValue = Float(minValue)
+    }
+    
+    func changePlayState() {
+        playBtn?.isSelected = !(playBtn?.isSelected)!
+    }
+    
+    func changePlayState(play: Bool) {
+        playBtn?.isSelected = play
+    }
 }

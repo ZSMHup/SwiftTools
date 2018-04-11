@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import HandyJSON
 
-class TYSPersonalModel: TYSRequestModel {
+struct TYSPersonalModel: HandyJSON {
     var vip_end_time: String? // vip到期时间 格式YYYY-mm-dd
     var is_vip: String? // 是否vip 1是2不是
     var sex: String? // 性别 性别 0男 1女

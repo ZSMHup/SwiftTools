@@ -7,8 +7,27 @@
 //
 
 import Foundation
+import HandyJSON
 
-class TYSLoginModel: TYSRequestModel {
+class TYSLoginModel: NSObject, NSCoding, HandyJSON {
+    
+    struct PropertyKey {
+        static let user_idKey = "user_id"
+        static let access_tokenKey = "access_token"
+        static let org_idKey = "org_id"
+        static let mobile_stateKey = "mobile_state"
+        static let data_stateKey = "data_state"
+        static let auth_stateKey = "auth_state"
+        static let dis_stateKey = "dis_state"
+        static let typeKey = "type"
+        static let register_stateKey = "register_state"
+        static let play_stateKey = "play_state"
+        static let org_nameKey = "org_name"
+        static let data_state_timeKey = "data_state_time"
+        static let ly_countKey = "ly_count"
+        static let hy_countKey = "hy_count"
+    }
+    
     var user_id: String? // 用户ID
     var access_token: String? // 接口凭证
     var org_id: String? // 1 固定值 投研社机构ID
@@ -23,8 +42,46 @@ class TYSLoginModel: TYSRequestModel {
     var data_state_time: String? // V2资料审核通过时间
     var ly_count: String? // 路演参与次数
     var hy_count: String? // 会议参与次数
+    
+    required override init() {
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        user_id = aDecoder.decodeObject(forKey: PropertyKey.user_idKey) as? String
+        access_token = aDecoder.decodeObject(forKey: PropertyKey.access_tokenKey) as? String
+        org_id = aDecoder.decodeObject(forKey: PropertyKey.org_idKey) as? String
+        mobile_state = aDecoder.decodeObject(forKey: PropertyKey.mobile_stateKey) as? String
+        data_state = aDecoder.decodeObject(forKey: PropertyKey.data_stateKey) as? String
+        auth_state = aDecoder.decodeObject(forKey: PropertyKey.auth_stateKey) as? String
+        dis_state = aDecoder.decodeObject(forKey: PropertyKey.dis_stateKey) as? String
+        type = aDecoder.decodeObject(forKey: PropertyKey.typeKey) as? String
+        register_state = aDecoder.decodeObject(forKey: PropertyKey.register_stateKey) as? String
+        play_state = aDecoder.decodeObject(forKey: PropertyKey.play_stateKey) as? String
+        org_name = aDecoder.decodeObject(forKey: PropertyKey.org_nameKey) as? String
+        data_state_time = aDecoder.decodeObject(forKey: PropertyKey.data_state_timeKey) as? String
+        ly_count = aDecoder.decodeObject(forKey: PropertyKey.ly_countKey) as? String
+        hy_count = aDecoder.decodeObject(forKey: PropertyKey.hy_countKey) as? String
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(user_id, forKey: PropertyKey.user_idKey)
+        aCoder.encode(access_token, forKey: PropertyKey.access_tokenKey)
+        aCoder.encode(org_id, forKey: PropertyKey.org_idKey)
+        aCoder.encode(mobile_state, forKey: PropertyKey.mobile_stateKey)
+        aCoder.encode(data_state, forKey: PropertyKey.data_stateKey)
+        aCoder.encode(auth_state, forKey: PropertyKey.auth_stateKey)
+        aCoder.encode(dis_state, forKey: PropertyKey.dis_stateKey)
+        aCoder.encode(type, forKey: PropertyKey.typeKey)
+        aCoder.encode(register_state, forKey: PropertyKey.register_stateKey)
+        aCoder.encode(play_state, forKey: PropertyKey.play_stateKey)
+        aCoder.encode(org_name, forKey: PropertyKey.org_nameKey)
+        aCoder.encode(data_state_time, forKey: PropertyKey.data_state_timeKey)
+        aCoder.encode(ly_count, forKey: PropertyKey.ly_countKey)
+        aCoder.encode(hy_count, forKey: PropertyKey.hy_countKey)
+    }
 }
 
-class TYSLoginGetCaptcha: TYSRequestModel {
+struct TYSLoginGetCaptcha: HandyJSON {
     var vstatus: String? // 验证码
 }

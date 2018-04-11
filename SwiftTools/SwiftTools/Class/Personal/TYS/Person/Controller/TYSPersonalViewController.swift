@@ -62,7 +62,7 @@ class TYSPersonalViewController: BaseViewController {
     private func requestPersonalDetailData() {
         let param = [
             "requestCode" : "10002",
-            "user_id" : "36738",
+            "user_id" : loginModel.user_id ?? "",
         ]
         requestPersonalDetail(paramterDic: param, cacheCompletion: { (cacheValue) in
             

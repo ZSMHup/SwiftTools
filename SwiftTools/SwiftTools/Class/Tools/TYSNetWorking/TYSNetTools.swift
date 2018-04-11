@@ -10,8 +10,8 @@ import Foundation
 import SwiftyJSON
 import HandyJSON
 
-let url = "http://api.touyanshe.com.cn/touyanshe_api/s/api"
-//let url = "http://tyapi.znzkj.net/touyanshe_api/s/api"
+//let url = "http://api.touyanshe.com.cn/touyanshe_api/s/api"
+let url = "http://tyapi.znzkj.net/touyanshe_api/s/api"
 
 private var modelClass: String?
 
@@ -88,8 +88,10 @@ func convertToModel(json: String) {
 }
 
 func configParameters(paramterDic: Dictionary<String, Any>) -> Dictionary<String, Any> {
+    
     var paramsDic = [String : AnyObject]()
-    let token = "32d6ac1566e77585f83e4386727a97c8"
+    
+    let token = loginModel.access_token ?? ""
     paramsDic["accessToken"] = token as AnyObject
     paramsDic["version"] = "4.0.5" as AnyObject
     paramsDic["deviceType"] = "1" as AnyObject

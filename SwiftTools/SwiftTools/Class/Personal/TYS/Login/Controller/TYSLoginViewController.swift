@@ -89,6 +89,7 @@ extension TYSLoginViewController {
     }
     
     @objc private func wechatBtnClick() {
+
         let homeVc = TYSHomeViewController()
         self.navigationController?.pushViewController(homeVc, animated: true)
     }

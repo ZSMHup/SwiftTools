@@ -185,6 +185,7 @@ class TYSMobileLoginViewController: BaseViewController {
         telNumTextField?.font = AdaptFont(fontSize: 16)
         telNumTextField?.borderStyle = .none
         telNumTextField?.maxLength = 11
+        telNumTextField?.text = UserDefaults.standard.getCustomObject(forKey: "phoneNumber") as? String
         view.addSubview(telNumTextField!)
         telNumTextField?.snp.makeConstraints { (make) in
             make.left.equalTo(view.snp.left).offset(AdaptW(w: 39))
@@ -205,6 +206,9 @@ class TYSMobileLoginViewController: BaseViewController {
         ]
         
         requestMobileLogin(paramterDic: param, successCompletion: { (successValue) in
+            
+            UserDefaults.standard.saveCustomObject(customObject: self.mobile as NSCoding, key: "phoneNumber")
+            UserDefaults.standard.saveCustomObject(customObject: successValue, key: "loginModel")
             let homeVc = TYSHomeViewController()
             self.navigationController?.pushViewController(homeVc, animated: true)
         }) { (failure) in
@@ -250,6 +254,7 @@ class TYSMobileLoginViewController: BaseViewController {
         
         phoneLoginBtn?.backgroundColor = tys_backgroundColor
         phoneLoginBtn?.isEnabled = true
+        mobile = (telNumTextField?.text)!
     }
 }
 
