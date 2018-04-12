@@ -68,3 +68,29 @@ func requestLiveJoinLive(
         failureCompletion(error)
     }
 }
+
+// MARK: 查询直播问题列表
+func requestLiveQuestionList(
+    paramterDic: Dictionary<String, Any>,
+    cacheCompletion: @escaping (TYSLiveQuestionModel)->(),
+    successCompletion: @escaping (TYSLiveQuestionModel)->(),
+    failureCompletion: @escaping (Any)->()) {
+    
+    requestHanlder(paramterDic: paramterDic, cache: true, cacheCompletion: { (cacheValue) in
+        let resultDic = getDictionaryFromJSONString(jsonString: cacheValue as! String)
+        let object = resultDic["object"]
+        
+        let obj: [String : Any] = object as! [String : Any]
+        let model = JSONDeserializer<TYSLiveQuestionModel>.deserializeFrom(dict: obj)!
+        cacheCompletion(model)
+    }, successCompletion: { (successValue) in
+        let resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
+        let object = resultDic["object"]
+        
+        let obj: [String : Any] = object as! [String : Any]
+        let model = JSONDeserializer<TYSLiveQuestionModel>.deserializeFrom(dict: obj)!
+        successCompletion(model)
+    }) { (error) in
+        failureCompletion(error)
+    }
+}

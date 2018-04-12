@@ -16,7 +16,7 @@ class TYSLiveAudioBackViewController: BaseViewController {
     
     private var lastPageMenuY: CGFloat?
     private var lastPoint: CGPoint = CGPoint.zero
-    var liveDetailModel: TYSLiveDetailModel?
+    var liveDetailModel = TYSLiveDetailModel()
     var joinLiveModel = TYSLiveJoinLiveModel()
     
     var vodplayer: VodPlayer?
@@ -38,7 +38,7 @@ class TYSLiveAudioBackViewController: BaseViewController {
        let tempScrollView = UIScrollView(frame: view.bounds)
         tempScrollView.delegate = self
         tempScrollView.isPagingEnabled = true
-        tempScrollView.contentSize = CGSize(width: kScreenW * 4, height: 0)
+        tempScrollView.contentSize = CGSize(width: kScreenW * 3, height: 0)
         tempScrollView.showsVerticalScrollIndicator = false
         tempScrollView.showsHorizontalScrollIndicator = false
         return tempScrollView
@@ -46,7 +46,7 @@ class TYSLiveAudioBackViewController: BaseViewController {
     
     private lazy var headerView: TYSLiveAudioBackHeaderView = {
         
-        let tempHeaderView = TYSLiveAudioBackHeaderView.createHeaderView(frame: CGRect(x: 0, y: kScrollViewBeginTopInset, width: kScreenW, height: kHeaderViewH), image: (liveDetailModel?.live_img_path)!)
+        let tempHeaderView = TYSLiveAudioBackHeaderView.createHeaderView(frame: CGRect(x: 0, y: kScrollViewBeginTopInset, width: kScreenW, height: kHeaderViewH), image: (liveDetailModel.live_img_path)!)
         tempHeaderView.delegate = self
         let pan: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizerAction(pan:)))
         tempHeaderView.addGestureRecognizer(pan)
@@ -54,7 +54,7 @@ class TYSLiveAudioBackViewController: BaseViewController {
     }()
     
     private lazy var pageMenu: AYPageMenu = {
-        let items = ["互动","文档","提问", "资料"]
+        let items = ["互动","提问", "资料"]
        let tempPageMenu = AYPageMenu(frame: CGRect(x: 0, y: kHeaderViewH + kNavigationBarHeight, width: kScreenW, height: kPageMenuH)).pageMenu(items: items)
         tempPageMenu.delegate = self
         tempPageMenu.isTimer = false
@@ -113,10 +113,10 @@ class TYSLiveAudioBackViewController: BaseViewController {
 extension TYSLiveAudioBackViewController {
     
     private func joinLive() {
-        if liveDetailModel?.is_melive == "1" { // 我的直播
+        if liveDetailModel.is_melive == "1" { // 我的直播
             requestLiveJoinLiveData()
         } else {
-            if liveDetailModel?.is_signup == "2" { // 未报名
+            if liveDetailModel.is_signup == "2" { // 未报名
                 requestLiveSignUpData()
             } else {
                 requestLiveJoinLiveData()
@@ -178,7 +178,7 @@ extension TYSLiveAudioBackViewController {
         let param = [
             "requestCode" : "81000",
             "user_id" : loginModel.user_id ?? "",
-            "live_id" : liveDetailModel?.id ?? ""
+            "live_id" : liveDetailModel.id ?? ""
         ]
         
         requestLiveSignUp(paramterDic: param, successCompletion: {[weak self] (signUpModel) in
@@ -193,7 +193,7 @@ extension TYSLiveAudioBackViewController {
         let param = [
             "requestCode" : "82000",
             "user_id" : loginModel.user_id ?? "",
-            "live_id" : liveDetailModel?.id ?? ""
+            "live_id" : liveDetailModel.id ?? ""
         ]
         
         requestLiveJoinLive(paramterDic: param, successCompletion: {[weak self] (joinModel) in
@@ -210,10 +210,15 @@ extension TYSLiveAudioBackViewController {
         view.addSubview(scrollView)
         view.addSubview(headerView)
         view.addSubview(pageMenu)
-        self.addChildViewController(TYSLiveChatViewController())
-        self.addChildViewController(TYSLiveSyncViewController())
-        self.addChildViewController(TYSLiveQuestionViewController())
-        self.addChildViewController(TYSLiveFileViewController())
+        
+        let chatVC = TYSLiveChatViewController()
+        let questionVC = TYSLiveQuestionViewController()
+        questionVC.liveDetailModel = liveDetailModel
+        let fileVC = TYSLiveFileViewController()
+        
+        self.addChildViewController(chatVC)
+        self.addChildViewController(questionVC)
+        self.addChildViewController(fileVC)
         scrollView.addSubview(self.childViewControllers[0].view)
     }
 }
@@ -330,7 +335,7 @@ extension TYSLiveAudioBackViewController: UIScrollViewDelegate, AYPageMenuDelega
         if isVideoFinished {
             tys_setupVodPlayer(backId: joinLiveModel.back_id!)
         } else {
-            if (joinLiveModel.back_id?.isEmpty)! && isOffLinePlay {
+            if (joinLiveModel.back_id == nil) && !isOffLinePlay {
                 showOnlyText(text: "该回听正在生成或回听数据被工作人员移除，请稍后重试")
                 didPlay.isSelected = false
             } else {

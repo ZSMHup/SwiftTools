@@ -24,6 +24,9 @@ class TYSRecReadContentViewController: BaseViewController {
         tempTableView.register(TYSRecReadContentCell.self, forCellReuseIdentifier: "TYSRecReadContentCell1")
         return tempTableView
     }()
+    
+    private var page: Int = 1
+    private var dataSource = [TYSRecReadModel]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,19 +42,54 @@ class TYSRecReadContentViewController: BaseViewController {
         }
         
         tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {[weak self] in
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
-                self?.tableView.mj_header.endRefreshing()
-            })
+            self?.page = 1
+            self?.requestRecReadListData()
         })
         
         tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: {[weak self] in
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
-                self?.tableView.mj_footer.endRefreshing()
-            })
+            self?.page += 1
+            self?.requestRecReadListData()
         })
         tableView.mj_header.beginRefreshing()
     }
 
+    private func requestRecReadListData() {
+        let param = [
+            "requestCode" : "V240015",
+            "page" : String(describing: page),
+            "limit" : "10",
+            "login_user_id" : loginModel.user_id ?? ""
+        ]
+        requestRecReadList(paramterDic: param, cacheCompletion: { (cacheValue) in
+            if self.tableView.mj_header.isRefreshing {
+                if !cacheValue.isEmpty {
+                    self.dataSource.removeAll()
+                    self.dataSource = cacheValue
+                    self.tableView.reloadData()
+                }
+            }
+        }, successCompletion: { (successValue) in
+            if self.tableView.mj_header.isRefreshing {
+                self.tableView.mj_header.endRefreshing()
+                self.dataSource.removeAll()
+            }
+            
+            if self.tableView.mj_footer.isRefreshing {
+                self.tableView.mj_footer.endRefreshing()
+            }
+            self.dataSource.append(contentsOf: successValue)
+            self.tableView.reloadData()
+            
+        }) { (failure) in
+            showFail(text: "网络异常")
+            if self.tableView.mj_header.isRefreshing {
+                self.tableView.mj_header.endRefreshing()
+            }
+            if self.tableView.mj_footer.isRefreshing {
+                self.tableView.mj_footer.endRefreshing()
+            }
+        }
+    }
 
 }
 
@@ -59,28 +97,47 @@ class TYSRecReadContentViewController: BaseViewController {
 extension TYSRecReadContentViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return dataSource.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.row % 2 == 0 {
+        let model: TYSRecReadModel = self.dataSource[indexPath.row]
+        
+        switch model.res {
+        case "5"?:
+            if model.tj_user_id == nil {
+                let cell: TYSRecReadContentCell = tableView.dequeueReusableCell(withIdentifier: "TYSRecReadContentCell")! as! TYSRecReadContentCell
+                cell.setModel(model: model)
+                return cell
+            } else {
+                let cell: TYSRecReadContentCell = tableView.dequeueReusableCell(withIdentifier: "TYSRecReadContentCell1")! as! TYSRecReadContentCell
+                cell.setModel(model: model)
+                return cell
+            }
+        case "4"?, "6"?:
+            if model.res == "4" {
+                let cell: TYSRecReadContentCell = tableView.dequeueReusableCell(withIdentifier: "TYSRecReadContentCell")! as! TYSRecReadContentCell
+                cell.setModel(model: model)
+                return cell
+            } else {
+                let cell: TYSRecReadContentCell = tableView.dequeueReusableCell(withIdentifier: "TYSRecReadContentCell1")! as! TYSRecReadContentCell
+                cell.setModel(model: model)
+                return cell
+            }
+        default:
             let cell: TYSRecReadContentCell = tableView.dequeueReusableCell(withIdentifier: "TYSRecReadContentCell")! as! TYSRecReadContentCell
-            
-            return cell
-        } else {
-            let cell: TYSRecReadContentCell = tableView.dequeueReusableCell(withIdentifier: "TYSRecReadContentCell1")! as! TYSRecReadContentCell
-            
+            cell.setModel(model: model)
             return cell
         }
-        
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        print("\(classForCoder) --- \(indexPath.row)")
-        print("\(String(describing: getCurrentController()))")
+        
+        let detailVc = TYSRecReadDetailViewController()
+        detailVc.recReadModel = self.dataSource[indexPath.row]
+        getCurrentController()?.navigationController?.pushViewController(detailVc, animated: true)
     }
     
 }

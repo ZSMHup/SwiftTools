@@ -64,7 +64,7 @@ class AYWKWebView: UIView {
         }
     }
     
-    /*
+    
     /// 导航栏存在且有穿透效果(默认导航栏存在且有穿透效果)
     var isNavigationBarOrTranslucent: Bool = true {
         willSet {
@@ -75,7 +75,7 @@ class AYWKWebView: UIView {
             }
         }
     }
-     */
+ 
     
     private lazy var wkWebView: WKWebView = {
         let tempWkWebView = WKWebView(frame: self.bounds)
@@ -103,6 +103,7 @@ class AYWKWebView: UIView {
         webView.addSubViews()
         return webView
     }
+    
 }
 
 extension AYWKWebView {
@@ -124,6 +125,13 @@ extension AYWKWebView {
             print("url为空")
         }
     }
+    
+    func loadHtmlString(htmlString: String) {
+        wkWebView.loadHTMLString(htmlString, baseURL: nil)
+        
+    }
+    
+    
     
     /// 刷新数据
     func reloadData() {

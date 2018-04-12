@@ -118,9 +118,50 @@ func requestLiveList(
     }
 }
 
+// MARK: 查询荐读列表
+func requestRecReadList(
+    paramterDic: Dictionary<String, Any>,
+    cacheCompletion: @escaping ([TYSRecReadModel])->(),
+    successCompletion: @escaping ([TYSRecReadModel])->(),
+    failureCompletion: @escaping (Any)->()) {
+    requestHanlder(paramterDic: paramterDic, cache: true, cacheCompletion: { (cacheValue) in
+        let resultDic = getDictionaryFromJSONString(jsonString: cacheValue as! String)
+        let object: [Any] = resultDic["object"] as! [Any]
+        
+        let model = JSONDeserializer<TYSRecReadModel>.deserializeModelArrayFrom(array: object)
+        
+        cacheCompletion(model! as! [TYSRecReadModel])
+    }, successCompletion: { (successValue) in
+        let resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
+        let object: [Any] = resultDic["object"] as! [Any]
+        
+        let model = JSONDeserializer<TYSRecReadModel>.deserializeModelArrayFrom(array: object)
+        
+        successCompletion(model! as! [TYSRecReadModel])
+    }) { (error) in
+        failureCompletion(error)
+    }
+}
 
-
-
+// MARK: 查询荐读详情
+func requestRecReadDetail(
+    paramterDic: Dictionary<String, Any>,
+    successCompletion: @escaping (TYSRecReadDetailModel)->(),
+    failureCompletion: @escaping (Any)->()) {
+    
+    requestHanlder(paramterDic: paramterDic, cache: false, cacheCompletion: { (cacheValue) in
+        
+    }, successCompletion: { (successValue) in
+        let resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
+        let object = resultDic["object"]
+        
+        let obj: [String : Any] = object as! [String : Any]
+        let model = JSONDeserializer<TYSRecReadDetailModel>.deserializeFrom(dict: obj)!
+        successCompletion(model)
+    }) { (error) in
+        failureCompletion(error)
+    }
+}
 
 
 

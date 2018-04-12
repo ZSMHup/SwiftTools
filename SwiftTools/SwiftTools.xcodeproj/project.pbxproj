@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5DDC04B79518FDE65A9AC81B /* Pods_SwiftTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 415EAB8B3A578FC84B784CC9 /* Pods_SwiftTools.framework */; };
+		E101B0FF207F4EB300416EA8 /* littleArticleTemplate.html in Resources */ = {isa = PBXBuildFile; fileRef = E101B0FE207F4EB300416EA8 /* littleArticleTemplate.html */; };
 		E1029F112069E32600157324 /* TYSLiveCommonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1029F102069E32600157324 /* TYSLiveCommonModel.swift */; };
 		E1029F1D2069E8F000157324 /* AYCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1029F162069E8F000157324 /* AYCacheManager.swift */; };
 		E1029F1E2069E8F000157324 /* AYNetTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1029F172069E8F000157324 /* AYNetTools.swift */; };
@@ -46,6 +47,11 @@
 		E15191C92071FD2D00C419A0 /* TYSRecReadContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15191C82071FD2D00C419A0 /* TYSRecReadContentCell.swift */; };
 		E15191CB20721A0A00C419A0 /* TYSRecReadAboutMeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15191CA20721A0A00C419A0 /* TYSRecReadAboutMeCell.swift */; };
 		E15191CF2072344500C419A0 /* TYSConnectionLikelyPeoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15191CE2072344500C419A0 /* TYSConnectionLikelyPeoCell.swift */; };
+		E1577AD2207EEAEA008D1FF4 /* TYSLiveQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1577AD1207EEAEA008D1FF4 /* TYSLiveQuestionCell.swift */; };
+		E1577AD4207F11B1008D1FF4 /* TYSRecReadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1577AD3207F11B1008D1FF4 /* TYSRecReadModel.swift */; };
+		E1577AD6207F303E008D1FF4 /* TYSRecReadDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1577AD5207F303E008D1FF4 /* TYSRecReadDetailModel.swift */; };
+		E1577AD8207F3211008D1FF4 /* TYSRecReadDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1577AD7207F3211008D1FF4 /* TYSRecReadDetailViewController.swift */; };
+		E1577ADA207F35DA008D1FF4 /* TYSRecReadDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1577AD9207F35DA008D1FF4 /* TYSRecReadDetailHeaderView.swift */; };
 		E158E400207C565100D09EAC /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E158E3FF207C565100D09EAC /* AppConfig.swift */; };
 		E158E402207C7AC600D09EAC /* SwiftProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = E158E401207C7AC600D09EAC /* SwiftProgressHUD.swift */; };
 		E158E404207C7B2800D09EAC /* AYHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = E158E403207C7B2800D09EAC /* AYHUD.swift */; };
@@ -90,6 +96,7 @@
 		E17A081B206113EC00887C69 /* TYSLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17A081A206113EC00887C69 /* TYSLoginViewController.swift */; };
 		E1800EE9207DC5A900A3A6AA /* UserDefaults+Save.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1800EE8207DC5A900A3A6AA /* UserDefaults+Save.swift */; };
 		E1800EEB207DE48C00A3A6AA /* TYSLiveJoinLiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1800EEA207DE48C00A3A6AA /* TYSLiveJoinLiveModel.swift */; };
+		E1800EED207E0E4E00A3A6AA /* TYSLiveQuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1800EEC207E0E4E00A3A6AA /* TYSLiveQuestionModel.swift */; };
 		E181FC5F20624B2600E6684A /* TYSSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E181FC5E20624B2600E6684A /* TYSSectionView.swift */; };
 		E18AE3C220649FC200655AD2 /* TYSMobileLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18AE3C120649FC200655AD2 /* TYSMobileLoginViewController.swift */; };
 		E18AE3C42064A53800655AD2 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18AE3C32064A53800655AD2 /* TextField.swift */; };
@@ -120,6 +127,7 @@
 		154428B7E3A5B402739B4136 /* Pods-SwiftTools.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftTools.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftTools/Pods-SwiftTools.debug.xcconfig"; sourceTree = "<group>"; };
 		415EAB8B3A578FC84B784CC9 /* Pods_SwiftTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C10B39A2E413B97ED81B0D42 /* Pods-SwiftTools.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftTools.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftTools/Pods-SwiftTools.release.xcconfig"; sourceTree = "<group>"; };
+		E101B0FE207F4EB300416EA8 /* littleArticleTemplate.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = littleArticleTemplate.html; sourceTree = "<group>"; };
 		E1029F102069E32600157324 /* TYSLiveCommonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSLiveCommonModel.swift; sourceTree = "<group>"; };
 		E1029F162069E8F000157324 /* AYCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AYCacheManager.swift; sourceTree = "<group>"; };
 		E1029F172069E8F000157324 /* AYNetTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AYNetTools.swift; sourceTree = "<group>"; };
@@ -158,6 +166,11 @@
 		E15191C82071FD2D00C419A0 /* TYSRecReadContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSRecReadContentCell.swift; sourceTree = "<group>"; };
 		E15191CA20721A0A00C419A0 /* TYSRecReadAboutMeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSRecReadAboutMeCell.swift; sourceTree = "<group>"; };
 		E15191CE2072344500C419A0 /* TYSConnectionLikelyPeoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSConnectionLikelyPeoCell.swift; sourceTree = "<group>"; };
+		E1577AD1207EEAEA008D1FF4 /* TYSLiveQuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSLiveQuestionCell.swift; sourceTree = "<group>"; };
+		E1577AD3207F11B1008D1FF4 /* TYSRecReadModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSRecReadModel.swift; sourceTree = "<group>"; };
+		E1577AD5207F303E008D1FF4 /* TYSRecReadDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSRecReadDetailModel.swift; sourceTree = "<group>"; };
+		E1577AD7207F3211008D1FF4 /* TYSRecReadDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSRecReadDetailViewController.swift; sourceTree = "<group>"; };
+		E1577AD9207F35DA008D1FF4 /* TYSRecReadDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSRecReadDetailHeaderView.swift; sourceTree = "<group>"; };
 		E158E3FB207C474E00D09EAC /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		E158E3FF207C565100D09EAC /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		E158E401207C7AC600D09EAC /* SwiftProgressHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftProgressHUD.swift; sourceTree = "<group>"; };
@@ -205,6 +218,7 @@
 		E17A081A206113EC00887C69 /* TYSLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSLoginViewController.swift; sourceTree = "<group>"; };
 		E1800EE8207DC5A900A3A6AA /* UserDefaults+Save.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Save.swift"; sourceTree = "<group>"; };
 		E1800EEA207DE48C00A3A6AA /* TYSLiveJoinLiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSLiveJoinLiveModel.swift; sourceTree = "<group>"; };
+		E1800EEC207E0E4E00A3A6AA /* TYSLiveQuestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSLiveQuestionModel.swift; sourceTree = "<group>"; };
 		E181FC5E20624B2600E6684A /* TYSSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSSectionView.swift; sourceTree = "<group>"; };
 		E18AE3C120649FC200655AD2 /* TYSMobileLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSMobileLoginViewController.swift; sourceTree = "<group>"; };
 		E18AE3C32064A53800655AD2 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
@@ -269,6 +283,14 @@
 				415EAB8B3A578FC84B784CC9 /* Pods_SwiftTools.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E101B0FD207F4E6A00416EA8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E101B0FE207F4EB300416EA8 /* littleArticleTemplate.html */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		E1029F142069E8F000157324 /* TYSNetWorking */ = {
@@ -376,6 +398,7 @@
 				E15191A72071E2A900C419A0 /* TYSRecReadViewController.swift */,
 				E15191A62071E2A900C419A0 /* TYSRecReadContentViewController.swift */,
 				E15191A52071E2A900C419A0 /* TYSRecReadAboutMeViewController.swift */,
+				E1577AD7207F3211008D1FF4 /* TYSRecReadDetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -383,6 +406,8 @@
 		E15191A82071E2A900C419A0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E1577AD3207F11B1008D1FF4 /* TYSRecReadModel.swift */,
+				E1577AD5207F303E008D1FF4 /* TYSRecReadDetailModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -392,6 +417,7 @@
 			children = (
 				E15191C82071FD2D00C419A0 /* TYSRecReadContentCell.swift */,
 				E15191CA20721A0A00C419A0 /* TYSRecReadAboutMeCell.swift */,
+				E1577AD9207F35DA008D1FF4 /* TYSRecReadDetailHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -596,6 +622,7 @@
 				E17A07FD20610CB300887C69 /* Config */,
 				E17A08002061113000887C69 /* Tools */,
 				E17A08012061113100887C69 /* Utils */,
+				E101B0FD207F4E6A00416EA8 /* Resources */,
 				E1771B6C206358400050C244 /* Vendor */,
 			);
 			path = Class;
@@ -860,6 +887,7 @@
 		E1F4C76A2074BA2B0056B427 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E1800EEC207E0E4E00A3A6AA /* TYSLiveQuestionModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -867,6 +895,7 @@
 		E1F4C76B2074BA2B0056B427 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E1577AD1207EEAEA008D1FF4 /* TYSLiveQuestionCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -935,6 +964,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E17A07E42060CB5200887C69 /* LaunchScreen.storyboard in Resources */,
+				E101B0FF207F4EB300416EA8 /* littleArticleTemplate.html in Resources */,
 				E17A07E12060CB5200887C69 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1032,6 +1062,8 @@
 				E1EF4A9F206CC77F00C93303 /* TYSRecLiveViewController.swift in Sources */,
 				E1771B7E2063A43E0050C244 /* TYSLikelyPeopleCollectionViewCell.swift in Sources */,
 				E142723A207B68A2001FC52D /* AYKeychain.m in Sources */,
+				E1577ADA207F35DA008D1FF4 /* TYSRecReadDetailHeaderView.swift in Sources */,
+				E1577AD2207EEAEA008D1FF4 /* TYSLiveQuestionCell.swift in Sources */,
 				E1029F1F2069E8F000157324 /* AYRequestManager.swift in Sources */,
 				E15191BC2071E2A900C419A0 /* TYSRecReadAboutMeViewController.swift in Sources */,
 				E17A0808206112BD00887C69 /* UIButton+Countdown.swift in Sources */,
@@ -1041,6 +1073,7 @@
 				E158E400207C565100D09EAC /* AppConfig.swift in Sources */,
 				E1771B7A20635F910050C244 /* WRNavigationBar.swift in Sources */,
 				E1771B7920635F910050C244 /* WRCustomNavigationBar.swift in Sources */,
+				E1577AD4207F11B1008D1FF4 /* TYSRecReadModel.swift in Sources */,
 				E16088FD2061EA4300580484 /* Tools.swift in Sources */,
 				E1029F262069ECD800157324 /* TYSRequestModel.swift in Sources */,
 				E1029F212069E8F000157324 /* CacheKey.swift in Sources */,
@@ -1089,7 +1122,9 @@
 				E15191C02071E2A900C419A0 /* TYSRoadShowMyViewController.swift in Sources */,
 				E1771B6B206348DA0050C244 /* TYSCommonCollectionViewCell.swift in Sources */,
 				E1EF4A9D206CC3E500C93303 /* TYSHotLiveViewController.swift in Sources */,
+				E1577AD8207F3211008D1FF4 /* TYSRecReadDetailViewController.swift in Sources */,
 				E1427237207B53EC001FC52D /* TYSLoginModel.swift in Sources */,
+				E1577AD6207F303E008D1FF4 /* TYSRecReadDetailModel.swift in Sources */,
 				E18AE3C42064A53800655AD2 /* TextField.swift in Sources */,
 				E1EF4AAF206CECFD00C93303 /* AYPageMenu.swift in Sources */,
 				E164526D207DB41300BEB18A /* TYSLiveSignupModel.swift in Sources */,
@@ -1105,6 +1140,7 @@
 				E17A07EF2060D0D800887C69 /* BaseViewController.swift in Sources */,
 				E1029F1D2069E8F000157324 /* AYCacheManager.swift in Sources */,
 				E1029F1E2069E8F000157324 /* AYNetTools.swift in Sources */,
+				E1800EED207E0E4E00A3A6AA /* TYSLiveQuestionModel.swift in Sources */,
 				E197E54520730F1100B18E86 /* TYSConnectionAnalystCollectionCell.swift in Sources */,
 				E1427235207B5367001FC52D /* TYSLoginRequest.swift in Sources */,
 				E15191C62071E2A900C419A0 /* TYSTelNewsLiveViewController.swift in Sources */,

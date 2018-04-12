@@ -34,11 +34,34 @@ class TYSRecReadContentCell: UITableViewCell {
             addSubViews()
             addRecSubViews()
         }
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setModel(model: TYSRecReadModel) {
+        let url = URL(string: model.head_img ?? "")
+        userImgView?.kf.setImage(with: url, placeholder: UIImage(named: "defaut_avatar"))
+        if reuseIdentifier == "TYSRecReadContentCell" {
+            nameLabel?.text = model.name ?? "暂无数据"
+            contentLabel?.text = model.title ?? "暂无数据"
+        } else {
+            let url = URL(string: model.tj_head_img ?? "")
+            recUserImgView?.kf.setImage(with: url, placeholder: UIImage(named: "defaut_avatar"))
+            nameLabel?.text = "\(model.name ?? "暂无数据") 推荐"
+            recNameLabel?.text = model.tj_user_name ?? "暂无数据"
+            recContentLabel?.text = model.title ?? "暂无数据"
+        }
+        timeLabel?.text = formatDate(date: model.create_time ?? "")
+        msgBtn?.setTitle(model.msg_count ?? "0", for: .normal)
+        collectionBtn?.setTitle(model.collection_count ?? "0", for: .normal)
+        likeBtn?.setTitle(model.like_count ?? "0", for: .normal)
+        if model.res == "1" {
+            cancelBtn?.isHidden = true
+        } else {
+            cancelBtn?.isHidden = false
+        }
     }
 }
 

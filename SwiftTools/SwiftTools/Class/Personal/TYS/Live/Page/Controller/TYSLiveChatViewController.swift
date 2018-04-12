@@ -38,7 +38,6 @@ class TYSLiveChatViewController: AYBaseViewController {
         view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
             make.left.top.right.bottom.equalTo(view)
-//            make.bottom.equalTo(view.snp.bottom)
         }
         
         tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {[weak self] in
