@@ -9,13 +9,13 @@
 import Foundation
 
 extension UserDefaults {
-    func saveCustomObject(customObject object: NSCoding, key: String) { //2
+    func saveCustomObject(customObject object: NSCoding, key: String) {
         let encodedObject = NSKeyedArchiver.archivedData(withRootObject: object)
         self.set(encodedObject, forKey: key)
         self.synchronize()
     }
     
-    func getCustomObject(forKey key: String) -> AnyObject? { //3
+    func getCustomObject(forKey key: String) -> AnyObject? { 
         if key.isEmpty {
             return nil
         }
