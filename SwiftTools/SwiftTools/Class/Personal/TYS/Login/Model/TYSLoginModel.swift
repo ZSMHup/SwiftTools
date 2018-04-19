@@ -8,6 +8,7 @@
 
 import Foundation
 import HandyJSON
+import SQLite
 
 class TYSLoginModel: NSObject, NSCoding, HandyJSON {
     
@@ -43,9 +44,79 @@ class TYSLoginModel: NSObject, NSCoding, HandyJSON {
     var ly_count: String? // 路演参与次数
     var hy_count: String? // 会议参与次数
     
+    private var db: Connection!
+    private let loginModel = Table("loginModel")
+    private let id = Expression<String>("access_token")
+    private let accessToken = Expression<String>("access_token")
+    private let userId = Expression<String>("user_id")
+    private let mobileState = Expression<String>("mobile_state")
+    
     required override init() {
-        
+        super.init()
+        createdsqlite3()
     }
+    
+    private func createdsqlite3(filePath: String = "/Documents")  {
+        
+        let sqlFilePath = NSHomeDirectory() + filePath + "/db.sqlite3"
+        do {
+            db = try Connection(sqlFilePath)
+            try db.run(loginModel.create { t in
+                t.column(id, primaryKey: true)
+                t.column(accessToken)
+                t.column(userId)
+                t.column(mobileState)
+            })
+        } catch {
+            print(error)
+        }
+    }
+    
+    //插入数据
+    func insertData(_userId: String, _mobileState: String, _accessToken: String){
+        do {
+            let insert = loginModel.insert(userId <- _userId, mobileState <- _mobileState, accessToken <- _accessToken)
+            try db.run(insert)
+        } catch {
+            print(error)
+        }
+    }
+    
+    //读取数据
+    func readData() -> [(id: String, userId: String, mobileState: String, accessToken: String)] {
+        var userData = (id: "", userId: "", mobileState: "", accessToken: "")
+        var userDataArr = [userData]
+        for user in try! db.prepare(loginModel) {
+            userData.id = user[id]
+            userData.userId = user[userId]
+            userData.mobileState = user[mobileState]
+            userData.accessToken = user[accessToken]
+            userDataArr.append(userData)
+        }
+        return userDataArr
+    }
+    
+    //更新数据
+//    func updateData(userId: String, old_name: String, new_name: String) {
+//        let currUser = loginModel.filter(id == userId)
+//        do {
+//            try db.run(currUser.update(name <- name.replace(old_name, with: new_name)))
+//        } catch {
+//            print(error)
+//        }
+//
+//    }
+    
+    //删除数据
+    func delData(userId: String) {
+        let currUser = loginModel.filter(id == userId)
+        do {
+            try db.run(currUser.delete())
+        } catch {
+            print(error)
+        }
+    }
+    
     
     required init?(coder aDecoder: NSCoder) {
         user_id = aDecoder.decodeObject(forKey: PropertyKey.user_idKey) as? String

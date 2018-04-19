@@ -10,7 +10,6 @@ import Foundation
 import SwiftyJSON
 import HandyJSON
 
-//let url = "http://api.touyanshe.com.cn/touyanshe_api/s/api"
 let url = "http://tyapi.znzkj.net/touyanshe_api/s/api"
 
 private var modelClass: String?
@@ -44,6 +43,11 @@ func requestHanlder(
                 
                 if statusCode != "00000" {
                     showOnlyText(text: msg)
+                    
+                    if msg == "accessToken失效" && statusCode == "90000" {
+                       UserDefaults.standard.removeObject(forKey: kLoginModelKey)
+                    }
+                    
                     return
                 }
                 

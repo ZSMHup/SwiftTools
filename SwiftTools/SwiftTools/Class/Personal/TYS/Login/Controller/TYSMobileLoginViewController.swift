@@ -206,9 +206,13 @@ class TYSMobileLoginViewController: BaseViewController {
         ]
         
         requestMobileLogin(paramterDic: param, successCompletion: { (successValue) in
-            
             UserDefaults.standard.saveCustomObject(customObject: self.mobile as NSCoding, key: "phoneNumber")
             UserDefaults.standard.saveCustomObject(customObject: successValue, key: "loginModel")
+            
+            let loginModel = TYSLoginModel()
+            loginModel.insertData(_userId: successValue.user_id ?? "", _mobileState: successValue.mobile_state ?? "", _accessToken: successValue.access_token ?? "")
+            
+            
             let homeVc = TYSHomeViewController()
             self.navigationController?.pushViewController(homeVc, animated: true)
         }) { (failure) in

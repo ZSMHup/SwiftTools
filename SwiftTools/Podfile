@@ -16,5 +16,6 @@ pod 'Cache'
 pod 'SwiftyJSON'
 pod 'HandyJSON', '4.0.0-beta.1'
 pod 'VerifyCode'
+pod 'SQLite.swift'
 
 end

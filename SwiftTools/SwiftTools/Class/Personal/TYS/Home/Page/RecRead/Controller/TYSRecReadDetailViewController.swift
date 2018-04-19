@@ -60,8 +60,8 @@ class TYSRecReadDetailViewController: BaseViewController {
         if model.type == "1" {
             contents = model.title ?? ""
             let tempContents = model.title?.replacingOccurrences(of: "\n", with: "<br />")
-            contents = htmlTemplate.replacingOccurrences(of: "</body>", with:String(format: "<p><span>%@</span></p><br /></body>", tempContents!))
-            contents = contents.replacingOccurrences(of: "</body>", with: "<p class=\"declaration\"><span class=\"declaration\">* 免责声明 · 本文内容不代表投研社的观点和立场，不构成任何投资建议。<br/></span></p> </body>")
+            contents = htmlTemplate.replacingOccurrences(of: "</body>", with:String(format: "<p class=\"p\">%@</p><br /></body>", tempContents!))
+            contents = contents.replacingOccurrences(of: "</body>", with: "<p class=\"declaration\">* 免责声明 · 本文内容不代表投研社的观点和立场，不构成任何投资建议。<br/></p> </body>")
             wkWebView.loadHtmlString(htmlString: contents)
         } else if model.type == "3" {
             if (model.path == nil) {
@@ -70,13 +70,14 @@ class TYSRecReadDetailViewController: BaseViewController {
                 wkWebView.loadRequest(urlString: model.path!)
             }
         } else {
+            if model.contents?.contains("<!DOCTYPE html") == false {
+                let littleArticleTemplateFilePath = Bundle.main.path(forResource: "littleArticleTemplate", ofType: "html") ?? ""
+                let htmlTemplate = try! String(contentsOfFile: littleArticleTemplateFilePath, encoding: .utf8)
+                contents = htmlTemplate.replacingOccurrences(of: "</body>", with: String(format: "<div>%@</div></body>", model.contents!))
+            }
             
-            
+            wkWebView.loadHtmlString(htmlString: contents)
         }
-        
-        
-        
-        
     }
 
 }
