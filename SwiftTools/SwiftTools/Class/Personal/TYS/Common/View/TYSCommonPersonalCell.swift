@@ -46,14 +46,13 @@ class TYSCommonPersonalCell: UITableViewCell {
         } else if reuseIdentifier == "TYSCommonPersonalCenterCell" { //个人中心
             let url = URL(string: model.head_img ?? "")
             userImgView?.kf.setImage(with: url, placeholder: UIImage(named: "defaut_avatar"))
-            nameLabel?.text = model.name ?? model.mobile ?? "暂无数据"
-            orgLabel?.text = model.identityName 
+            nameLabel?.text = model.userName
+            orgLabel?.text = model.identityName
             authLabel?.text = model.userAuthStatus
             
             authLabel?.snp.updateConstraints({ (make) in
-                make.width.equalTo(AdaptW(w: ay_getWidth(string: (authLabel?.text)!, fontSize: 10, height: 20) + 5))
+                make.width.equalTo(AdaptW(w: ay_getWidth(string: (authLabel?.text)!, fontSize: 10, height: 20) + 10))
             })
-            
         } else {
             
         }
@@ -65,7 +64,8 @@ extension TYSCommonPersonalCell {
     
     private func addCommonSubViews() {
         userImgView = UIImageView()
-//        userImgView?.image = UIImage(named: "defaut_avatar")
+//        let url = URL(string: TYSPersonalModel.manager.readPersonalData().head_img ?? "")
+//        userImgView?.kf.setImage(with: url, placeholder: UIImage(named: "defaut_avatar"))
         userImgView?.layer.masksToBounds = true
         userImgView?.layer.cornerRadius = 25
         contentView.addSubview(userImgView!)
@@ -76,7 +76,7 @@ extension TYSCommonPersonalCell {
         })
         
         nameLabel = UILabel()
-        nameLabel?.text = "投研社"
+//        nameLabel?.text = userName
         nameLabel?.textColor = tys_middleDarkColor
         nameLabel?.font = SystemFont(fontSize: 18)
         contentView.addSubview(nameLabel!)
@@ -87,7 +87,7 @@ extension TYSCommonPersonalCell {
         })
         
         orgLabel = UILabel()
-        orgLabel?.text = "测试"
+//        orgLabel?.text = identityName
         orgLabel?.textColor = tys_titleColor
         orgLabel?.font = SystemFont(fontSize: 14)
         contentView.addSubview(orgLabel!)
@@ -148,7 +148,7 @@ extension TYSCommonPersonalCell {
     
     private func addAuthLabel() {
         authLabel = AYEdgeInsetsLabel()
-        authLabel?.text = "直播已认证"
+        authLabel?.text = "未知状态"
         authLabel?.textColor = hexString("#E25039")
         authLabel?.font = SystemFont(fontSize: 10)
         authLabel?.layer.borderColor = hexString("#F8D7D1").cgColor

@@ -206,19 +206,15 @@ class TYSMobileLoginViewController: BaseViewController {
         ]
         
         requestMobileLogin(paramterDic: param, successCompletion: { (successValue) in
-            UserDefaults.standard.saveCustomObject(customObject: self.mobile as NSCoding, key: "phoneNumber")
-            UserDefaults.standard.saveCustomObject(customObject: successValue, key: "loginModel")
             
-            let loginModel = TYSLoginModel()
-            loginModel.insertData(_userId: successValue.user_id ?? "", _mobileState: successValue.mobile_state ?? "", _accessToken: successValue.access_token ?? "")
-            
-            
+            TYSLoginModel.manager.insert(loginModel: successValue)
+            UserDefaults.standard.saveCustomObject(customObject: true as NSCoding, key: "LoginState")
+
             let homeVc = TYSHomeViewController()
             self.navigationController?.pushViewController(homeVc, animated: true)
         }) { (failure) in
             showOnlyText(text: failure as! String)
         }
-    
     }
     
     private func requestGetCaptchaData(
@@ -266,18 +262,18 @@ class TYSMobileLoginViewController: BaseViewController {
 extension TYSMobileLoginViewController {
     
     @objc private func skipBtnClick() {
-        let homeVc = TYSHomeViewController()
-        self.navigationController?.pushViewController(homeVc, animated: true)
+//        let homeVc = TYSHomeViewController()
+//        self.navigationController?.pushViewController(homeVc, animated: true)
     }
     
     @objc private func wechatBtnClick() {
-        let homeVc = TYSHomeViewController()
-        self.navigationController?.pushViewController(homeVc, animated: true)
+        
+//        let homeVc = TYSHomeViewController()
+//        self.navigationController?.pushViewController(homeVc, animated: true)
     }
     
     @objc private func phoneLoginBtnClick() {
         requestMoblieLoginData()
-        
     }
     
     @objc private func getCaptchaBtnClick(button: UIButton) {

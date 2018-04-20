@@ -9,16 +9,34 @@
 import UIKit
 import SnapKit
 
+let LogoutNotification: NSNotification.Name = NSNotification.Name(rawValue: "LogoutNotification")
+
 class BaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.white
+        
+        addNotification()
     }
     
     deinit {
         print("deinit: \(self.classForCoder)")
+    }
+    
+    private func addNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(loginOut), name: LogoutNotification, object: nil)
+    }
+    
+}
+
+extension BaseViewController {
+    @objc private func loginOut() {
+        UserDefaults.standard.saveCustomObject(customObject: false as NSCoding, key: "LoginState")
+        let loginVc = TYSLoginViewController()
+        let loginNav = NavigationViewController(rootViewController: loginVc)
+        getCurrentWindow()?.rootViewController = loginNav
     }
 }
 
@@ -61,7 +79,7 @@ extension BaseViewController {
     }
     
     func requestLiveDetailData(liveId: String, completion: @escaping (TYSLiveDetailModel) -> ()) {
-        let param = ["requestCode" : "80005", "id" : liveId, "user_id" : loginModel.user_id ?? ""]
+        let param = ["requestCode" : "80005", "id" : liveId, "user_id" : kLoginModel.user_id ?? ""]
         requestLiveDetail(paramterDic: param, successCompletion: { (successValue) in
             completion(successValue)
         }) { (failure) in

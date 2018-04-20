@@ -58,7 +58,7 @@ class TYSRecReadContentViewController: BaseViewController {
             "requestCode" : "V240015",
             "page" : String(describing: page),
             "limit" : "10",
-            "login_user_id" : loginModel.user_id ?? ""
+            "login_user_id" : kLoginModel.user_id ?? ""
         ]
         requestRecReadList(paramterDic: param, cacheCompletion: { (cacheValue) in
             if self.tableView.mj_header.isRefreshing {

@@ -50,7 +50,7 @@ class TYSHomeViewController: BaseViewController {
     }
     
     private func requestHomeData() {
-        let param = ["requestCode" : "89000", "user_id" : loginModel.user_id ?? ""]
+        let param = ["requestCode" : "89000", "user_id" : kLoginModel.user_id ?? ""]
         requestHomeListData(paramterDic: param, cacheCompletion: { (cacheValue) in
             
             self.dataSource.removeAll()
@@ -73,7 +73,7 @@ class TYSHomeViewController: BaseViewController {
     }
     
     private func requestInterestedPeopleData() {
-        let param = ["requestCode" : "V219001", "page" : "1", "limit" : "10", "login_user_id" : loginModel.user_id ?? ""]
+        let param = ["requestCode" : "V219001", "page" : "1", "limit" : "10", "login_user_id" : kLoginModel.user_id ?? ""]
         
         requestInterestedPeople(paramterDic: param, cacheCompletion: { (cacheValue) in
             self.interestedPeoDataSource.removeAll()

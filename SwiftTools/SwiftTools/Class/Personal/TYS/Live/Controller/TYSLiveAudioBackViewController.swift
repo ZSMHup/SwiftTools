@@ -168,7 +168,7 @@ extension TYSLiveAudioBackViewController {
         vodParam?.vodID = joinLiveModel.back_id
         vodParam?.vodPassword = joinLiveModel.back_pwd
         vodParam?.serviceType = "webcast"
-        vodParam?.customUserID = Int64(1000000000 + Int(loginModel.user_id!)!)
+        vodParam?.customUserID = Int64(1000000000 + Int(kLoginModel.user_id!)!)
         vodParam?.nickName = "测试账号"
         voddownloader.addItem(vodParam)
     }
@@ -177,7 +177,7 @@ extension TYSLiveAudioBackViewController {
     private func requestLiveSignUpData() {
         let param = [
             "requestCode" : "81000",
-            "user_id" : loginModel.user_id ?? "",
+            "user_id" : kLoginModel.user_id ?? "",
             "live_id" : liveDetailModel.id ?? ""
         ]
         
@@ -192,7 +192,7 @@ extension TYSLiveAudioBackViewController {
     private func requestLiveJoinLiveData() {
         let param = [
             "requestCode" : "82000",
-            "user_id" : loginModel.user_id ?? "",
+            "user_id" : kLoginModel.user_id ?? "",
             "live_id" : liveDetailModel.id ?? ""
         ]
         

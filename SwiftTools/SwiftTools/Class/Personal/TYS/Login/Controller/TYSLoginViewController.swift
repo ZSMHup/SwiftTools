@@ -84,14 +84,13 @@ class TYSLoginViewController: BaseViewController {
 extension TYSLoginViewController {
     
     @objc private func skipBtnClick() {
-        let homeVc = TYSHomeViewController()
-        self.navigationController?.pushViewController(homeVc, animated: true)
+//        let homeVc = TYSHomeViewController()
+//        self.navigationController?.pushViewController(homeVc, animated: true)
     }
     
     @objc private func wechatBtnClick() {
-
-        let homeVc = TYSHomeViewController()
-        self.navigationController?.pushViewController(homeVc, animated: true)
+//        let homeVc = TYSHomeViewController()
+//        self.navigationController?.pushViewController(homeVc, animated: true)
     }
     
     @objc private func phoneLoginBtnClick() {

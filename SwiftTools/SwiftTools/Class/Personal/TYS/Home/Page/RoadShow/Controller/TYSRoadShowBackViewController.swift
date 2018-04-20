@@ -38,7 +38,7 @@ class TYSRoadShowBackViewController: BaseViewController {
             "requestCode" : "80003",
             "page" : String(describing: page),
             "limit" : "10",
-            "user_id" : loginModel.user_id ?? "",
+            "user_id" : kLoginModel.user_id ?? "",
             "q_t" : "2",
             "type" : "2",
             "state" : "3"

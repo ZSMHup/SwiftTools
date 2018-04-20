@@ -10,25 +10,8 @@ import Foundation
 import HandyJSON
 import SQLite
 
-class TYSLoginModel: NSObject, NSCoding, HandyJSON {
-    
-    struct PropertyKey {
-        static let user_idKey = "user_id"
-        static let access_tokenKey = "access_token"
-        static let org_idKey = "org_id"
-        static let mobile_stateKey = "mobile_state"
-        static let data_stateKey = "data_state"
-        static let auth_stateKey = "auth_state"
-        static let dis_stateKey = "dis_state"
-        static let typeKey = "type"
-        static let register_stateKey = "register_state"
-        static let play_stateKey = "play_state"
-        static let org_nameKey = "org_name"
-        static let data_state_timeKey = "data_state_time"
-        static let ly_countKey = "ly_count"
-        static let hy_countKey = "hy_count"
-    }
-    
+class TYSLoginModel: HandyJSON {
+
     var user_id: String? // 用户ID
     var access_token: String? // 接口凭证
     var org_id: String? // 1 固定值 投研社机构ID
@@ -44,113 +27,138 @@ class TYSLoginModel: NSObject, NSCoding, HandyJSON {
     var ly_count: String? // 路演参与次数
     var hy_count: String? // 会议参与次数
     
-    private var db: Connection!
-    private let loginModel = Table("loginModel")
-    private let id = Expression<String>("access_token")
-    private let accessToken = Expression<String>("access_token")
-    private let userId = Expression<String>("user_id")
-    private let mobileState = Expression<String>("mobile_state")
+    private let user_id_column = Expression<String>("user_id")
+    private let access_token_column = Expression<String>("access_token")
+    private let org_id_column = Expression<String>("org_id")
+    private let mobile_state_column = Expression<String>("mobile_state")
+    private let data_state_column = Expression<String>("data_state")
+    private let auth_state_column = Expression<String>("auth_state")
+    private let dis_state_column = Expression<String>("dis_state")
+    private let type_column = Expression<String>("type")
+    private let register_state_column = Expression<String>("register_state")
+    private let play_state_column = Expression<String>("play_state")
+    private let org_name_column = Expression<String>("org_name")
+    private let data_state_time_column = Expression<String>("data_state_time")
+    private let ly_count_column = Expression<String>("ly_count")
+    private let hy_count_column = Expression<String>("hy_count")
+
     
-    required override init() {
-        super.init()
-        createdsqlite3()
+    static let manager = TYSLoginModel()
+    private var db: Connection?
+    private var table: Table?
+    
+    func getTable() -> Table {
+        if table == nil {
+            table = Table("records")
+            try! getDB().run(
+                table!.create(temporary: false, ifNotExists: true, withoutRowid: false, block: { (builder) in
+                    builder.column(user_id_column)
+                    builder.column(access_token_column)
+                    builder.column(org_id_column)
+                    builder.column(mobile_state_column)
+                    builder.column(data_state_column)
+                    builder.column(auth_state_column)
+                    builder.column(dis_state_column)
+                    builder.column(type_column)
+                    builder.column(register_state_column)
+                    builder.column(play_state_column)
+                    builder.column(org_name_column)
+                    builder.column(data_state_time_column)
+                    builder.column(ly_count_column)
+                    builder.column(hy_count_column)
+                })
+            )
+        }
+        return table!
     }
     
-    private func createdsqlite3(filePath: String = "/Documents")  {
+    //增
+    func insert(loginModel: TYSLoginModel) {
+        let insert = getTable().insert(
+            user_id_column <- loginModel.user_id ?? "",
+            access_token_column <- loginModel.access_token ?? "",
+            org_id_column <- loginModel.org_id ?? "",
+            mobile_state_column <- loginModel.mobile_state ?? "",
+            data_state_column <- loginModel.data_state ?? "",
+            auth_state_column <- loginModel.auth_state ?? "",
+            dis_state_column <- loginModel.dis_state ?? "",
+            type_column <- loginModel.type ?? "",
+            register_state_column <- loginModel.register_state ?? "",
+            play_state_column <- loginModel.play_state ?? "",
+            org_name_column <- loginModel.org_name ?? "",
+            data_state_time_column <- loginModel.data_state_time ?? "",
+            ly_count_column <- loginModel.ly_count ?? "",
+            hy_count_column <- loginModel.hy_count ?? ""
+            )
+        if let rowId = try? getDB().run(insert) {
+            print("插入成功：\(rowId)")
+        } else {
+            print("插入失败")
+        }
+    }
+
+    //删除表
+    func deleteLoginTable() {
         
-        let sqlFilePath = NSHomeDirectory() + filePath + "/db.sqlite3"
+        let query = getTable()
+        
         do {
-            db = try Connection(sqlFilePath)
-            try db.run(loginModel.create { t in
-                t.column(id, primaryKey: true)
-                t.column(accessToken)
-                t.column(userId)
-                t.column(mobileState)
-            })
+            let count = try getDB().run(query.drop())
+            print("deleteSuccess: \(count)")
         } catch {
-            print(error)
+            print("deleteError: \(error)")
         }
     }
     
-    //插入数据
-    func insertData(_userId: String, _mobileState: String, _accessToken: String){
-        do {
-            let insert = loginModel.insert(userId <- _userId, mobileState <- _mobileState, accessToken <- _accessToken)
-            try db.run(insert)
-        } catch {
-            print(error)
+    //改
+    func update(loginModel: TYSLoginModel) {
+        let update = getTable()
+        if let count = try? getDB().run(update.update(
+            user_id_column <- loginModel.user_id!,
+            access_token_column <- loginModel.access_token!,
+            org_id_column <- loginModel.org_id!,
+            mobile_state_column <- loginModel.mobile_state!,
+            data_state_column <- loginModel.data_state!,
+            auth_state_column <- loginModel.auth_state!,
+            dis_state_column <- loginModel.dis_state!,
+            type_column <- loginModel.type!,
+            register_state_column <- loginModel.register_state!,
+            play_state_column <- loginModel.play_state!,
+            org_name_column <- loginModel.org_name!,
+            data_state_time_column <- loginModel.data_state_time!,
+            ly_count_column <- loginModel.ly_count!,
+            hy_count_column <- loginModel.hy_count!
+            )) {
+            print("修改的结果为：\(count == 1)")
+        } else {
+            print("修改失败")
         }
     }
     
-    //读取数据
-    func readData() -> [(id: String, userId: String, mobileState: String, accessToken: String)] {
-        var userData = (id: "", userId: "", mobileState: "", accessToken: "")
-        var userDataArr = [userData]
-        for user in try! db.prepare(loginModel) {
-            userData.id = user[id]
-            userData.userId = user[userId]
-            userData.mobileState = user[mobileState]
-            userData.accessToken = user[accessToken]
-            userDataArr.append(userData)
+    func readData() -> TYSLoginModel {
+        let loginModel = TYSLoginModel()
+        for model in try! getDB().prepare(getTable()) {
+            loginModel.user_id = model[user_id_column]
+            loginModel.access_token = model[access_token_column]
+            loginModel.org_id = model[org_id_column]
+            loginModel.mobile_state = model[mobile_state_column]
+            loginModel.data_state = model[data_state_column]
+            loginModel.auth_state = model[auth_state_column]
+            loginModel.dis_state = model[dis_state_column]
+            loginModel.type = model[type_column]
+            loginModel.register_state = model[register_state_column]
+            loginModel.play_state = model[play_state_column]
+            loginModel.org_name = model[org_name_column]
+            loginModel.data_state_time = model[data_state_time_column]
+            loginModel.ly_count = model[ly_count_column]
+            loginModel.hy_count = model[hy_count_column]
         }
-        return userDataArr
+        return loginModel
     }
     
-    //更新数据
-//    func updateData(userId: String, old_name: String, new_name: String) {
-//        let currUser = loginModel.filter(id == userId)
-//        do {
-//            try db.run(currUser.update(name <- name.replace(old_name, with: new_name)))
-//        } catch {
-//            print(error)
-//        }
-//
-//    }
-    
-    //删除数据
-    func delData(userId: String) {
-        let currUser = loginModel.filter(id == userId)
-        do {
-            try db.run(currUser.delete())
-        } catch {
-            print(error)
-        }
-    }
-    
-    
-    required init?(coder aDecoder: NSCoder) {
-        user_id = aDecoder.decodeObject(forKey: PropertyKey.user_idKey) as? String
-        access_token = aDecoder.decodeObject(forKey: PropertyKey.access_tokenKey) as? String
-        org_id = aDecoder.decodeObject(forKey: PropertyKey.org_idKey) as? String
-        mobile_state = aDecoder.decodeObject(forKey: PropertyKey.mobile_stateKey) as? String
-        data_state = aDecoder.decodeObject(forKey: PropertyKey.data_stateKey) as? String
-        auth_state = aDecoder.decodeObject(forKey: PropertyKey.auth_stateKey) as? String
-        dis_state = aDecoder.decodeObject(forKey: PropertyKey.dis_stateKey) as? String
-        type = aDecoder.decodeObject(forKey: PropertyKey.typeKey) as? String
-        register_state = aDecoder.decodeObject(forKey: PropertyKey.register_stateKey) as? String
-        play_state = aDecoder.decodeObject(forKey: PropertyKey.play_stateKey) as? String
-        org_name = aDecoder.decodeObject(forKey: PropertyKey.org_nameKey) as? String
-        data_state_time = aDecoder.decodeObject(forKey: PropertyKey.data_state_timeKey) as? String
-        ly_count = aDecoder.decodeObject(forKey: PropertyKey.ly_countKey) as? String
-        hy_count = aDecoder.decodeObject(forKey: PropertyKey.hy_countKey) as? String
-    }
-    
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(user_id, forKey: PropertyKey.user_idKey)
-        aCoder.encode(access_token, forKey: PropertyKey.access_tokenKey)
-        aCoder.encode(org_id, forKey: PropertyKey.org_idKey)
-        aCoder.encode(mobile_state, forKey: PropertyKey.mobile_stateKey)
-        aCoder.encode(data_state, forKey: PropertyKey.data_stateKey)
-        aCoder.encode(auth_state, forKey: PropertyKey.auth_stateKey)
-        aCoder.encode(dis_state, forKey: PropertyKey.dis_stateKey)
-        aCoder.encode(type, forKey: PropertyKey.typeKey)
-        aCoder.encode(register_state, forKey: PropertyKey.register_stateKey)
-        aCoder.encode(play_state, forKey: PropertyKey.play_stateKey)
-        aCoder.encode(org_name, forKey: PropertyKey.org_nameKey)
-        aCoder.encode(data_state_time, forKey: PropertyKey.data_state_timeKey)
-        aCoder.encode(ly_count, forKey: PropertyKey.ly_countKey)
-        aCoder.encode(hy_count, forKey: PropertyKey.hy_countKey)
-    }
+    required init() {
+        
+    } 
 }
 
 struct TYSLoginGetCaptcha: HandyJSON {

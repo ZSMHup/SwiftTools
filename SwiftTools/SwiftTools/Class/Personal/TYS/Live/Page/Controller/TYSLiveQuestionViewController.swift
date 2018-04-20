@@ -65,7 +65,7 @@ class TYSLiveQuestionViewController: AYBaseViewController {
             "requestCode" : "80007",
             "page" : String(describing: page),
             "limit" : "10",
-            "user_id" : loginModel.user_id ?? "",
+            "user_id" : kLoginModel.user_id ?? "",
             "t" : "2",
             "live_id" : liveDetailModel.id ?? ""
         ]

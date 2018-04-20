@@ -77,5 +77,12 @@ extension TYSSettingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        if indexPath.row == 0 {
+            TYSLoginModel.manager.deleteLoginTable()
+        } else if indexPath.row == 1 {
+            UserDefaults.standard.saveCustomObject(customObject: false as NSCoding, key: "LoginState")
+            print("LoginState: \(UserDefaults.standard.getCustomObject(forKey: "LoginState") ?? false as AnyObject)")
+        }
     }
 }

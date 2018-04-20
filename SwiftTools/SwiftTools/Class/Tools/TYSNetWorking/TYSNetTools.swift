@@ -45,9 +45,10 @@ func requestHanlder(
                     showOnlyText(text: msg)
                     
                     if msg == "accessToken失效" && statusCode == "90000" {
-                       UserDefaults.standard.removeObject(forKey: kLoginModelKey)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                            NotificationCenter.default.post(name: LogoutNotification, object: nil)
+                        }
                     }
-                    
                     return
                 }
                 
@@ -95,6 +96,7 @@ func configParameters(paramterDic: Dictionary<String, Any>) -> Dictionary<String
     
     var paramsDic = [String : AnyObject]()
     
+    let loginModel = TYSLoginModel.manager.readData()
     let token = loginModel.access_token ?? ""
     paramsDic["accessToken"] = token as AnyObject
     paramsDic["version"] = "4.0.5" as AnyObject

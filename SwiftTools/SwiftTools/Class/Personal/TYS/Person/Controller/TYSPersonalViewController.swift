@@ -62,7 +62,7 @@ class TYSPersonalViewController: BaseViewController {
     private func requestPersonalDetailData() {
         let param = [
             "requestCode" : "10002",
-            "user_id" : loginModel.user_id ?? "",
+            "user_id" : kLoginModel.user_id ?? "",
         ]
         requestPersonalDetail(paramterDic: param, cacheCompletion: { (cacheValue) in
             
@@ -71,6 +71,10 @@ class TYSPersonalViewController: BaseViewController {
             if self.tableView.mj_header.isRefreshing {
                 self.tableView.mj_header.endRefreshing()
             }
+            
+//            TYSPersonalModel.manager.insertPersonal(personalModel: successValue)
+            TYSPersonalModel.manager.update(personalModel: successValue)
+            
             self.personalModel = successValue
             self.tableView.reloadData()
         }) { (failure) in
@@ -111,6 +115,7 @@ extension TYSPersonalViewController {
 extension TYSPersonalViewController {
     @objc private func navRightBtnClick() {
         print("msg")
+        TYSPersonalModel.manager.deletePersonalTable()
     }
 }
 

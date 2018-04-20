@@ -39,7 +39,7 @@ class TYSRecReadDetailViewController: BaseViewController {
     private func requestRecReadDetailData() {
         let param = [
             "requestCode" : "V240003",
-            "login_user_id" : loginModel.user_id ?? "",
+            "login_user_id" : kLoginModel.user_id ?? "",
             "id" : recReadModel.id ?? ""
         ]
         requestRecReadDetail(paramterDic: param, successCompletion: { (successValue) in

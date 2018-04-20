@@ -8,6 +8,7 @@
 
 import Foundation
 import HandyJSON
+import SQLite
 
 struct TYSPersonalModel: HandyJSON {
     var vip_end_time: String? // vip到期时间 格式YYYY-mm-dd
@@ -47,8 +48,251 @@ struct TYSPersonalModel: HandyJSON {
     var data_state_time: String? // V2资料审核通过时间
     var ly_count: String? // 路演参与次数
     var hy_count: String? // 会议参与次数
+    
+    private let vip_end_time_column = Expression<String>("vip_end_time")
+    private let is_vip_column = Expression<String>("is_vip")
+    private let sex_column = Expression<String>("sex")
+    private let head_img_column = Expression<String>("head_img")
+    private let mobile_column = Expression<String>("mobile")
+    private let wechat_column = Expression<String>("wechat")
+    private let auth_state_column = Expression<String>("auth_state")
+    private let card_img_column = Expression<String>("card_img")
+    private let assets_column = Expression<String>("assets")
+    private let company_profile_column = Expression<String>("company_profile")
+    private let post_column = Expression<String>("post")
+    private let post_name_column = Expression<String>("post_name")
+    private let org_id_column = Expression<String>("org_id")
+    private let user_id_column = Expression<String>("user_id")
+    private let data_state_column = Expression<String>("data_state")
+    private let name_column = Expression<String>("name")
+    private let industry_name_column = Expression<String>("industry_name")
+    private let per_att_name_column = Expression<String>("per_att_name")
+    private let personal_attribute_column = Expression<String>("personal_attribute")
+    private let email_column = Expression<String>("email")
+    private let username_column = Expression<String>("username")
+    private let status_column = Expression<String>("status")
+    private let qua_cer_column = Expression<String>("qua_cer")
+    private let follow_count_column = Expression<String>("follow_count")
+    private let fans_count_column = Expression<String>("fans_count")
+    private let pre_exp_column = Expression<String>("pre_exp")
+    private let gz_id_column = Expression<String>("gz_id")
+    private let score_column = Expression<String>("score")
+    private let type_column = Expression<String>("type")
+    private let activity_column = Expression<String>("activity")
+    private let effect_column = Expression<String>("effect")
+    private let is_shield_hy_group_column = Expression<String>("is_shield_hy_group")
+    private let is_shield_my_group_column = Expression<String>("is_shield_my_group")
+    private let is_shield_fs_group_column = Expression<String>("is_shield_fs_group")
+    private let data_state_time_column = Expression<String>("data_state_time")
+    private let ly_count_column = Expression<String>("ly_count")
+    private let hy_count_column = Expression<String>("hy_count")
+  
+    static var manager = TYSPersonalModel()
+    private var table: Table?
+    
+    mutating func getPersonalTable() -> Table {
+        if table == nil {
+            table = Table("personal")
+            try! getDB().run(
+                table!.create(temporary: false, ifNotExists: true, withoutRowid: false, block: { (builder) in
+                    builder.column(vip_end_time_column)
+                    builder.column(is_vip_column)
+                    builder.column(sex_column)
+                    builder.column(head_img_column)
+                    builder.column(mobile_column)
+                    builder.column(wechat_column)
+                    builder.column(auth_state_column)
+                    builder.column(card_img_column)
+                    builder.column(assets_column)
+                    builder.column(company_profile_column)
+                    builder.column(post_column)
+                    builder.column(post_name_column)
+                    builder.column(user_id_column)
+                    builder.column(org_id_column)
+                    builder.column(data_state_column)
+                    builder.column(name_column)
+                    builder.column(industry_name_column)
+                    builder.column(per_att_name_column)
+                    builder.column(personal_attribute_column)
+                    builder.column(email_column)
+                    builder.column(qua_cer_column)
+                    builder.column(follow_count_column)
+                    builder.column(fans_count_column)
+                    builder.column(pre_exp_column)
+                    builder.column(gz_id_column)
+                    builder.column(score_column)
+                    builder.column(type_column)
+                    builder.column(activity_column)
+                    builder.column(effect_column)
+                    builder.column(is_shield_hy_group_column)
+                    builder.column(is_shield_my_group_column)
+                    builder.column(is_shield_fs_group_column)
+                    builder.column(data_state_time_column)
+                    builder.column(ly_count_column)
+                    builder.column(hy_count_column)
+                })
+            )
+        }
+        return table!
+    }
+    
+    
+    //增
+    mutating func insertPersonal(personalModel: TYSPersonalModel) {
+        
+        let insert = getPersonalTable().insert(
+            vip_end_time_column <- personalModel.vip_end_time ?? "",
+            is_vip_column <- personalModel.is_vip ?? "",
+            sex_column <- personalModel.sex ?? "",
+            head_img_column <- personalModel.head_img ?? "",
+            mobile_column <- personalModel.mobile ?? "",
+            wechat_column <- personalModel.wechat ?? "",
+            auth_state_column <- personalModel.auth_state ?? "",
+            card_img_column <- personalModel.card_img ?? "",
+            assets_column <- personalModel.assets ?? "",
+            company_profile_column <- personalModel.company_profile ?? "",
+            post_column <- personalModel.post ?? "",
+            post_name_column <- personalModel.post_name ?? "",
+            user_id_column <- personalModel.user_id ?? "",
+            org_id_column <- personalModel.org_id ?? "",
+            data_state_column <- personalModel.data_state ?? "",
+            name_column <- personalModel.name ?? "",
+            industry_name_column <- personalModel.industry_name ?? "",
+            per_att_name_column <- personalModel.per_att_name ?? "",
+            personal_attribute_column <- personalModel.personal_attribute ?? "",
+            email_column <- personalModel.email ?? "",
+            qua_cer_column <- personalModel.qua_cer ?? "",
+            follow_count_column <- personalModel.follow_count ?? "",
+            fans_count_column <- personalModel.fans_count ?? "",
+            pre_exp_column <- personalModel.pre_exp ?? "",
+            gz_id_column <- personalModel.gz_id ?? "",
+            score_column <- personalModel.score ?? "",
+            type_column <- personalModel.type ?? "",
+            activity_column <- personalModel.activity ?? "",
+            effect_column <- personalModel.effect ?? "",
+            is_shield_hy_group_column <- personalModel.is_shield_hy_group ?? "",
+            is_shield_my_group_column <- personalModel.is_shield_my_group ?? "",
+            is_shield_fs_group_column <- personalModel.is_shield_fs_group ?? "",
+            data_state_time_column <- personalModel.data_state_time ?? "",
+            ly_count_column <- personalModel.ly_count ?? "",
+            hy_count_column <- personalModel.hy_count ?? ""
+        )
+        
+        do {
+            let rowId = try getDB().run(insert)
+            print("插入成功：\(String(describing: rowId))")
+        } catch {
+            print("insertError:\(error)")
+        }
+    }
+    
+    //改
+    mutating func update(personalModel: TYSPersonalModel) {
+        let update = getPersonalTable().update(
+            vip_end_time_column <- personalModel.vip_end_time ?? "",
+            is_vip_column <- personalModel.is_vip ?? "",
+            sex_column <- personalModel.sex ?? "",
+            head_img_column <- personalModel.head_img ?? "",
+            mobile_column <- personalModel.mobile ?? "",
+            wechat_column <- personalModel.wechat ?? "",
+            auth_state_column <- personalModel.auth_state ?? "",
+            card_img_column <- personalModel.card_img ?? "",
+            assets_column <- personalModel.assets ?? "",
+            company_profile_column <- personalModel.company_profile ?? "",
+            post_column <- personalModel.post ?? "",
+            post_name_column <- personalModel.post_name ?? "",
+            user_id_column <- personalModel.user_id ?? "",
+            org_id_column <- personalModel.org_id ?? "",
+            data_state_column <- personalModel.data_state ?? "",
+            name_column <- personalModel.name ?? "",
+            industry_name_column <- personalModel.industry_name ?? "",
+            per_att_name_column <- personalModel.per_att_name ?? "",
+            personal_attribute_column <- personalModel.personal_attribute ?? "",
+            email_column <- personalModel.email ?? "",
+            qua_cer_column <- personalModel.qua_cer ?? "",
+            follow_count_column <- personalModel.follow_count ?? "",
+            fans_count_column <- personalModel.fans_count ?? "",
+            pre_exp_column <- personalModel.pre_exp ?? "",
+            gz_id_column <- personalModel.gz_id ?? "",
+            score_column <- personalModel.score ?? "",
+            type_column <- personalModel.type ?? "",
+            activity_column <- personalModel.activity ?? "",
+            effect_column <- personalModel.effect ?? "",
+            is_shield_hy_group_column <- personalModel.is_shield_hy_group ?? "",
+            is_shield_my_group_column <- personalModel.is_shield_my_group ?? "",
+            is_shield_fs_group_column <- personalModel.is_shield_fs_group ?? "",
+            data_state_time_column <- personalModel.data_state_time ?? "",
+            ly_count_column <- personalModel.ly_count ?? "",
+            hy_count_column <- personalModel.hy_count ?? ""
+        )
+        
+        do {
+            let count = try getDB().run(update)
+            print("修改的结果为：\(count == 1)")
+        } catch {
+            print("updateError\(error)")
+        }
+    }
+    
+    mutating func readPersonalData() -> TYSPersonalModel {
+        var personalModel = TYSPersonalModel()
+        for model in try! getDB().prepare(getPersonalTable()) {
+            personalModel.vip_end_time = model[vip_end_time_column]
+            personalModel.is_vip = model[is_vip_column]
+            personalModel.sex = model[sex_column]
+            personalModel.head_img = model[head_img_column]
+            personalModel.mobile = model[mobile_column]
+            personalModel.wechat = model[wechat_column]
+            personalModel.auth_state = model[auth_state_column]
+            personalModel.card_img = model[card_img_column]
+            personalModel.assets = model[assets_column]
+            personalModel.company_profile = model[company_profile_column]
+            personalModel.post = model[post_column]
+            personalModel.post_name = model[post_name_column]
+            personalModel.user_id = model[user_id_column]
+            personalModel.org_id = model[org_id_column]
+            personalModel.data_state = model[data_state_column]
+            personalModel.name = model[name_column]
+            personalModel.industry_name = model[industry_name_column]
+            personalModel.per_att_name = model[per_att_name_column]
+            personalModel.personal_attribute = model[personal_attribute_column]
+            personalModel.email = model[email_column]
+            personalModel.username = model[username_column]
+            personalModel.status = model[status_column]
+            personalModel.follow_count = model[follow_count_column]
+            personalModel.fans_count = model[fans_count_column]
+            personalModel.pre_exp = model[pre_exp_column]
+            personalModel.gz_id = model[gz_id_column]
+            personalModel.score = model[score_column]
+            personalModel.type = model[type_column]
+            personalModel.activity = model[activity_column]
+            personalModel.effect = model[effect_column]
+            personalModel.is_shield_hy_group = model[is_shield_hy_group_column]
+            personalModel.is_shield_my_group = model[is_shield_my_group_column]
+            personalModel.is_shield_fs_group = model[is_shield_fs_group_column]
+            personalModel.data_state_time = model[data_state_time_column]
+            personalModel.ly_count = model[ly_count_column]
+            personalModel.hy_count = model[hy_count_column]
+        }
+        return personalModel
+    }
+    
+    //删除表
+    mutating func deletePersonalTable() {
+        
+        let query = getPersonalTable()
+        
+        do {
+            let count = try getDB().run(query.drop())
+            print("deleteSuccess: \(count)")
+        } catch {
+            print("deleteError: \(error)")
+        }
+    }
+    
     // 用户身份
     var identityName: String {
+//        let model = TYSPersonalModel.manager.readPersonalData()
         if data_state == "1" {
             return "认证用户"
         } else {
@@ -61,6 +305,8 @@ struct TYSPersonalModel: HandyJSON {
     
     // 用户认证状态
     var userAuthStatus: String {
+//        let model = TYSPersonalModel.manager.readPersonalData()
+        
         switch data_state {
         case "1"?:
             if auth_state == "2" {
@@ -79,5 +325,15 @@ struct TYSPersonalModel: HandyJSON {
         }
     }
     
-    
+    var userName: String {
+//        let model = TYSPersonalModel.manager.readPersonalData()
+        return name ?? mobile ?? "暂无数据"
+    }
+
 }
+
+
+
+
+
+
