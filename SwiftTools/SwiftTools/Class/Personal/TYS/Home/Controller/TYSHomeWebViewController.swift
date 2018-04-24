@@ -45,7 +45,7 @@ class TYSHomeWebViewController: BaseViewController {
     }
 
     deinit {
-        print("deinit -- TYSHomeWebViewController")
+        printLog("deinit -- TYSHomeWebViewController")
     }
     
     @objc func rightBtn1Click() {

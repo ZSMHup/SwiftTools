@@ -44,7 +44,7 @@ extension TYSBeHaviorCollectionViewCell {
         })
         
         countLabel = UILabel()
-        countLabel?.text = "10000"
+        countLabel?.text = "0"
         countLabel?.textAlignment = .center
         countLabel?.textColor = hexString("#A7A7AA")
         countLabel?.font = SystemFont(fontSize: 36)

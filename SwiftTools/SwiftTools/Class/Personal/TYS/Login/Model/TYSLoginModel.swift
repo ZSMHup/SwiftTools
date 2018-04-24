@@ -91,9 +91,9 @@ class TYSLoginModel: HandyJSON {
             hy_count_column <- loginModel.hy_count ?? ""
             )
         if let rowId = try? getDB().run(insert) {
-            print("插入成功：\(rowId)")
+            printLog("插入成功：\(rowId)")
         } else {
-            print("插入失败")
+            printLog("插入失败")
         }
     }
 
@@ -104,9 +104,9 @@ class TYSLoginModel: HandyJSON {
         
         do {
             let count = try getDB().run(query.drop())
-            print("deleteSuccess: \(count)")
+            printLog("deleteSuccess: \(count)")
         } catch {
-            print("deleteError: \(error)")
+            printLog("deleteError: \(error)")
         }
     }
     
@@ -129,9 +129,18 @@ class TYSLoginModel: HandyJSON {
             ly_count_column <- loginModel.ly_count!,
             hy_count_column <- loginModel.hy_count!
             )) {
-            print("修改的结果为：\(count == 1)")
+            printLog("修改的结果为：\(count == 1)")
         } else {
-            print("修改失败")
+            printLog("修改失败")
+        }
+    }
+    
+    func loginInsertOrupdate(loginModel: TYSLoginModel) {
+        let model = readData()
+        if model.access_token == nil {
+            insert(loginModel: loginModel)
+        } else {
+            update(loginModel: loginModel)
         }
     }
     

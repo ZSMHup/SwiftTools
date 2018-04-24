@@ -36,6 +36,16 @@ func getAPPName() -> String {
     return appName!
 }
 
+func printLog<T>(_ message: T,
+                 file: String = #file,
+                 method: String = #function,
+                 line: Int = #line)
+{
+    #if DEBUG
+        print("\((file as NSString).lastPathComponent)[\(line)], \(method): \(message)")
+    #endif
+}
+
 // color
 let tys_grayColor = hexString("#696969")
 let tys_whiteColor = UIColor.white

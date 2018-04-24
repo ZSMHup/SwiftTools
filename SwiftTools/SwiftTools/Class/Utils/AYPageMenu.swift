@@ -41,7 +41,7 @@ class AYPageMenu: UIView {
     }
     
     deinit {
-       print("deinit: \(self.classForCoder)")
+       printLog("deinit: \(self.classForCoder)")
     }
     
     /// 创建 AYPageMenu
@@ -156,7 +156,7 @@ class AYSwitchVCContentView: UIView {
     }
     
     deinit {
-        print("deinit: \(self.classForCoder)")
+        printLog("deinit: \(self.classForCoder)")
     }
     
     /// 构造方法

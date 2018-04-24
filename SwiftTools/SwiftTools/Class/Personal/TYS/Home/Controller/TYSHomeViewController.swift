@@ -198,7 +198,7 @@ extension TYSHomeViewController {
     }
     
     @objc private func searchBtnClick() {
-        print("首页搜索")
+        printLog("首页搜索")
     }
 }
 
@@ -400,7 +400,7 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     /// 点击图片事件
     func cycleScrollViewDidSelect(at index:Int, cycleScrollView:WRCycleScrollView) {
-        print("点击了第\(index+1)个图片")
+        printLog("点击了第\(index+1)个图片")
         
         let VC = TYSHomeWebViewController()
         VC.url = cycleLinkPathDataSource[index]
@@ -409,7 +409,7 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     /// 图片滚动事件
     func cycleScrollViewDidScroll(to index:Int, cycleScrollView:WRCycleScrollView) {
-//        print("滚动到了第\(index+1)个图片")
+//        printLog("滚动到了第\(index+1)个图片")
     }
 
 }

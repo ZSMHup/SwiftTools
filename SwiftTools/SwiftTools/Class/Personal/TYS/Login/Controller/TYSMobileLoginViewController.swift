@@ -207,9 +207,9 @@ class TYSMobileLoginViewController: BaseViewController {
         
         requestMobileLogin(paramterDic: param, successCompletion: { (successValue) in
             
-            TYSLoginModel.manager.insert(loginModel: successValue)
+            TYSLoginModel.manager.loginInsertOrupdate(loginModel: successValue)
             UserDefaults.standard.saveCustomObject(customObject: true as NSCoding, key: "LoginState")
-
+            
             let homeVc = TYSHomeViewController()
             self.navigationController?.pushViewController(homeVc, animated: true)
         }) { (failure) in
@@ -291,7 +291,7 @@ extension TYSMobileLoginViewController {
     }
     
     @objc private func disclaimerBtnClick() {
-        print("免责声明")
+        printLog("免责声明")
     }
 }
 

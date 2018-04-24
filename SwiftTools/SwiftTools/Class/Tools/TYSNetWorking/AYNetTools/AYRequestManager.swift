@@ -165,13 +165,13 @@ public class AYResponse {
     fileprivate func responseCache<T>(response: DataResponse<T>, completion: @escaping (AYValue<T>)->()) {
         if completionClosure != nil { completionClosure!() }
         let result = AYValue(isCacheData: false, result: response.result, response: response.response)
-        print("--------")
+        printLog("--------")
         switch response.result {
         case .success(_):
         if self.cache {/// 写入缓存
             AYCacheManager.default.setObject(response.data, forKey: self.cacheKey)
             }
-        case .failure(let error): print(error.localizedDescription)
+        case .failure(let error): printLog(error.localizedDescription)
         }
         completion(result)
     }
@@ -202,12 +202,12 @@ public class AYJsonResponse: AYResponse , AYJsonResponseProtocol {
                 case .value(let data):
                     if let json = try? JSONSerialization.jsonObject(with: data, options: []) {
                         DispatchQueue.main.async {/// 主线程
-                            //print(json)
+                            //printLog(json)
                             completion(json)
                         }
                     }
                 case .error(_):
-                    print("读取缓存失败")
+                    printLog("读取缓存失败")
                 }
             }
         }
@@ -233,7 +233,7 @@ public class AYStringResponse: AYResponse, AYStringResponseProtocol {
                         completion(str)
                     }
                 case .error(_):
-                    print("读取缓存失败")
+                    printLog("读取缓存失败")
                 }
             }
         }
@@ -266,7 +266,7 @@ public class AYDataResponse: AYResponse, AYDataResponseProtocol {
                 case .value(let data):
                     completion(data)
                 case .error(_):
-                    print("读取缓存失败")
+                    printLog("读取缓存失败")
                 }
             }
         }

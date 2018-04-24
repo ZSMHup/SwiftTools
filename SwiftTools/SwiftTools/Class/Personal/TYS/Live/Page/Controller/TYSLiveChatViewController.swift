@@ -77,8 +77,8 @@ extension TYSLiveChatViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        print("\(classForCoder) --- \(indexPath.row)")
-        print("\(String(describing: getCurrentController()))")
+        printLog("\(classForCoder) --- \(indexPath.row)")
+        printLog("\(String(describing: getCurrentController()))")
     }
     
 }

@@ -115,6 +115,8 @@ struct TYSPersonalModel: HandyJSON {
                     builder.column(per_att_name_column)
                     builder.column(personal_attribute_column)
                     builder.column(email_column)
+                    builder.column(username_column)
+                    builder.column(status_column)
                     builder.column(qua_cer_column)
                     builder.column(follow_count_column)
                     builder.column(fans_count_column)
@@ -135,7 +137,6 @@ struct TYSPersonalModel: HandyJSON {
         }
         return table!
     }
-    
     
     //增
     mutating func insertPersonal(personalModel: TYSPersonalModel) {
@@ -161,6 +162,8 @@ struct TYSPersonalModel: HandyJSON {
             per_att_name_column <- personalModel.per_att_name ?? "",
             personal_attribute_column <- personalModel.personal_attribute ?? "",
             email_column <- personalModel.email ?? "",
+            username_column <- personalModel.username ?? "",
+            status_column <- personalModel.status ?? "",
             qua_cer_column <- personalModel.qua_cer ?? "",
             follow_count_column <- personalModel.follow_count ?? "",
             fans_count_column <- personalModel.fans_count ?? "",
@@ -180,9 +183,9 @@ struct TYSPersonalModel: HandyJSON {
         
         do {
             let rowId = try getDB().run(insert)
-            print("插入成功：\(String(describing: rowId))")
+            printLog("插入成功：\(String(describing: rowId))")
         } catch {
-            print("insertError:\(error)")
+            printLog("insertError:\(error)")
         }
     }
     
@@ -209,6 +212,8 @@ struct TYSPersonalModel: HandyJSON {
             per_att_name_column <- personalModel.per_att_name ?? "",
             personal_attribute_column <- personalModel.personal_attribute ?? "",
             email_column <- personalModel.email ?? "",
+            username_column <- personalModel.username ?? "",
+            status_column <- personalModel.status ?? "",
             qua_cer_column <- personalModel.qua_cer ?? "",
             follow_count_column <- personalModel.follow_count ?? "",
             fans_count_column <- personalModel.fans_count ?? "",
@@ -228,9 +233,18 @@ struct TYSPersonalModel: HandyJSON {
         
         do {
             let count = try getDB().run(update)
-            print("修改的结果为：\(count == 1)")
+            printLog("修改的结果为：\(count)")
         } catch {
-            print("updateError\(error)")
+            printLog("updateError\(error)")
+        }
+    }
+    
+    mutating func insertOrUpdate(personalModel: TYSPersonalModel) {
+        let model = readPersonalData()
+        if model.user_id == nil {
+            insertPersonal(personalModel: personalModel)
+        } else {
+            update(personalModel: personalModel)
         }
     }
     
@@ -259,6 +273,7 @@ struct TYSPersonalModel: HandyJSON {
             personalModel.email = model[email_column]
             personalModel.username = model[username_column]
             personalModel.status = model[status_column]
+            personalModel.qua_cer = model[qua_cer_column]
             personalModel.follow_count = model[follow_count_column]
             personalModel.fans_count = model[fans_count_column]
             personalModel.pre_exp = model[pre_exp_column]
@@ -284,16 +299,16 @@ struct TYSPersonalModel: HandyJSON {
         
         do {
             let count = try getDB().run(query.drop())
-            print("deleteSuccess: \(count)")
+            printLog("deleteSuccess: \(count)")
         } catch {
-            print("deleteError: \(error)")
+            printLog("deleteError: \(error)")
         }
     }
     
     // 用户身份
     var identityName: String {
-//        let model = TYSPersonalModel.manager.readPersonalData()
-        if data_state == "1" {
+        let model = TYSPersonalModel.manager.readPersonalData()
+        if model.data_state == "1" {
             return "认证用户"
         } else {
             if type == "0" {
@@ -305,13 +320,12 @@ struct TYSPersonalModel: HandyJSON {
     
     // 用户认证状态
     var userAuthStatus: String {
-//        let model = TYSPersonalModel.manager.readPersonalData()
-        
-        switch data_state {
+        let model = TYSPersonalModel.manager.readPersonalData()
+        switch model.data_state {
         case "1"?:
-            if auth_state == "2" {
+            if model.auth_state == "2" {
                 return "直播认证中"
-            } else if auth_state == "3" {
+            } else if model.auth_state == "3" {
                 return "直播已认证"
             } else {
                 return "已认证"
@@ -326,9 +340,49 @@ struct TYSPersonalModel: HandyJSON {
     }
     
     var userName: String {
-//        let model = TYSPersonalModel.manager.readPersonalData()
-        return name ?? mobile ?? "暂无数据"
+        let model = TYSPersonalModel.manager.readPersonalData()
+        return model.name ?? model.mobile ?? "暂无数据"
     }
+    
+    var activityFormat: String {
+        let model = TYSPersonalModel.manager.readPersonalData()
+        var act = "0"
+        let acti:Float = Float(model.activity ?? "0") ?? Float(0)
+        
+        if acti >= Float(10000) {
+            act = String(format: "%.1lf 万", Float(acti / 10000))
+        } else {
+            act = model.activity ?? "0"
+        }
+        return act
+    }
+    
+    var fansCountFormat: String {
+        let model = TYSPersonalModel.manager.readPersonalData()
+        var fc = "0"
+        let fcf:Float = Float(model.fans_count ?? "0") ?? Float(0)
+        
+        if fcf >= Float(10000) {
+            fc = String(format: "%.1lf 万", Float(fcf / 10000))
+        } else {
+            fc = model.fans_count ?? "0"
+        }
+        return fc
+    }
+    
+    var followCountFormat: String {
+        let model = TYSPersonalModel.manager.readPersonalData()
+        var followC = "0"
+        let followCF:Float = Float(model.follow_count ?? "0") ?? Float(0)
+        
+        if followCF >= Float(10000) {
+            followC = String(format: "%.1lf 万", Float(followCF / 10000))
+        } else {
+            followC = model.fans_count ?? "0"
+        }
+        return followC
+    }
+    
 
 }
 

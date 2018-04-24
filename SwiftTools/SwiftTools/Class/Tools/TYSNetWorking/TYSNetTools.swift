@@ -22,7 +22,7 @@ func requestHanlder(
     failureCompletion: @escaping (Any)->()) {
     
     let params = configParameters(paramterDic: paramterDic)
-    print("***请求参数开始***\n\(params)\n***请求参数结束***")
+    printLog("\n***请求参数开始***\n\(params)\n***请求参数结束***")
     request(url: url, params: params).cache(cache).responseCacheAndString { (stringValue) in
         
         switch stringValue.result {
@@ -30,7 +30,7 @@ func requestHanlder(
             
             if !string.isEmpty {
                 if !stringValue.isCacheData {
-                    print("***返回数据开始***\n\(string)\n***返回数据结束***")
+                    printLog("\n***返回数据开始***\n\(string)\n***返回数据结束***")
                 }
                 
                 let resultDic = getDictionaryFromJSONString(jsonString: string)
@@ -60,7 +60,7 @@ func requestHanlder(
                 }
             }
         case .failure(let error):
-            print("*****错误信息\n \(error) \n*****")
+            printLog("\n*****错误信息\n \(error) \n*****")
             failureCompletion(error)
         }
     }
@@ -75,21 +75,6 @@ func getDictionaryFromJSONString(jsonString: String) -> Dictionary<String, Any> 
         return dict as! Dictionary
     }
     return Dictionary()
-}
-
-func convertToModel(json: String) {
-//    let resultDic = getDictionaryFromJSONString(jsonString: json)
-//    
-//    let cla = NSClassFromString(getAPPName() + "." + modelClass!) as! TYSRequestModel.Type
-////    let model = cla.init()
-//    
-//    if resultDic["msg"] != nil {
-//        model.msg = String(describing: resultDic["msg"])
-//    }
-//    
-//    if resultDic["statusCode"] != nil {
-//        model.statusCode = String(describing: resultDic["statusCode"])
-//    }
 }
 
 func configParameters(paramterDic: Dictionary<String, Any>) -> Dictionary<String, Any> {

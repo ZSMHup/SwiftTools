@@ -94,7 +94,7 @@ class AYWKWebView: UIView {
     }()
     
     deinit {
-        print("deinit -- AYWKWebView")
+        printLog("deinit -- AYWKWebView")
         wkWebView.removeObserver(self, forKeyPath: "estimatedProgress")
     }
     
@@ -122,7 +122,7 @@ extension AYWKWebView {
         if !urlString.isEmpty {
             wkWebView.load(URLRequest(url: URL(string: urlString)!))
         } else {
-            print("url为空")
+            printLog("url为空")
         }
     }
     

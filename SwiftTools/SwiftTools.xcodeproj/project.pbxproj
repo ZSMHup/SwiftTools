@@ -83,7 +83,6 @@
 		E1771B862063AB1B0050C244 /* TYSHomeTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1771B852063AB1B0050C244 /* TYSHomeTabCell.swift */; };
 		E1771B882063B77B0050C244 /* TYSPersonalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1771B872063B77B0050C244 /* TYSPersonalViewController.swift */; };
 		E17A07DA2060CB5200887C69 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17A07D92060CB5200887C69 /* AppDelegate.swift */; };
-		E17A07E12060CB5200887C69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E17A07E02060CB5200887C69 /* Assets.xcassets */; };
 		E17A07E42060CB5200887C69 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E17A07E22060CB5200887C69 /* LaunchScreen.storyboard */; };
 		E17A07EF2060D0D800887C69 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17A07EE2060D0D800887C69 /* BaseViewController.swift */; };
 		E17A07F22060DADA00887C69 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17A07F12060DADA00887C69 /* MainTabBarController.swift */; };
@@ -114,6 +113,9 @@
 		E197E55C2073602100B18E86 /* AYWKWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E197E55B2073602100B18E86 /* AYWKWebView.swift */; };
 		E1BE3C282089C2E800C2D936 /* TYSCreateDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE3C272089C2E800C2D936 /* TYSCreateDB.swift */; };
 		E1BF054C2079C18C00B31104 /* AYBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BF054B2079C18C00B31104 /* AYBaseViewController.swift */; };
+		E1CD5462208DBAB8001F2323 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E17A07E02060CB5200887C69 /* Assets.xcassets */; };
+		E1CD5464208DC289001F2323 /* TYSLaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CD5463208DC289001F2323 /* TYSLaunchViewController.swift */; };
+		E1CD5474208DCCB6001F2323 /* AYLaunchAdPageHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CD5473208DCCB6001F2323 /* AYLaunchAdPageHUD.swift */; };
 		E1EF4A9D206CC3E500C93303 /* TYSHotLiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4A9C206CC3E400C93303 /* TYSHotLiveViewController.swift */; };
 		E1EF4A9F206CC77F00C93303 /* TYSRecLiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4A9E206CC77F00C93303 /* TYSRecLiveViewController.swift */; };
 		E1EF4AAF206CECFD00C93303 /* AYPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4AAE206CECFD00C93303 /* AYPageMenu.swift */; };
@@ -237,6 +239,8 @@
 		E197E55B2073602100B18E86 /* AYWKWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AYWKWebView.swift; sourceTree = "<group>"; };
 		E1BE3C272089C2E800C2D936 /* TYSCreateDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSCreateDB.swift; sourceTree = "<group>"; };
 		E1BF054B2079C18C00B31104 /* AYBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AYBaseViewController.swift; sourceTree = "<group>"; };
+		E1CD5463208DC289001F2323 /* TYSLaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSLaunchViewController.swift; sourceTree = "<group>"; };
+		E1CD5473208DCCB6001F2323 /* AYLaunchAdPageHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AYLaunchAdPageHUD.swift; sourceTree = "<group>"; };
 		E1EF4A9C206CC3E400C93303 /* TYSHotLiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSHotLiveViewController.swift; sourceTree = "<group>"; };
 		E1EF4A9E206CC77F00C93303 /* TYSRecLiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSRecLiveViewController.swift; sourceTree = "<group>"; };
 		E1EF4AAE206CECFD00C93303 /* AYPageMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AYPageMenu.swift; sourceTree = "<group>"; };
@@ -698,6 +702,7 @@
 				E158E401207C7AC600D09EAC /* SwiftProgressHUD.swift */,
 				E158E403207C7B2800D09EAC /* AYHUD.swift */,
 				E1BE3C272089C2E800C2D936 /* TYSCreateDB.swift */,
+				E1CD5473208DCCB6001F2323 /* AYLaunchAdPageHUD.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -847,6 +852,7 @@
 		E197E54C207313C900B18E86 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				E1CD5463208DC289001F2323 /* TYSLaunchViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -967,8 +973,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E17A07E42060CB5200887C69 /* LaunchScreen.storyboard in Resources */,
+				E1CD5462208DBAB8001F2323 /* Assets.xcassets in Resources */,
 				E101B0FF207F4EB300416EA8 /* littleArticleTemplate.html in Resources */,
-				E17A07E12060CB5200887C69 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1064,6 +1070,7 @@
 				E15191C92071FD2D00C419A0 /* TYSRecReadContentCell.swift in Sources */,
 				E1029F202069E8F000157324 /* AYValue.swift in Sources */,
 				E17A08062061127000887C69 /* UIColor+HexString.swift in Sources */,
+				E1CD5474208DCCB6001F2323 /* AYLaunchAdPageHUD.swift in Sources */,
 				E1EF4A9F206CC77F00C93303 /* TYSRecLiveViewController.swift in Sources */,
 				E1771B7E2063A43E0050C244 /* TYSLikelyPeopleCollectionViewCell.swift in Sources */,
 				E142723A207B68A2001FC52D /* AYKeychain.m in Sources */,
@@ -1085,6 +1092,7 @@
 				E1645269207DAC6F00BEB18A /* TYSLiveDetailModel.swift in Sources */,
 				E17A07F72060EBCF00887C69 /* TabBarItemContentView.swift in Sources */,
 				E1029F222069E8F000157324 /* TYSNetTools.swift in Sources */,
+				E1CD5464208DC289001F2323 /* TYSLaunchViewController.swift in Sources */,
 				E15191BD2071E2A900C419A0 /* TYSRecReadContentViewController.swift in Sources */,
 				E164526B207DAEEF00BEB18A /* TYSLiveRequest.swift in Sources */,
 				E1771B722063586A0050C244 /* WRCycleCell.swift in Sources */,

@@ -23,7 +23,7 @@ class AYCacheManager {
         do {
             storage = try Storage(diskConfig: diskConfig, memoryConfig: memoryConfig)
         } catch {
-            print(error)
+            printLog(error)
         }
     }
     /// 清除所有缓存
@@ -86,7 +86,7 @@ class AYCacheManager {
                         let attr = try fileManager.attributesOfItem(atPath: fullPath!)
                         size += attr[FileAttributeKey.size] as! Double
                     } catch  {
-                        print("error :\(error)")
+                        printLog("error :\(error)")
                     }
                 }
             } else {    // 单文件
@@ -95,7 +95,7 @@ class AYCacheManager {
                     size += attr[FileAttributeKey.size] as! Double
                     
                 } catch  {
-                    print("error :\(error)")
+                    printLog("error :\(error)")
                 }
             }
         }

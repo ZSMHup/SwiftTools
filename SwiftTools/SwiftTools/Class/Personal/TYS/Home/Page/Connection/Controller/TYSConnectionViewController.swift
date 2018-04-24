@@ -75,7 +75,7 @@ extension TYSConnectionViewController: UITableViewDelegate, UITableViewDataSourc
             let cell: TYSBehaviorCell = tableView.dequeueReusableCell(withIdentifier: "TYSBehaviorCell")! as! TYSBehaviorCell
             cell.selectionStyle = .none
             cell.didSelectedItemAction(tempClick: { (index) in
-                print(index)
+                printLog(index)
             })
             cell.setTabArray(tabArray: featureDataSource)
             return cell
@@ -106,7 +106,7 @@ extension TYSConnectionViewController: UITableViewDelegate, UITableViewDataSourc
             image = "default_arrow_renew"
             let sectionView = TYSSectionView().initWithLeftTitle(title: title!, image: image!)
             sectionView.addRightBtnAction(tempRightBtnAction: {(button) in
-                print("可能感兴趣的人")
+                printLog("可能感兴趣的人")
             })
             return sectionView
         default:
@@ -114,7 +114,7 @@ extension TYSConnectionViewController: UITableViewDelegate, UITableViewDataSourc
             image = "default_arrow_right"
             let sectionView = TYSSectionView().initWithLeftTitle(title: title!, image: image!)
             sectionView.addRightBtnAction(tempRightBtnAction: {(button) in
-                print("分析师")
+                printLog("分析师")
             })
             return sectionView
         }

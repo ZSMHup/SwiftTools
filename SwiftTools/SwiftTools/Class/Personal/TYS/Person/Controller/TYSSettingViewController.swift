@@ -16,7 +16,6 @@ class TYSSettingViewController: BaseViewController {
         tempTableView.dataSource = self
         tempTableView.separatorInset = UIEdgeInsetsMake(0, AdaptW(w: 24), 0, AdaptW(w: 24))
         tempTableView.separatorColor = tys_lineColor
-        tempTableView.tableFooterView = UIView()
         tempTableView.register(TYSSettingCell.self, forCellReuseIdentifier: "TYSSettingCell")
         return tempTableView
     }()
@@ -38,7 +37,9 @@ class TYSSettingViewController: BaseViewController {
             make.left.top.right.bottom.equalTo(view)
         }
     }
-    
+}
+
+extension TYSSettingViewController {
     private func getFileSize() -> String {
         var stringSize: String?
         let size = AYCacheManager().getFileSize()
@@ -53,6 +54,9 @@ class TYSSettingViewController: BaseViewController {
         return stringSize!
     }
     
+    @objc private func logoutBtnClick() {
+        NotificationCenter.default.post(name: LogoutNotification, object: nil)
+    }
 }
 
 extension TYSSettingViewController: UITableViewDelegate, UITableViewDataSource {
@@ -74,6 +78,27 @@ extension TYSSettingViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footer = UIView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: 100))
+        let logoutBtn = UIButton()
+        logoutBtn.setTitle("退 出", for: .normal)
+        logoutBtn.setTitleColor(UIColor.white, for: .normal)
+        logoutBtn.backgroundColor = tys_backgroundColor
+        logoutBtn.addTarget(self, action: #selector(logoutBtnClick), for: .touchUpInside)
+        footer.addSubview(logoutBtn)
+        logoutBtn.snp.makeConstraints { (make) in
+            make.centerY.equalTo(footer.snp.centerY)
+            make.centerX.equalTo(footer.snp.centerX)
+            make.width.equalTo(kScreenW - 46)
+            make.height.equalTo(50)
+        }
+        return footer
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 200
+    }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -81,8 +106,7 @@ extension TYSSettingViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == 0 {
             TYSLoginModel.manager.deleteLoginTable()
         } else if indexPath.row == 1 {
-            UserDefaults.standard.saveCustomObject(customObject: false as NSCoding, key: "LoginState")
-            print("LoginState: \(UserDefaults.standard.getCustomObject(forKey: "LoginState") ?? false as AnyObject)")
+            
         }
     }
 }

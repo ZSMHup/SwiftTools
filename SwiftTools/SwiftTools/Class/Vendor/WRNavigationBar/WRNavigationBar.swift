@@ -357,7 +357,7 @@ extension UINavigationController: WRFatherAwakeProtocol
         
         popProperties.displayCount += 1
         let popProgress = popProperties.popProgress
-        // print("第\(popProperties.displayCount)次pop的进度：\(popProgress)")
+        // printLog("第\(popProperties.displayCount)次pop的进度：\(popProgress)")
         let fromVC = coordinator.viewController(forKey: .from)
         let toVC = coordinator.viewController(forKey: .to)
         updateNavigationBar(fromVC: fromVC, toVC: toVC, progress: popProgress)
@@ -404,7 +404,7 @@ extension UINavigationController: WRFatherAwakeProtocol
         
         pushProperties.displayCount += 1
         let pushProgress = pushProperties.pushProgress
-        // print("第\(pushProperties.displayCount)次push的进度：\(pushProgress)")
+        // printLog("第\(pushProperties.displayCount)次push的进度：\(pushProgress)")
         let fromVC = coordinator.viewController(forKey: .from)
         let toVC = coordinator.viewController(forKey: .to)
         updateNavigationBar(fromVC: fromVC, toVC: toVC, progress: pushProgress)

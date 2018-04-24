@@ -68,11 +68,11 @@ public extension UIColor {
                 blue  = CGFloat(hexValue & 0x000000FF)         / 255.0
                 alpha = CGFloat((hexValue & 0xFF000000) >> 24) / 255.0
             default:
-                print("Number of characters after '#' should be either 3, 4, 6 or 8")
+                printLog("Number of characters after '#' should be either 3, 4, 6 or 8")
                 break
             }
         } else {
-            print("Scan hex error")
+            printLog("Scan hex error")
         }
         
         self.init(red:red, green:green, blue:blue, alpha:alpha)

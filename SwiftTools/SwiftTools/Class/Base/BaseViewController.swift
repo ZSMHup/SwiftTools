@@ -22,7 +22,7 @@ class BaseViewController: UIViewController {
     }
     
     deinit {
-        print("deinit: \(self.classForCoder)")
+        printLog("deinit: \(self.classForCoder)")
     }
     
     private func addNotification() {
@@ -34,6 +34,8 @@ class BaseViewController: UIViewController {
 extension BaseViewController {
     @objc private func loginOut() {
         UserDefaults.standard.saveCustomObject(customObject: false as NSCoding, key: "LoginState")
+        deleteDB()
+        removeAllCache { (remove) in }
         let loginVc = TYSLoginViewController()
         let loginNav = NavigationViewController(rootViewController: loginVc)
         getCurrentWindow()?.rootViewController = loginNav
@@ -45,7 +47,7 @@ extension BaseViewController {
     func liveDetail(liveListModel: TYSLiveCommonModel) {
         
         if liveListModel.up_down! == "2" {
-            print("该直播已下架")
+            showOnlyText(text: "该直播已下架")
             return
         }
         
@@ -53,7 +55,7 @@ extension BaseViewController {
         requestLiveDetailData(liveId: liveId) { (liveDetailModel) in
             
             if (liveDetailModel.dialing_number != nil) {
-                print("电话会议拨打页面")
+                printLog("电话会议拨打页面")
                 return
             }
             

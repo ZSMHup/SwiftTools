@@ -46,9 +46,9 @@ class TYSPersonalViewController: BaseViewController {
     
     var personalModel: TYSPersonalModel = TYSPersonalModel() {
         willSet {
-            featureDataSource[0]["count"] = newValue.activity
-            featureDataSource[1]["count"] = newValue.fans_count
-            featureDataSource[2]["count"] = newValue.follow_count
+            featureDataSource[0]["count"] = newValue.activityFormat
+            featureDataSource[1]["count"] = newValue.fansCountFormat
+            featureDataSource[2]["count"] = newValue.followCountFormat
         }
     }
     
@@ -71,9 +71,7 @@ class TYSPersonalViewController: BaseViewController {
             if self.tableView.mj_header.isRefreshing {
                 self.tableView.mj_header.endRefreshing()
             }
-            
-//            TYSPersonalModel.manager.insertPersonal(personalModel: successValue)
-            TYSPersonalModel.manager.update(personalModel: successValue)
+            TYSPersonalModel.manager.insertOrUpdate(personalModel: successValue)
             
             self.personalModel = successValue
             self.tableView.reloadData()
@@ -114,8 +112,7 @@ extension TYSPersonalViewController {
 // MARK: event response
 extension TYSPersonalViewController {
     @objc private func navRightBtnClick() {
-        print("msg")
-        TYSPersonalModel.manager.deletePersonalTable()
+        printLog("msg")
     }
 }
 
@@ -138,7 +135,7 @@ extension TYSPersonalViewController: UITableViewDataSource, UITableViewDelegate 
             cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, kScreenW)
             cell.setTabArray(tabArray: featureDataSource)
             cell.didSelectedItemAction(tempClick: { (index) in
-                print(index)
+                printLog(index)
             })
             return cell
         case 2:
@@ -146,7 +143,7 @@ extension TYSPersonalViewController: UITableViewDataSource, UITableViewDelegate 
             cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, kScreenW)
             cell.setTabArray(tabArray: publishDataSource)
             cell.didSelectedItemAction(tempClick: { (index) in
-                print(index)
+                printLog(index)
             })
             return cell
         default:

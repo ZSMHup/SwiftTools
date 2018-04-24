@@ -331,7 +331,7 @@ extension TYSLiveAudioBackViewController: UIScrollViewDelegate, AYPageMenuDelega
     
     // TYSLiveAudioBackHeaderViewDelegate
     func liveRoomHeader(headerView: TYSLiveAudioBackHeaderView, didPlay: UIButton) {
-        print("开始播放")
+        printLog("开始播放")
         if isVideoFinished {
             tys_setupVodPlayer(backId: joinLiveModel.back_id!)
         } else {
@@ -346,13 +346,13 @@ extension TYSLiveAudioBackViewController: UIScrollViewDelegate, AYPageMenuDelega
     }
     
     func liveRoomHeader(headerView: TYSLiveAudioBackHeaderView, didPause: UIButton) {
-        print("暂停播放")
+        printLog("暂停播放")
         didPause.isSelected = false
         doPause()
     }
     
     func liveRoomHeader(headerView: TYSLiveAudioBackHeaderView, didClickBack: UIButton) {
-        print("快退")
+        printLog("快退")
         if isPlayer {
             var pos = _position! - 15000
             if pos < 0 {
@@ -364,7 +364,7 @@ extension TYSLiveAudioBackViewController: UIScrollViewDelegate, AYPageMenuDelega
     }
     
     func liveRoomHeader(headerView: TYSLiveAudioBackHeaderView, didClickFoward: UIButton) {
-        print("快进")
+        printLog("快进")
         if isPlayer {
             let pos = _position! + 15000
             if pos > allPosition! {
@@ -379,11 +379,11 @@ extension TYSLiveAudioBackViewController: UIScrollViewDelegate, AYPageMenuDelega
     }
     
     func liveRoomHeader(headerView: TYSLiveAudioBackHeaderView, didClickDownload: UIButton) {
-        print("下载")
+        printLog("下载")
     }
     
     func liveRoomHeader(headerView: TYSLiveAudioBackHeaderView, didSliderDoHold: UISlider) {
-        print("按下")
+        printLog("按下")
         if !isVideoFinished {
             if isPlayer {
                 doHold(slider: didSliderDoHold)
@@ -393,7 +393,7 @@ extension TYSLiveAudioBackViewController: UIScrollViewDelegate, AYPageMenuDelega
     }
     
     func liveRoomHeader(headerView: TYSLiveAudioBackHeaderView, didSliderDoSeek: UISlider) {
-        print("滑动")
+        printLog("滑动")
         if !isVideoFinished {
             if isPlayer {
                 doSeek(slider: didSliderDoSeek)
@@ -433,7 +433,7 @@ extension TYSLiveAudioBackViewController: VodPlayDelegate, VodDownLoadDelegate {
     
     // 进度回调方法
     func onPosition(_ position: Int32) {
-        print("position: \(position)")
+        printLog("position: \(position)")
         if (isDragging) {
             return
         }
