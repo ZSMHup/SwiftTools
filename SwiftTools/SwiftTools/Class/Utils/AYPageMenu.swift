@@ -169,7 +169,6 @@ class AYSwitchVCContentView: UIView {
         switchVCContentView.frame = frame
         switchVCContentView._items = items
         switchVCContentView._controllers = controllers
-
         switchVCContentView.addSubViews()
         return switchVCContentView
     }

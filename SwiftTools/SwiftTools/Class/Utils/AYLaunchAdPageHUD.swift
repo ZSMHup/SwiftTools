@@ -200,23 +200,6 @@ extension AYLaunchAdPageHUD {
         }
     }
     
-    // 正则表达式验证URL
-    private func checkURL(url: String) -> Bool {
-        let regex = "[a-zA-z]+://[^\\s]*"
-        let pred = NSPredicate(format: "SELF MATCHES %@",regex)
-        return pred.evaluate(with:url)
-    }
-    
-    
-    // 判断文件是否存在
-    private func isFileExist(withFilePath filePath: String) -> Bool {
-        let fileManager = FileManager.default
-        var isDirectory: ObjCBool = false
-        return fileManager.fileExists(atPath: filePath, isDirectory :  &isDirectory)
-    }
-    
-    
-    
     @objc private func adImageViewTapAction(tap: UITapGestureRecognizer) -> Void {
         if launchAdClickBlock != nil {
             launchAdClickBlock!()
@@ -280,6 +263,21 @@ extension AYLaunchAdPageHUD {
             let fileManager:FileManager = FileManager.default
             try? fileManager.removeItem(atPath: filePath)
         }
+    }
+    
+    // 正则表达式验证URL
+    private func checkURL(url: String) -> Bool {
+        let regex = "[a-zA-z]+://[^\\s]*"
+        let pred = NSPredicate(format: "SELF MATCHES %@",regex)
+        return pred.evaluate(with:url)
+    }
+    
+    
+    // 判断文件是否存在
+    private func isFileExist(withFilePath filePath: String) -> Bool {
+        let fileManager = FileManager.default
+        var isDirectory: ObjCBool = false
+        return fileManager.fileExists(atPath: filePath, isDirectory :  &isDirectory)
     }
 }
 

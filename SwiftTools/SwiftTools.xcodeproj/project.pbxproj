@@ -69,6 +69,7 @@
 		E16A779A2074AA9600980B78 /* TYSLivePersonalRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16A77992074AA9600980B78 /* TYSLivePersonalRoomViewController.swift */; };
 		E16A779C2074AAB100980B78 /* TYSLiveOtherPeopleRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16A779B2074AAB100980B78 /* TYSLiveOtherPeopleRoomViewController.swift */; };
 		E16A779E2074ADA600980B78 /* TYSLiveAudioBackHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16A779D2074ADA600980B78 /* TYSLiveAudioBackHeaderView.swift */; };
+		E16F1634208EFB2400878B0D /* TYSAnalystModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F1633208EFB2400878B0D /* TYSAnalystModel.swift */; };
 		E1771B6B206348DA0050C244 /* TYSCommonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1771B6A206348DA0050C244 /* TYSCommonCollectionViewCell.swift */; };
 		E1771B722063586A0050C244 /* WRCycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1771B6E2063586A0050C244 /* WRCycleCell.swift */; };
 		E1771B732063586A0050C244 /* WRCycleScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1771B6F2063586A0050C244 /* WRCycleScrollView.swift */; };
@@ -192,6 +193,7 @@
 		E16A77992074AA9600980B78 /* TYSLivePersonalRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSLivePersonalRoomViewController.swift; sourceTree = "<group>"; };
 		E16A779B2074AAB100980B78 /* TYSLiveOtherPeopleRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSLiveOtherPeopleRoomViewController.swift; sourceTree = "<group>"; };
 		E16A779D2074ADA600980B78 /* TYSLiveAudioBackHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSLiveAudioBackHeaderView.swift; sourceTree = "<group>"; };
+		E16F1633208EFB2400878B0D /* TYSAnalystModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSAnalystModel.swift; sourceTree = "<group>"; };
 		E1771B6A206348DA0050C244 /* TYSCommonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSCommonCollectionViewCell.swift; sourceTree = "<group>"; };
 		E1771B6E2063586A0050C244 /* WRCycleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRCycleCell.swift; sourceTree = "<group>"; };
 		E1771B6F2063586A0050C244 /* WRCycleScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRCycleScrollView.swift; sourceTree = "<group>"; };
@@ -374,6 +376,7 @@
 		E15191A12071E2A900C419A0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E16F1633208EFB2400878B0D /* TYSAnalystModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1102,6 +1105,7 @@
 				E1771B7C20639D510050C244 /* TYSHotCollectionViewCell.swift in Sources */,
 				E15191BE2071E2A900C419A0 /* TYSRecReadViewController.swift in Sources */,
 				E15191CB20721A0A00C419A0 /* TYSRecReadAboutMeCell.swift in Sources */,
+				E16F1634208EFB2400878B0D /* TYSAnalystModel.swift in Sources */,
 				E1771B822063A5ED0050C244 /* TYSCommonLikelyPeoCollectionViewCell.swift in Sources */,
 				E18AE3C220649FC200655AD2 /* TYSMobileLoginViewController.swift in Sources */,
 				E17A081B206113EC00887C69 /* TYSLoginViewController.swift in Sources */,

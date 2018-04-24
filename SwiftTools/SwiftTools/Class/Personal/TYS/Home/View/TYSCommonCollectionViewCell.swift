@@ -30,7 +30,13 @@ class TYSCommonCollectionViewCell: UICollectionViewCell {
     func setModel(model: TYSLiveCommonModel) {
         let iconURL = URL(string: model.live_img_path ?? "")
         commonImgView?.kf.setImage(with: iconURL, placeholder:UIImage(named: "default_live_cover"))
-        stateImgView?.image = UIImage(named: getLiveStateImageNameByConfig(state: model.state!))
+        
+        if (model.dialing_number ?? "").isEmpty {
+            stateImgView?.image = UIImage(named: getLiveStateImageNameByConfig(state: model.state!))
+        } else {
+            stateImgView?.image = UIImage(named: "default_label_call")
+        }
+        
         watchCountLabel?.text = model.entry_count ?? ""
         titleLabel?.text = model.subject ?? ""
         nameLabel?.text = model.name ?? ""

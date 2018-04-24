@@ -16,14 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        AYLaunchAdPageHUD.manager.showLaunch()
-
-        printLog("LoginState: \(UserDefaults.standard.getCustomObject(forKey: "LoginState") ?? false as AnyObject)")
-        
         let loginState: Bool = UserDefaults.standard.getCustomObject(forKey: "LoginState") as? Bool ?? false
-
         if loginState {
             let homeVc = TYSHomeViewController()
             let homeNav = NavigationViewController(rootViewController: homeVc)
@@ -33,8 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let loginNav = NavigationViewController(rootViewController: loginVc)
             window?.rootViewController = loginNav
         }
-        
         window?.makeKeyAndVisible()
+        AYLaunchAdPageHUD.manager.showLaunch()
         IQKeyboardManager.sharedManager().enable = true
         return true
     }

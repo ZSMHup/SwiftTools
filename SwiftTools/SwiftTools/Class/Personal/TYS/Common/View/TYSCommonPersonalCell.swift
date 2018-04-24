@@ -54,7 +54,10 @@ class TYSCommonPersonalCell: UITableViewCell {
                 make.width.equalTo(AdaptW(w: ay_getWidth(string: (authLabel?.text)!, fontSize: 10, height: 20) + 10))
             })
         } else {
-            
+            let url = URL(string: model.head_img ?? "")
+            userImgView?.kf.setImage(with: url, placeholder: UIImage(named: "defaut_avatar"))
+            nameLabel?.text = model.userName
+            orgLabel?.text = model.company_profile ?? ""
         }
     }
 

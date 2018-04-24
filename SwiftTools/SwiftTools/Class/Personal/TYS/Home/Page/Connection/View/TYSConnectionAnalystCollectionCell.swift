@@ -28,6 +28,7 @@ class TYSConnectionAnalystCollectionCell: UICollectionViewCell {
         guard let iconURL = URL(string: model.head_img ?? "") else { return }
         userImgView?.kf.setImage(with: iconURL, placeholder:UIImage(named: "defaut_avatar"))
         nameLabel?.text = model.name ?? "暂无数据"
+        orgLabel?.text = model.company_profile ?? "暂无数据"
     }
 
 }
@@ -36,14 +37,14 @@ extension TYSConnectionAnalystCollectionCell {
     
     private func addSubViews() {
         userImgView = UIImageView()
-        userImgView?.layer.cornerRadius = AdaptW(w: 54) / 2
+        userImgView?.layer.cornerRadius = 54/2
         userImgView?.layer.masksToBounds = true
         userImgView?.image = UIImage(named: "defaut_avatar")
         contentView.addSubview(userImgView!)
         userImgView?.snp.makeConstraints({ (make) in
             make.top.equalTo(contentView)
             make.centerX.equalTo(contentView)
-            make.size.equalTo(CGSize(width: AdaptW(w: 54), height: AdaptW(w: 54)))
+            make.size.equalTo(CGSize(width: 54, height: 54))
         })
         
         nameLabel = UILabel()

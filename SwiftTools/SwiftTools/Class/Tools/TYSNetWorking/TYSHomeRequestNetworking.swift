@@ -65,6 +65,33 @@ func requestInterestedPeople(
     }
 }
 
+// MARK: 查询分析师列表
+func requestAnalystList(
+    paramterDic: Dictionary<String, Any>,
+    cacheCompletion: @escaping ([TYSInterestedPeopleModel])->(),
+    successCompletion: @escaping ([TYSInterestedPeopleModel])->(),
+    failureCompletion: @escaping (Any)->()) {
+    
+    requestHanlder(paramterDic: paramterDic, cache: true, cacheCompletion: { (cacheValue) in
+        let resultDic = getDictionaryFromJSONString(jsonString: cacheValue as! String)
+        let object: [Any] = resultDic["object"] as! [Any]
+        
+        let model = JSONDeserializer<TYSInterestedPeopleModel>.deserializeModelArrayFrom(array: object)
+        
+        cacheCompletion(model! as! [TYSInterestedPeopleModel])
+        
+    }, successCompletion: { (successValue) in
+        let resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
+        let object: [Any] = resultDic["object"] as! [Any]
+        
+        let model = JSONDeserializer<TYSInterestedPeopleModel>.deserializeModelArrayFrom(array: object)
+        
+        successCompletion(model! as! [TYSInterestedPeopleModel])
+    }) { (error) in
+        failureCompletion(error)
+    }
+}
+
 // MARK: 主页广告列表
 func requestHomeAD(
     paramterDic: Dictionary<String, Any>,

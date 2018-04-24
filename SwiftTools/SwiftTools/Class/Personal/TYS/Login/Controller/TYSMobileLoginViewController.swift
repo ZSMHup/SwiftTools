@@ -211,7 +211,9 @@ class TYSMobileLoginViewController: BaseViewController {
             UserDefaults.standard.saveCustomObject(customObject: true as NSCoding, key: "LoginState")
             
             let homeVc = TYSHomeViewController()
-            self.navigationController?.pushViewController(homeVc, animated: true)
+            let homeNav = NavigationViewController(rootViewController: homeVc)
+            getCurrentWindow()?.rootViewController = homeNav
+            
         }) { (failure) in
             showOnlyText(text: failure as! String)
         }

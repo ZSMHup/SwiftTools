@@ -25,6 +25,8 @@ class TYSConnectionAnalystCell: UITableViewCell {
         
     }()
     
+    var analystArr: [TYSInterestedPeopleModel] = [TYSInterestedPeopleModel]()
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -42,6 +44,11 @@ class TYSConnectionAnalystCell: UITableViewCell {
         }
     }
     
+    func setAnalystArray(analystArr: [TYSInterestedPeopleModel]) {
+        self.analystArr = analystArr
+        collectionView.reloadData()
+    }
+    
 }
 
 extension TYSConnectionAnalystCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -51,13 +58,13 @@ extension TYSConnectionAnalystCell: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return analystArr.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: TYSConnectionAnalystCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSConnectionAnalystCollectionCell", for: indexPath) as! TYSConnectionAnalystCollectionCell
         
-        //        cell.setModel(model: interestedPeoArr[indexPath.item])
+        cell.setModel(model: analystArr[indexPath.item])
         return cell
     }
 }

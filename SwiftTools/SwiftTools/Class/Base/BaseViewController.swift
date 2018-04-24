@@ -23,12 +23,12 @@ class BaseViewController: UIViewController {
     
     deinit {
         printLog("deinit: \(self.classForCoder)")
+        NotificationCenter.default.removeObserver(self)
     }
     
     private func addNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(loginOut), name: LogoutNotification, object: nil)
     }
-    
 }
 
 extension BaseViewController {

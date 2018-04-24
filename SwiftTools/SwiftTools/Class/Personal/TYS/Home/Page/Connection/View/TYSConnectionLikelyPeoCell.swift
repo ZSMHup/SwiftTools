@@ -24,6 +24,8 @@ class TYSConnectionLikelyPeoCell: UITableViewCell {
         return tempCollectionView
         
     }()
+    
+    var interestedPeoArr: [TYSInterestedPeopleModel] = [TYSInterestedPeopleModel]()
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -42,6 +44,10 @@ class TYSConnectionLikelyPeoCell: UITableViewCell {
         }
     }
     
+    func setInterestedPeoArray(interestedPeoArray: [TYSInterestedPeopleModel]) {
+        interestedPeoArr = interestedPeoArray
+        collectionView.reloadData()
+    }
 }
 
 extension TYSConnectionLikelyPeoCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -51,13 +57,12 @@ extension TYSConnectionLikelyPeoCell: UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return interestedPeoArr.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: TYSCommonLikelyPeoCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TYSCommonLikelyPeoCollectionViewCell", for: indexPath) as! TYSCommonLikelyPeoCollectionViewCell
-        
-//        cell.setModel(model: interestedPeoArr[indexPath.item])
+        cell.setModel(model: interestedPeoArr[indexPath.item])
         return cell
     }
 }

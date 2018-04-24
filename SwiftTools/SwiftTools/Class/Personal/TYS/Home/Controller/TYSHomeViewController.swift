@@ -21,6 +21,7 @@ class TYSHomeViewController: BaseViewController {
         tempCollectionView.delegate = self
         tempCollectionView.dataSource = self
         tempCollectionView.backgroundColor = tys_whiteColor
+        tempCollectionView.showsVerticalScrollIndicator = false
         
         tempCollectionView.register(TYSHomeTabCollectionViewCell.self, forCellWithReuseIdentifier: "TYSHomeTabCollectionViewCell")
         tempCollectionView.register(TYSCommonCollectionViewCell.self, forCellWithReuseIdentifier: "TYSCommonCollectionViewCell")
@@ -337,36 +338,40 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
             var title: String?
             var image: String?
             
-            
-            if indexPath.section == 0 {
-            } else if indexPath.section == 1 {
+            switch indexPath.section {
+            case 1:
                 title = "可能感兴趣的人"
                 image = "default_arrow_renew"
-                let sectionView = TYSSectionView().initWithLeftTitle(title: title!, image: image!)
+            case 2:
+                title = "热门"
+                image = "default_arrow_right"
+            case 3:
+                title = "推荐"
+                image = "default_arrow_right"
+            default:
+                break
+            }
+            
+            let sectionView = TYSSectionView().initWith(leftTitle: title!, rightImage: image!)
+            reusableview.addSubview(sectionView)
+            
+            switch indexPath.section {
+            case 1:
                 sectionView.addRightBtnAction(tempRightBtnAction: {[weak self] (button) in
                     self?.requestInterestedPeopleData()
                 })
-                reusableview.addSubview(sectionView)
-            } else if indexPath.section == 2 {
-                title = "热门"
-                image = "default_arrow_right"
-                let sectionView = TYSSectionView().initWithLeftTitle(title: title!, image: image!)
+            case 2:
                 sectionView.addRightBtnAction(tempRightBtnAction: {[weak self] (button) in
                     self?.navigationController?.pushViewController(TYSHotLiveViewController(), animated: true)
                 })
-                reusableview.addSubview(sectionView)
-            } else {
-                title = "推荐"
-                image = "default_arrow_right"
-                let sectionView = TYSSectionView().initWithLeftTitle(title: title!, image: image!)
+            case 3:
                 sectionView.addRightBtnAction(tempRightBtnAction: {[weak self] (button) in
                     self?.navigationController?.pushViewController(TYSRecLiveViewController(), animated: true)
                 })
-                reusableview.addSubview(sectionView)
+            default:
+                break
             }
-            
         }
-
         return reusableview
     }
     

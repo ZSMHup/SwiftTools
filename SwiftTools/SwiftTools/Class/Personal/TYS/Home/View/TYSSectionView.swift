@@ -11,14 +11,18 @@ import UIKit
 typealias rightBtnBlock = (UIButton) -> Void
 
 class TYSSectionView: UIView {
-    private lazy var bgView = UIView()
-    private lazy var leftLabel = UILabel()
-    private lazy var rightBtn = UIButton()
-    var leftText = String()
+    
+    private lazy var bgView: UIView = {
+        let tempbgView = UIView()
+        return tempbgView
+    }()
+    
+    private var leftLabel: UILabel?
+    private var rightBtn: UIButton?
+    var leftText = ""
     var rightImgText = ""
     
     var rightBtnAction: rightBtnBlock?
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,36 +33,16 @@ class TYSSectionView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func initWithLeftTitle(title: String, image: String) -> TYSSectionView {
+    func initWith(leftTitle: String, rightImage: String) -> TYSSectionView {
         let sectionView = TYSSectionView()
         sectionView.backgroundColor = UIColor.white
         sectionView.frame = CGRect(x: 0, y: 0, width: kScreenW, height: AdaptH(h: 60))
-        sectionView.leftText = title
-        sectionView.rightImgText = image
+        sectionView.leftText = leftTitle
+        sectionView.rightImgText = rightImage
         sectionView.setupUI()
-//        if sectionView === nil {
-//            sectionView = TYSSectionView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: AdaptH(h: 60)))
-//            sectionView?.leftText = title
-//            sectionView?.rightImgText = image
-//            sectionView?.setupUI()
-//        }
-        
         return sectionView
     }
-    
-//    class func initWithLeftTitle(title: String, image: String) -> TYSSectionView {
-//        
-//        var sectionView: TYSSectionView?
-//        
-//        if sectionView === nil {
-//            sectionView = TYSSectionView(frame: CGRect(x: 0, y: 0, width: kScreenW, height: AdaptH(h: 60)))
-//            sectionView?.leftText = title
-//            sectionView?.rightImgText = image
-//            sectionView?.setupUI()
-//        }
-//        
-//        return sectionView!
-//    }
+
 }
 
 
@@ -73,22 +57,24 @@ extension TYSSectionView {
             make.top.bottom.equalTo(self)
         }
         
-        leftLabel.textColor = tys_blackColor
-        leftLabel.text = leftText
-        leftLabel.font = SystemFont(fontSize: 20)
-        bgView.addSubview(leftLabel)
-        leftLabel.snp.makeConstraints { (make) in
+        leftLabel = UILabel()
+        leftLabel?.textColor = tys_blackColor
+        leftLabel?.text = leftText
+        leftLabel?.font = SystemFont(fontSize: 20)
+        bgView.addSubview(leftLabel!)
+        leftLabel?.snp.makeConstraints { (make) in
             make.left.equalTo(bgView)
             make.centerY.equalTo(bgView.snp.centerY)
         }
         
-        rightBtn.setImage(UIImage(named: rightImgText), for: .normal)
-        rightBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 20)
-        rightBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 80, 0, 0)
-        rightBtn.addTarget(self, action: #selector(rightBtnClick), for: .touchUpInside)
-        bgView.addSubview(rightBtn)
-        rightBtn.snp.makeConstraints { (make) in
-            make.centerY.equalTo(leftLabel.snp.centerY)
+        rightBtn = UIButton()
+        rightBtn?.setImage(UIImage(named: rightImgText), for: .normal)
+        rightBtn?.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 20)
+        rightBtn?.imageEdgeInsets = UIEdgeInsetsMake(0, 80, 0, 0)
+        rightBtn?.addTarget(self, action: #selector(rightBtnClick), for: .touchUpInside)
+        bgView.addSubview(rightBtn!)
+        rightBtn?.snp.makeConstraints { (make) in
+            make.centerY.equalTo((leftLabel?.snp.centerY)!)
             make.right.equalTo(bgView)
             make.size.equalTo(CGSize(width: AdaptW(w: 100), height: AdaptH(h: 40)))
         }
@@ -100,7 +86,7 @@ extension TYSSectionView {
     
     @objc private func rightBtnClick() {
         if rightBtnAction != nil {
-            rightBtnAction!(rightBtn)
+            rightBtnAction!(rightBtn!)
         }
     }
     
