@@ -190,7 +190,30 @@ func requestRecReadDetail(
     }
 }
 
-
+// MARK: 查询荐读与我相关
+func requestRecReadAboutMeList(
+    paramterDic: Dictionary<String, Any>,
+    cacheCompletion: @escaping ([TYSRecReadAboutMeModel])->(),
+    successCompletion: @escaping ([TYSRecReadAboutMeModel])->(),
+    failureCompletion: @escaping (Any)->()) {
+    requestHanlder(paramterDic: paramterDic, cache: true, cacheCompletion: { (cacheValue) in
+        let resultDic = getDictionaryFromJSONString(jsonString: cacheValue as! String)
+        let object: [Any] = resultDic["object"] as! [Any]
+        
+        let model = JSONDeserializer<TYSRecReadAboutMeModel>.deserializeModelArrayFrom(array: object)
+        
+        cacheCompletion(model! as! [TYSRecReadAboutMeModel])
+    }, successCompletion: { (successValue) in
+        let resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
+        let object: [Any] = resultDic["object"] as! [Any]
+        
+        let model = JSONDeserializer<TYSRecReadAboutMeModel>.deserializeModelArrayFrom(array: object)
+        
+        successCompletion(model! as! [TYSRecReadAboutMeModel])
+    }) { (error) in
+        failureCompletion(error)
+    }
+}
 
 
 

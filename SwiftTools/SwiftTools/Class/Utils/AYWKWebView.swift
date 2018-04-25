@@ -52,6 +52,8 @@ class AYWKWebView: UIView {
     }
     /// 导航栏标题
     var navigationItemTitle: String?
+    var AYScrollView: UIScrollView?
+    
     
     /// 是否使用MJRefresh下拉刷新
     var isUserMJRefresh: Bool = false {
@@ -64,7 +66,6 @@ class AYWKWebView: UIView {
         }
     }
     
-    
     /// 导航栏存在且有穿透效果(默认导航栏存在且有穿透效果)
     var isNavigationBarOrTranslucent: Bool = true {
         willSet {
@@ -75,13 +76,25 @@ class AYWKWebView: UIView {
             }
         }
     }
- 
     
     private lazy var wkWebView: WKWebView = {
-        let tempWkWebView = WKWebView(frame: self.bounds)
+        
+        var javascript = String()
+        javascript.append("var meta = document.createElement('meta');meta.name = 'viewport';meta.content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no\";document.getElementsByTagName('head')[0].appendChild(meta);")
+//        javascript.append("document.documentElement.style.webkitTouchCallout='none';")
+//        javascript.append("document.documentElement.style.webkitUserSelect='none';")
+        javascript.append("document.getElementsByTagName('body')[0].style.background='#FFFFFF'")
+        let userScript = WKUserScript(source: javascript, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+        let userContentCtrl = WKUserContentController()
+        userContentCtrl.addUserScript(userScript)
+        let configuration = WKWebViewConfiguration()
+        configuration.userContentController = userContentCtrl
+        
+        let tempWkWebView = WKWebView(frame: self.bounds, configuration: configuration)
         tempWkWebView.uiDelegate = self
         tempWkWebView.navigationDelegate = self
         tempWkWebView.addObserver(self, forKeyPath: "estimatedProgress", options: NSKeyValueObservingOptions.new, context: nil)
+        AYScrollView = tempWkWebView.scrollView
         return tempWkWebView
     }()
     

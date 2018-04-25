@@ -32,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         AYLaunchAdPageHUD.manager.showLaunch()
         IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.sharedManager().enableAutoToolbar = false
         return true
     }
 

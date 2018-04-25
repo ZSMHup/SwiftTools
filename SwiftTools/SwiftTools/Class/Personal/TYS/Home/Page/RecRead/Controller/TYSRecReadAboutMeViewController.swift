@@ -24,11 +24,13 @@ class TYSRecReadAboutMeViewController: BaseViewController {
         return tempTableView
     }()
     
+    private var page: Int = 1
+    private var dataSource = [TYSRecReadAboutMeModel]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addSubViews()
-        
     }
     
     private func addSubViews() {
@@ -39,32 +41,68 @@ class TYSRecReadAboutMeViewController: BaseViewController {
         }
         
         tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {[weak self] in
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
-                self?.tableView.mj_header.endRefreshing()
-            })
+            self?.page = 1
+            self?.requestRecReadAboutMeListData()
         })
         
         tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: {[weak self] in
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
-                self?.tableView.mj_footer.endRefreshing()
-            })
+            self?.page += 1
+            self?.requestRecReadAboutMeListData()
         })
         tableView.mj_header.beginRefreshing()
     }
-
-
-
 }
+
+extension TYSRecReadAboutMeViewController {
+    private func requestRecReadAboutMeListData() {
+        let param = [
+            "requestCode" : "V240013",
+            "page" : String(describing: page),
+            "limit" : "10",
+            "user_id" : kLoginModel.user_id ?? ""
+        ]
+        requestRecReadAboutMeList(paramterDic: param, cacheCompletion: { (cacheValue) in
+            if self.tableView.mj_header.isRefreshing {
+                if !cacheValue.isEmpty {
+                    self.dataSource.removeAll()
+                    self.dataSource = cacheValue
+                    self.tableView.reloadData()
+                }
+            }
+        }, successCompletion: { (successValue) in
+            if self.tableView.mj_header.isRefreshing {
+                self.tableView.mj_header.endRefreshing()
+                self.dataSource.removeAll()
+            }
+            
+            if self.tableView.mj_footer.isRefreshing {
+                self.tableView.mj_footer.endRefreshing()
+            }
+            self.dataSource.append(contentsOf: successValue)
+            self.tableView.reloadData()
+        }) { (failure) in
+            showFail(text: "网络异常")
+            if self.tableView.mj_header.isRefreshing {
+                self.tableView.mj_header.endRefreshing()
+            }
+            if self.tableView.mj_footer.isRefreshing {
+                self.tableView.mj_footer.endRefreshing()
+            }
+        }
+    }
+}
+
+
 // MARK: delegate
 extension TYSRecReadAboutMeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return dataSource.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: TYSRecReadAboutMeCell = tableView.dequeueReusableCell(withIdentifier: "TYSRecReadAboutMeCell") as! TYSRecReadAboutMeCell
-        
+        cell.setModel(model: dataSource[indexPath.row])
         return cell
     }
     

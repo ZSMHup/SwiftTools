@@ -10,7 +10,8 @@ import Foundation
 import SwiftyJSON
 import HandyJSON
 
-let url = "http://tyapi.znzkj.net/touyanshe_api/s/api"
+//let url = "http://tyapi.znzkj.net/touyanshe_api/s/api"
+let url = "http://api.touyanshe.com.cn/touyanshe_api/s/api"
 
 private var modelClass: String?
 

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
 class TYSRecReadDetailViewController: BaseViewController {
 
@@ -17,6 +18,12 @@ class TYSRecReadDetailViewController: BaseViewController {
         let tempHeaderView = TYSRecReadDetailHeaderView()
         return tempHeaderView
     }()
+    
+    private lazy var inputViews: TYSRecReadDetailInputView = {
+        let tempInputView = TYSRecReadDetailInputView()
+        return tempInputView
+    }()
+    
     private lazy var wkWebView: AYWKWebView = {
         
         let headerViewH = ay_getHeight(string: recReadModel.title ?? "", fontSize: 20, width: kScreenW - AdaptW(w: 46), maxHeight: 72.0)
@@ -27,15 +34,46 @@ class TYSRecReadDetailViewController: BaseViewController {
         return tempWkWebView
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        IQKeyboardManager.sharedManager().enable = false
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(sender:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(sender:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
         addSubView()
         requestRecReadDetailData()
     }
-
     
+    @objc func keyboardWillShow(sender: NSNotification) {
+        let userInfo = sender.userInfo
+        let frame: CGRect = userInfo![UIKeyboardFrameEndUserInfoKey] as! CGRect
+        let duration: CGFloat = userInfo![UIKeyboardAnimationDurationUserInfoKey] as! CGFloat
+        UIView.animate(withDuration: TimeInterval(duration)) {
+            self.inputViews.snp.updateConstraints({ (make) in
+                make.bottom.equalTo(self.view.snp.bottom).offset(-frame.size.height)
+            })
+        }
+    }
+    
+    @objc func keyboardWillHide(sender: NSNotification) {
+        let userInfo = sender.userInfo
+        let duration: CGFloat = userInfo![UIKeyboardAnimationDurationUserInfoKey] as! CGFloat
+        UIView.animate(withDuration: TimeInterval(duration)) {
+            self.inputViews.snp.updateConstraints({ (make) in
+                make.bottom.equalTo(self.view.snp.bottom)
+            })
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+}
+
+// MARK: requestData
+extension TYSRecReadDetailViewController {
     private func requestRecReadDetailData() {
         let param = [
             "requestCode" : "V240003",
@@ -55,14 +93,15 @@ class TYSRecReadDetailViewController: BaseViewController {
         
         let littleArticleTemplateFilePath = Bundle.main.path(forResource: "littleArticleTemplate", ofType: "html") ?? ""
         let htmlTemplate = try! String(contentsOfFile: littleArticleTemplateFilePath, encoding: .utf8)
-        
         var contents = model.contents ?? ""
+        
         if model.type == "1" {
-            contents = model.title ?? ""
+            
             let tempContents = model.title?.replacingOccurrences(of: "\n", with: "<br />")
             contents = htmlTemplate.replacingOccurrences(of: "</body>", with:String(format: "<p class=\"p\">%@</p><br /></body>", tempContents!))
             contents = contents.replacingOccurrences(of: "</body>", with: "<p class=\"declaration\">* 免责声明 · 本文内容不代表投研社的观点和立场，不构成任何投资建议。<br/></p> </body>")
             wkWebView.loadHtmlString(htmlString: contents)
+            
         } else if model.type == "3" {
             if (model.path == nil) {
                 wkWebView.loadRequest(urlString: "https://www.baidu.com/search/error.html")
@@ -71,15 +110,12 @@ class TYSRecReadDetailViewController: BaseViewController {
             }
         } else {
             if model.contents?.contains("<!DOCTYPE html") == false {
-                let littleArticleTemplateFilePath = Bundle.main.path(forResource: "littleArticleTemplate", ofType: "html") ?? ""
-                let htmlTemplate = try! String(contentsOfFile: littleArticleTemplateFilePath, encoding: .utf8)
-                contents = htmlTemplate.replacingOccurrences(of: "</body>", with: String(format: "<div>%@</div></body>", model.contents!))
+                contents = htmlTemplate.replacingOccurrences(of: "</body>", with: String(format: "<div style=\"margin-left: 23px;margin-right: 23px;\">%@</div></body>", model.contents ?? ""))
             }
             
             wkWebView.loadHtmlString(htmlString: contents)
         }
     }
-
 }
 
 extension TYSRecReadDetailViewController {
@@ -93,13 +129,14 @@ extension TYSRecReadDetailViewController {
         }
         
         view.addSubview(wkWebView)
-
         
-        
+        view.addSubview(inputViews)
+        inputViews.snp.makeConstraints { (make) in
+            make.left.bottom.right.equalTo(view)
+            make.height.equalTo(60)
+        }
         
     }
-    
-    
 }
 
 // MARK: delegate

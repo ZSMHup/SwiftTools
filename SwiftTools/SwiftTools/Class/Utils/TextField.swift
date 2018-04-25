@@ -145,12 +145,12 @@ extension TextField {
         }
         
         // 只有当maxLength字段的值不为无穷大整型也不为0时才计算限制字符数.
-        if maxLength != LONG_MAX && maxLength != 0 && (text?.count)! > Int(0)  {
-            if (markedTextRange == nil) && (text?.count)! > maxLength! {
+        if maxLength != LONG_MAX && maxLength != 0 && maxLength != nil && (text?.count ?? 0) > Int(0)  {
+            if (markedTextRange == nil) && (text?.count ?? 0) > (maxLength ?? 0) {
                 if maxHandler != nil {
                     maxHandler!(self)
                 }
-                let index = text?.index((text?.startIndex)!, offsetBy: maxLength!)
+                let index = text?.index((text?.startIndex)!, offsetBy: maxLength ?? 0)
                 text = String(text![..<index!])
             }
         }

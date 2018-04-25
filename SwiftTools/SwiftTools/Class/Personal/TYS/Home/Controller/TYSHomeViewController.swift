@@ -74,7 +74,12 @@ class TYSHomeViewController: BaseViewController {
     }
     
     private func requestInterestedPeopleData() {
-        let param = ["requestCode" : "V219001", "page" : "1", "limit" : "10", "login_user_id" : kLoginModel.user_id ?? ""]
+        let param = [
+            "requestCode" : "V219001",
+            "page" : "1",
+            "limit" : "10",
+            "login_user_id" : kLoginModel.user_id ?? ""
+        ]
         
         requestInterestedPeople(paramterDic: param, cacheCompletion: { (cacheValue) in
             self.interestedPeoDataSource.removeAll()
@@ -405,12 +410,12 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     /// 点击图片事件
     func cycleScrollViewDidSelect(at index:Int, cycleScrollView:WRCycleScrollView) {
-        printLog("点击了第\(index+1)个图片")
-        
-        let VC = TYSHomeWebViewController()
-        VC.url = cycleLinkPathDataSource[index]
-        
-        navigationController?.pushViewController(VC, animated: true)
+        if cycleLinkPathDataSource.count > 0 {
+            printLog("点击了第\(index+1)个图片")
+            let VC = TYSHomeWebViewController()
+            VC.url = cycleLinkPathDataSource[index]
+            navigationController?.pushViewController(VC, animated: true)
+        }
     }
     /// 图片滚动事件
     func cycleScrollViewDidScroll(to index:Int, cycleScrollView:WRCycleScrollView) {

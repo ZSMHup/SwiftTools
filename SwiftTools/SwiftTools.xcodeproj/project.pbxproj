@@ -31,6 +31,8 @@
 		E1427235207B5367001FC52D /* TYSLoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1427234207B5367001FC52D /* TYSLoginRequest.swift */; };
 		E1427237207B53EC001FC52D /* TYSLoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1427236207B53EC001FC52D /* TYSLoginModel.swift */; };
 		E142723A207B68A2001FC52D /* AYKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = E1427238207B68A2001FC52D /* AYKeychain.m */; };
+		E15109B12090182500A34DF2 /* TYSRecReadAboutMeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15109B02090182500A34DF2 /* TYSRecReadAboutMeModel.swift */; };
+		E15109B32090468600A34DF2 /* AYTextHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15109B22090468600A34DF2 /* AYTextHelper.swift */; };
 		E15191BB2071E2A900C419A0 /* TYSConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15191A02071E2A900C419A0 /* TYSConnectionViewController.swift */; };
 		E15191BC2071E2A900C419A0 /* TYSRecReadAboutMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15191A52071E2A900C419A0 /* TYSRecReadAboutMeViewController.swift */; };
 		E15191BD2071E2A900C419A0 /* TYSRecReadContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15191A62071E2A900C419A0 /* TYSRecReadContentViewController.swift */; };
@@ -70,6 +72,7 @@
 		E16A779C2074AAB100980B78 /* TYSLiveOtherPeopleRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16A779B2074AAB100980B78 /* TYSLiveOtherPeopleRoomViewController.swift */; };
 		E16A779E2074ADA600980B78 /* TYSLiveAudioBackHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16A779D2074ADA600980B78 /* TYSLiveAudioBackHeaderView.swift */; };
 		E16F1634208EFB2400878B0D /* TYSAnalystModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F1633208EFB2400878B0D /* TYSAnalystModel.swift */; };
+		E16F1636208F1B5900878B0D /* TYSRecReadDetailInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F1635208F1B5900878B0D /* TYSRecReadDetailInputView.swift */; };
 		E1771B6B206348DA0050C244 /* TYSCommonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1771B6A206348DA0050C244 /* TYSCommonCollectionViewCell.swift */; };
 		E1771B722063586A0050C244 /* WRCycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1771B6E2063586A0050C244 /* WRCycleCell.swift */; };
 		E1771B732063586A0050C244 /* WRCycleScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1771B6F2063586A0050C244 /* WRCycleScrollView.swift */; };
@@ -154,6 +157,8 @@
 		E1427236207B53EC001FC52D /* TYSLoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSLoginModel.swift; sourceTree = "<group>"; };
 		E1427238207B68A2001FC52D /* AYKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AYKeychain.m; sourceTree = "<group>"; };
 		E1427239207B68A2001FC52D /* AYKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AYKeychain.h; sourceTree = "<group>"; };
+		E15109B02090182500A34DF2 /* TYSRecReadAboutMeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSRecReadAboutMeModel.swift; sourceTree = "<group>"; };
+		E15109B22090468600A34DF2 /* AYTextHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AYTextHelper.swift; sourceTree = "<group>"; };
 		E15191A02071E2A900C419A0 /* TYSConnectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TYSConnectionViewController.swift; sourceTree = "<group>"; };
 		E15191A52071E2A900C419A0 /* TYSRecReadAboutMeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TYSRecReadAboutMeViewController.swift; sourceTree = "<group>"; };
 		E15191A62071E2A900C419A0 /* TYSRecReadContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TYSRecReadContentViewController.swift; sourceTree = "<group>"; };
@@ -194,6 +199,7 @@
 		E16A779B2074AAB100980B78 /* TYSLiveOtherPeopleRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSLiveOtherPeopleRoomViewController.swift; sourceTree = "<group>"; };
 		E16A779D2074ADA600980B78 /* TYSLiveAudioBackHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSLiveAudioBackHeaderView.swift; sourceTree = "<group>"; };
 		E16F1633208EFB2400878B0D /* TYSAnalystModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSAnalystModel.swift; sourceTree = "<group>"; };
+		E16F1635208F1B5900878B0D /* TYSRecReadDetailInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSRecReadDetailInputView.swift; sourceTree = "<group>"; };
 		E1771B6A206348DA0050C244 /* TYSCommonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSCommonCollectionViewCell.swift; sourceTree = "<group>"; };
 		E1771B6E2063586A0050C244 /* WRCycleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRCycleCell.swift; sourceTree = "<group>"; };
 		E1771B6F2063586A0050C244 /* WRCycleScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRCycleScrollView.swift; sourceTree = "<group>"; };
@@ -417,6 +423,7 @@
 			children = (
 				E1577AD3207F11B1008D1FF4 /* TYSRecReadModel.swift */,
 				E1577AD5207F303E008D1FF4 /* TYSRecReadDetailModel.swift */,
+				E15109B02090182500A34DF2 /* TYSRecReadAboutMeModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -427,6 +434,7 @@
 				E15191C82071FD2D00C419A0 /* TYSRecReadContentCell.swift */,
 				E15191CA20721A0A00C419A0 /* TYSRecReadAboutMeCell.swift */,
 				E1577AD9207F35DA008D1FF4 /* TYSRecReadDetailHeaderView.swift */,
+				E16F1635208F1B5900878B0D /* TYSRecReadDetailInputView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -706,6 +714,7 @@
 				E158E403207C7B2800D09EAC /* AYHUD.swift */,
 				E1BE3C272089C2E800C2D936 /* TYSCreateDB.swift */,
 				E1CD5473208DCCB6001F2323 /* AYLaunchAdPageHUD.swift */,
+				E15109B22090468600A34DF2 /* AYTextHelper.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1123,8 +1132,10 @@
 				E158E404207C7B2800D09EAC /* AYHUD.swift in Sources */,
 				E1649366207B0EDF00A2AC18 /* TYSHomeADModel.swift in Sources */,
 				E1BF054C2079C18C00B31104 /* AYBaseViewController.swift in Sources */,
+				E15109B12090182500A34DF2 /* TYSRecReadAboutMeModel.swift in Sources */,
 				E1906545206E41F700E9F7F9 /* UIButton+Time.swift in Sources */,
 				E1771B882063B77B0050C244 /* TYSPersonalViewController.swift in Sources */,
+				E15109B32090468600A34DF2 /* AYTextHelper.swift in Sources */,
 				E16A779C2074AAB100980B78 /* TYSLiveOtherPeopleRoomViewController.swift in Sources */,
 				E15191C12071E2A900C419A0 /* TYSRoadShowNewsViewController.swift in Sources */,
 				E1F4C76D2074BA690056B427 /* TYSLiveFileViewController.swift in Sources */,
@@ -1141,6 +1152,7 @@
 				E1771B6B206348DA0050C244 /* TYSCommonCollectionViewCell.swift in Sources */,
 				E1EF4A9D206CC3E500C93303 /* TYSHotLiveViewController.swift in Sources */,
 				E1577AD8207F3211008D1FF4 /* TYSRecReadDetailViewController.swift in Sources */,
+				E16F1636208F1B5900878B0D /* TYSRecReadDetailInputView.swift in Sources */,
 				E1427237207B53EC001FC52D /* TYSLoginModel.swift in Sources */,
 				E1577AD6207F303E008D1FF4 /* TYSRecReadDetailModel.swift in Sources */,
 				E18AE3C42064A53800655AD2 /* TextField.swift in Sources */,

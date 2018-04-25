@@ -90,7 +90,6 @@ class TYSRecReadContentViewController: BaseViewController {
             }
         }
     }
-
 }
 
 // MARK: delegate
