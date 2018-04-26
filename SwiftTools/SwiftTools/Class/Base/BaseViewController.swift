@@ -74,6 +74,7 @@ extension BaseViewController {
                 } else {
                     let vc = TYSLiveOtherPeopleRoomViewController()
                     vc.navigationItem.title = liveDetailModel.subject!
+                    vc.liveDetailModel = liveDetailModel
                     getCurrentController()?.navigationController?.pushViewController(vc, animated: true)
                 }
             }
@@ -81,7 +82,11 @@ extension BaseViewController {
     }
     
     func requestLiveDetailData(liveId: String, completion: @escaping (TYSLiveDetailModel) -> ()) {
-        let param = ["requestCode" : "80005", "id" : liveId, "user_id" : kLoginModel.user_id ?? ""]
+        let param = [
+            "requestCode" : "80005",
+            "id" : liveId,
+            "user_id" : kLoginModel.user_id ?? ""
+        ]
         requestLiveDetail(paramterDic: param, successCompletion: { (successValue) in
             completion(successValue)
         }) { (failure) in

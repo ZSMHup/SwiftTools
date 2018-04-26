@@ -95,20 +95,6 @@ class TYSLiveAudioBackViewController: BaseViewController {
         
         joinLive()
     }
-    
-    private func follow(scrollingScrollView: UIScrollView, distanceY: CGFloat) {
-
-        for i in 0..<childViewControllers.count {
-            let baseVc: AYBaseViewController = childViewControllers[i] as! AYBaseViewController
-            if baseVc.baseScrollView === scrollingScrollView {
-                continue
-            } else {
-                var contentOffSet = baseVc.baseScrollView?.contentOffset
-                contentOffSet?.y += -distanceY
-                baseVc.baseScrollView?.contentOffset = contentOffSet!
-            }
-        }
-    }
 }
 
 extension TYSLiveAudioBackViewController {
@@ -293,6 +279,20 @@ extension TYSLiveAudioBackViewController {
         } else {
             pan.setTranslation(CGPoint.zero, in: pan.view)
             lastPoint = CGPoint.zero
+        }
+    }
+    
+    private func follow(scrollingScrollView: UIScrollView, distanceY: CGFloat) {
+        
+        for i in 0..<childViewControllers.count {
+            let baseVc: AYBaseViewController = childViewControllers[i] as! AYBaseViewController
+            if baseVc.baseScrollView === scrollingScrollView {
+                continue
+            } else {
+                var contentOffSet = baseVc.baseScrollView?.contentOffset
+                contentOffSet?.y += -distanceY
+                baseVc.baseScrollView?.contentOffset = contentOffSet!
+            }
         }
     }
 }
