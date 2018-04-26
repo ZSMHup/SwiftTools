@@ -86,6 +86,7 @@ class TYSLiveAudioBackViewController: BaseViewController {
         } else {
             self.automaticallyAdjustsScrollViewInsets = false
         }
+        
         lastPageMenuY = kHeaderViewH
 
         addSubviews()
@@ -169,7 +170,7 @@ extension TYSLiveAudioBackViewController {
         vodParam?.vodPassword = joinLiveModel.back_pwd
         vodParam?.serviceType = "webcast"
         vodParam?.customUserID = Int64(1000000000 + Int(kLoginModel.user_id!)!)
-        vodParam?.nickName = "测试账号"
+        vodParam?.nickName = kPersonalModel.userName
         voddownloader.addItem(vodParam)
     }
     
@@ -215,6 +216,7 @@ extension TYSLiveAudioBackViewController {
         let questionVC = TYSLiveQuestionViewController()
         questionVC.liveDetailModel = liveDetailModel
         let fileVC = TYSLiveFileViewController()
+        fileVC.liveDetailModel = liveDetailModel
         
         self.addChildViewController(chatVC)
         self.addChildViewController(questionVC)

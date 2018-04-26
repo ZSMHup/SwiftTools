@@ -17,7 +17,10 @@ func requestMobileLogin(
     
     requestHanlder(paramterDic: paramterDic, cache: false, cacheCompletion: { (cacheValue) in
     }, successCompletion: { (successValue) in
-        let resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
+        var resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
+        if resultDic["object"] is NSNull {
+            resultDic["object"] = {} as AnyObject
+        }
         let object = resultDic["object"]
         
         let obj: [String : Any] = object as! [String : Any]
@@ -37,7 +40,10 @@ func requestGetCaptcha(
     requestHanlder(paramterDic: paramterDic, cache: false, cacheCompletion: { (cacheValue) in
         
     }, successCompletion: { (successValue) in
-        let resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
+        var resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
+        if resultDic["object"] is NSNull {
+            resultDic["object"] = {} as AnyObject
+        }
         let object = resultDic["object"]
         
         let obj: [String : Any] = object as! [String : Any]

@@ -103,6 +103,7 @@
 		E181FC5F20624B2600E6684A /* TYSSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E181FC5E20624B2600E6684A /* TYSSectionView.swift */; };
 		E18AE3C220649FC200655AD2 /* TYSMobileLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18AE3C120649FC200655AD2 /* TYSMobileLoginViewController.swift */; };
 		E18AE3C42064A53800655AD2 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18AE3C32064A53800655AD2 /* TextField.swift */; };
+		E18BF7DA20917EC000EAEC02 /* TYSLiveFileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18BF7D920917EC000EAEC02 /* TYSLiveFileModel.swift */; };
 		E1906545206E41F700E9F7F9 /* UIButton+Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1906544206E41F700E9F7F9 /* UIButton+Time.swift */; };
 		E197E54320730CB300B18E86 /* TYSConnectionAnalystCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E197E54220730CB300B18E86 /* TYSConnectionAnalystCell.swift */; };
 		E197E54520730F1100B18E86 /* TYSConnectionAnalystCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E197E54420730F1100B18E86 /* TYSConnectionAnalystCollectionCell.swift */; };
@@ -233,6 +234,7 @@
 		E181FC5E20624B2600E6684A /* TYSSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSSectionView.swift; sourceTree = "<group>"; };
 		E18AE3C120649FC200655AD2 /* TYSMobileLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSMobileLoginViewController.swift; sourceTree = "<group>"; };
 		E18AE3C32064A53800655AD2 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		E18BF7D920917EC000EAEC02 /* TYSLiveFileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSLiveFileModel.swift; sourceTree = "<group>"; };
 		E1906544206E41F700E9F7F9 /* UIButton+Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Time.swift"; sourceTree = "<group>"; };
 		E197E54220730CB300B18E86 /* TYSConnectionAnalystCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSConnectionAnalystCell.swift; sourceTree = "<group>"; };
 		E197E54420730F1100B18E86 /* TYSConnectionAnalystCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSConnectionAnalystCollectionCell.swift; sourceTree = "<group>"; };
@@ -909,6 +911,7 @@
 			isa = PBXGroup;
 			children = (
 				E1800EEC207E0E4E00A3A6AA /* TYSLiveQuestionModel.swift */,
+				E18BF7D920917EC000EAEC02 /* TYSLiveFileModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1119,6 +1122,7 @@
 				E18AE3C220649FC200655AD2 /* TYSMobileLoginViewController.swift in Sources */,
 				E17A081B206113EC00887C69 /* TYSLoginViewController.swift in Sources */,
 				E13964BA206B8F76002B4023 /* TYSInterestedPeopleModel.swift in Sources */,
+				E18BF7DA20917EC000EAEC02 /* TYSLiveFileModel.swift in Sources */,
 				E1771B732063586A0050C244 /* WRCycleScrollView.swift in Sources */,
 				E1771B742063586A0050C244 /* WRPageControl.swift in Sources */,
 				E1800EE9207DC5A900A3A6AA /* UserDefaults+Save.swift in Sources */,

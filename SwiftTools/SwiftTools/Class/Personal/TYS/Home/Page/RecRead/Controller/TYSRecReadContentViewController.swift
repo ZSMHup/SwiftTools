@@ -133,9 +133,11 @@ extension TYSRecReadContentViewController: UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
+        let model: TYSRecReadModel = self.dataSource[indexPath.row]
         let detailVc = TYSRecReadDetailViewController()
-        detailVc.recReadModel = self.dataSource[indexPath.row]
+        detailVc.recReadModel = model
+        detailVc.readTitle = model.title ?? ""
+        detailVc.readId = model.id ?? ""
         getCurrentController()?.navigationController?.pushViewController(detailVc, animated: true)
     }
     

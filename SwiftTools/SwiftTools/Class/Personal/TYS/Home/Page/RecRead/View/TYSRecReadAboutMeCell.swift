@@ -27,14 +27,11 @@ class TYSRecReadAboutMeCell: UITableViewCell {
         timeLabel?.text = formatDate(date: model.create_time ?? "")
     }
     
-    func contentLabelClick(block: @escaping (Int, String) -> ()) {
+    func contentLabelClick(block: @escaping (String) -> ()) {
         contentLabel?.setTap(block: { (index, charAttributedString) in
-            
-//            let range: NSRangePointer = NSRange(location: index, length: 1)
-            
-//            let link = charAttributedString.attributes(at: index, effectiveRange: range)
-            printLog(link)
-            block(index, charAttributedString.string)
+            var ran: NSRange = NSRange(location: 0, length: 1)
+            let link = charAttributedString.attribute(NSAttributedStringKey.link, at: 0, effectiveRange: &ran)
+            block((link ?? "") as! String)
         })
     }
     
@@ -43,7 +40,10 @@ class TYSRecReadAboutMeCell: UITableViewCell {
         if model.content != nil {
             let contentArr = model.content?.components(separatedBy: "|")
             var userName = ""
+            var userId = ""
             var read = ""
+            var readId = ""
+            
             if contentArr?.count == 5 {
                 
                 let attributedStrM: NSMutableAttributedString = NSMutableAttributedString()
@@ -51,20 +51,26 @@ class TYSRecReadAboutMeCell: UITableViewCell {
                 let readArr = (contentArr?[3] ?? "").components(separatedBy: ",")
                 if userArr.count > 0 {
                     userName = "#\(userArr.first ?? "")#"
+                    userId = userArr[1]
                 }
                 if readArr.count > 0 {
                     read = "#\(readArr.first ?? "")#"
+                    readId = readArr[1]
                 }
                 
-                contentLabelClick(block: { (index, selectString) in
+                contentLabelClick(block: { (link) in
                     
-                    if userName.contains(selectString) {
+                    if link == "user" {
                         
-                        printLog("用户: \(selectString)")
+                        printLog("用户: \(userId)")
                         
-                    } else if read.contains(selectString) {
+                    } else if link == "read" {
                         
-                        printLog("荐读: \(selectString)")
+                        printLog("荐读: \(readId)")
+                        let detailVc = TYSRecReadDetailViewController()
+                        detailVc.readTitle = read
+                        detailVc.readId = readId
+                        getCurrentController()?.navigationController?.pushViewController(detailVc, animated: true)
                         
                     } else {
                         printLog("all")
@@ -72,12 +78,15 @@ class TYSRecReadAboutMeCell: UITableViewCell {
                     
                 })
                 
-                let att1: NSAttributedString = NSAttributedString(string: contentArr?[0] ?? "", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17), NSAttributedStringKey.foregroundColor: tys_middleDarkColor])
-                let userNameAtt: NSAttributedString = NSAttributedString(string: userName, attributes:[NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17), NSAttributedStringKey.foregroundColor: hexString("5AA5DA"), NSAttributedStringKey.link: "user"])
+                let att1: NSAttributedString = NSAttributedString(string: contentArr?[0] ?? "", attributes: [.font: UIFont.systemFont(ofSize: 17), .foregroundColor: tys_middleDarkColor])
                 
-                let att2: NSAttributedString = NSAttributedString(string: contentArr?[2] ?? "", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17), NSAttributedStringKey.foregroundColor: tys_middleDarkColor])
-                let readAtt: NSAttributedString = NSAttributedString(string: read, attributes: [NSAttributedStringKey.link: "read",NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17), NSAttributedStringKey.foregroundColor: hexString("5AA5DA")])
-                let att3: NSAttributedString = NSAttributedString(string: contentArr?[4] ?? "", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17), NSAttributedStringKey.foregroundColor: tys_middleDarkColor])
+                let userNameAtt: NSAttributedString = NSAttributedString(string: userName, attributes:[.link: "user", .font: UIFont.systemFont(ofSize: 17), .foregroundColor: hexString("5AA5DA")])
+                
+                let att2: NSAttributedString = NSAttributedString(string: contentArr?[2] ?? "", attributes: [.font: UIFont.systemFont(ofSize: 17), .foregroundColor: tys_middleDarkColor])
+                
+                let readAtt: NSAttributedString = NSAttributedString(string: read, attributes: [.link: "read",.font: UIFont.systemFont(ofSize: 17), .foregroundColor: hexString("5AA5DA")])
+                
+                let att3: NSAttributedString = NSAttributedString(string: contentArr?[4] ?? "", attributes: [.font: UIFont.systemFont(ofSize: 17), .foregroundColor: tys_middleDarkColor])
                 
                 attributedStrM.append(att1)
                 attributedStrM.append(userNameAtt)
@@ -91,23 +100,25 @@ class TYSRecReadAboutMeCell: UITableViewCell {
                 let readArr = (contentArr?[1] ?? "").components(separatedBy: ",")
                 if readArr.count > 0 {
                     read = "#\(readArr.first ?? "")#"
+                    readId = readArr[1]
                 }
                 
-                contentLabelClick(block: { (index, selectString) in
+                contentLabelClick(block: { (link) in
                     
-                    if read.contains(selectString) {
-                        
-                        printLog("荐读: \(selectString)")
-                        
+                    if link == "read" {
+                        let detailVc = TYSRecReadDetailViewController()
+                        detailVc.readTitle = read
+                        detailVc.readId = readId
+                        getCurrentController()?.navigationController?.pushViewController(detailVc, animated: true)
                     } else {
                         printLog("all")
                     }
                     
                 })
                 
-                let att1: NSAttributedString = NSAttributedString(string: contentArr?[0] ?? "", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17), NSAttributedStringKey.foregroundColor: tys_middleDarkColor])
-                let readAtt: NSAttributedString = NSAttributedString(string: read, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17), NSAttributedStringKey.foregroundColor: hexString("5AA5DA")])
-                let att3: NSAttributedString = NSAttributedString(string: contentArr?[2] ?? "", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17), NSAttributedStringKey.foregroundColor: tys_middleDarkColor])
+                let att1: NSAttributedString = NSAttributedString(string: contentArr?[0] ?? "", attributes: [.font: UIFont.systemFont(ofSize: 17), .foregroundColor: tys_middleDarkColor])
+                let readAtt: NSAttributedString = NSAttributedString(string: read, attributes: [.link: "read", .font: UIFont.systemFont(ofSize: 17), .foregroundColor: hexString("5AA5DA")])
+                let att3: NSAttributedString = NSAttributedString(string: contentArr?[2] ?? "", attributes: [.font: UIFont.systemFont(ofSize: 17), .foregroundColor: tys_middleDarkColor])
                 
                 attributedStrM.append(att1)
                 attributedStrM.append(readAtt)

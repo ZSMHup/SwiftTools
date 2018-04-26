@@ -12,4 +12,5 @@ import UIKit
 let kNetEaseCaptchaId = "e824e40907644c15b93b0ce1d677ff57"
 
 let kLoginModel = TYSLoginModel.manager.readData()
+let kPersonalModel = TYSPersonalModel.manager.readPersonalData()
 

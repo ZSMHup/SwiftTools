@@ -11,7 +11,7 @@ import UIKit
 class TYSSearchButton: UIButton {
 
     init(title: String) {
-        super.init(frame: CGRect(x: 0, y: 0, width: kScreenW, height: 40))
+        super.init(frame: CGRect(x: 0, y: 0, width: kScreenW, height: 35))
         self.backgroundColor = tys_searchBackgroundColor
         self.setTitle(title, for: .normal)
         self.setTitleColor(hexString("#FF999999"), for: .normal)

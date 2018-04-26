@@ -11,6 +11,9 @@ import MJRefresh
 
 class TYSLiveFileViewController: AYBaseViewController {
 
+    var dataSource = [TYSLiveFileModel]()
+    var liveDetailModel = TYSLiveDetailModel()
+    
     private lazy var tableView: UITableView = {
         let tempTableView = UITableView(frame: CGRect.zero, style: .plain)
         tempTableView.contentInset = UIEdgeInsetsMake(kScrollViewBeginTopInset, 0, 0, 0)
@@ -41,17 +44,53 @@ class TYSLiveFileViewController: AYBaseViewController {
         }
         
         tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {[weak self] in
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
-                self?.tableView.mj_header.endRefreshing()
-            })
+            self?.requestLiveFileListData()
         })
         
         tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: {[weak self] in
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
-                self?.tableView.mj_footer.endRefreshing()
-            })
+            self?.requestLiveFileListData()
         })
         tableView.mj_header.beginRefreshing()
+    }
+}
+
+// MARK: requestData
+extension TYSLiveFileViewController {
+    private func requestLiveFileListData() {
+        let param = [
+            "requestCode" : "80009",
+            "user_id" : kLoginModel.user_id ?? "",
+            "live_id" : liveDetailModel.id ?? ""
+        ]
+        
+        requestLiveFileList(paramterDic: param, cacheCompletion: { (cacheValue) in
+            if self.tableView.mj_header.isRefreshing {
+                if !cacheValue.isEmpty {
+                    self.dataSource.removeAll()
+                    self.dataSource = cacheValue
+                    self.tableView.reloadData()
+                }
+            }
+        }, successCompletion: { (successValue) in
+            if self.tableView.mj_header.isRefreshing {
+                self.tableView.mj_header.endRefreshing()
+                self.dataSource.removeAll()
+            }
+            
+            if self.tableView.mj_footer.isRefreshing {
+                self.tableView.mj_footer.endRefreshing()
+            }
+            self.dataSource.append(contentsOf: successValue)
+            self.tableView.reloadData()
+        }) { (failure) in
+            showFail(text: "网络异常")
+            if self.tableView.mj_header.isRefreshing {
+                self.tableView.mj_header.endRefreshing()
+            }
+            if self.tableView.mj_footer.isRefreshing {
+                self.tableView.mj_footer.endRefreshing()
+            }
+        }
     }
 }
 
@@ -59,7 +98,7 @@ class TYSLiveFileViewController: AYBaseViewController {
 extension TYSLiveFileViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.dataSource.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

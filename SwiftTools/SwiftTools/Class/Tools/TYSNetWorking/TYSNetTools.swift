@@ -23,6 +23,7 @@ func requestHanlder(
     failureCompletion: @escaping (Any)->()) {
     
     let params = configParameters(paramterDic: paramterDic)
+    printLog("*****请求地址: \(url)")
     printLog("\n***请求参数开始***\n\(params)\n***请求参数结束***")
     request(url: url, params: params).cache(cache).responseCacheAndString { (stringValue) in
         
@@ -33,18 +34,19 @@ func requestHanlder(
                 if !stringValue.isCacheData {
                     printLog("\n***返回数据开始***\n\(string)\n***返回数据结束***")
                 }
-                
+
                 let resultDic = getDictionaryFromJSONString(jsonString: string)
+                let msg: String = resultDic["msg"] as! String
+                let statusCode: String = resultDic["statusCode"] as! String
+                let object = resultDic["object"]
+                
                 if resultDic.count == 0 {
                     showOnlyText(text: "服务器异常")
                     return
                 }
-                let msg: String = resultDic["msg"] as! String
-                let statusCode: String = resultDic["statusCode"] as! String
                 
                 if statusCode != "00000" {
                     showOnlyText(text: msg)
-                    
                     if msg == "accessToken失效" && statusCode == "90000" {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                             NotificationCenter.default.post(name: LogoutNotification, object: nil)
@@ -53,6 +55,25 @@ func requestHanlder(
                     return
                 }
                 
+                var objc: Any?
+                
+                if object is Array<Any> {
+                    printLog("Array")
+                    var resultDic = getDictionaryFromJSONString(jsonString: string)
+                    let object: [AnyObject] = resultDic["object"] as! [AnyObject]
+                    objc = object
+                } else if object is Dictionary<String, Any> {
+                    printLog("Dictionary")
+                    let resultDic = getDictionaryFromJSONString(jsonString: string)
+                    let object = resultDic["object"]
+                    let obj: [String : Any] = object as! [String : Any]
+                    objc = obj
+                } else if object is String {
+                    printLog("String")
+
+                } else if object is NSNull {
+                    printLog("NSNull")
+                }
                 if stringValue.isCacheData {
                     cacheCompletion(string as Any)
                 } else {
@@ -67,7 +88,7 @@ func requestHanlder(
     }
 }
 
-func getDictionaryFromJSONString(jsonString: String) -> Dictionary<String, Any> {
+func getDictionaryFromJSONString(jsonString: String) -> Dictionary<String, AnyObject> {
     
     let jsonData:Data = jsonString.data(using: .utf8)!
     

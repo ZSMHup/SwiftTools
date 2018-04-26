@@ -12,6 +12,9 @@ import IQKeyboardManagerSwift
 class TYSRecReadDetailViewController: BaseViewController {
 
     var recReadModel = TYSRecReadModel()
+    var readTitle: String = ""
+    var readId: String = ""
+    
     var recReadDetailModel = TYSRecReadDetailModel()
     
     private lazy var headerView: TYSRecReadDetailHeaderView = {
@@ -26,7 +29,7 @@ class TYSRecReadDetailViewController: BaseViewController {
     
     private lazy var wkWebView: AYWKWebView = {
         
-        let headerViewH = ay_getHeight(string: recReadModel.title ?? "", fontSize: 20, width: kScreenW - AdaptW(w: 46), maxHeight: 72.0)
+        let headerViewH = ay_getHeight(string: readTitle, fontSize: 20, width: kScreenW - AdaptW(w: 46), maxHeight: 72.0)
         
         let tempWkWebView = AYWKWebView.createWKWebView(frame: CGRect(x: 0, y: headerViewH + 80 + kNavigationBarHeight, width: kScreenW, height: kScreenH - (headerViewH + 80 + kNavigationBarHeight + 60)))
         tempWkWebView.delegate = self
@@ -78,7 +81,7 @@ extension TYSRecReadDetailViewController {
         let param = [
             "requestCode" : "V240003",
             "login_user_id" : kLoginModel.user_id ?? "",
-            "id" : recReadModel.id ?? ""
+            "id" : readId
         ]
         requestRecReadDetail(paramterDic: param, successCompletion: { (successValue) in
             self.recReadDetailHandler(model: successValue)
@@ -120,7 +123,7 @@ extension TYSRecReadDetailViewController {
 
 extension TYSRecReadDetailViewController {
     private func addSubView() {
-        let headerViewH = ay_getHeight(string: recReadModel.title ?? "", fontSize: 20, width: kScreenW - AdaptW(w: 46), maxHeight: 72.0)
+        let headerViewH = ay_getHeight(string: readTitle, fontSize: 20, width: kScreenW - AdaptW(w: 46), maxHeight: 72.0)
         view.addSubview(headerView)
         headerView.snp.makeConstraints { (make) in
             make.top.equalTo(view.snp.top).offset(kNavigationBarHeight)

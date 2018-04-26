@@ -43,13 +43,17 @@ class TYSHomeViewController: BaseViewController {
     private var cycleLinkPathDataSource = [String]()
     private var cycleImgPathDataSource = [String]()
     
+    // MARK: life
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = false
         
         setupUI()
     }
-    
+}
+
+// MARK: requestData
+extension TYSHomeViewController {
     private func requestHomeData() {
         let param = ["requestCode" : "89000", "user_id" : kLoginModel.user_id ?? ""]
         requestHomeListData(paramterDic: param, cacheCompletion: { (cacheValue) in
@@ -87,7 +91,7 @@ class TYSHomeViewController: BaseViewController {
             self.collectionView.reloadData()
         }, successCompletion: { (valueArray) in
             if self.collectionView.mj_header.isRefreshing {
-               self.collectionView.mj_header.endRefreshing()
+                self.collectionView.mj_header.endRefreshing()
             }
             
             self.interestedPeoDataSource.removeAll()
@@ -145,6 +149,9 @@ extension TYSHomeViewController {
         navBarBackgroundAlpha = 0
         searchBtn = TYSSearchButton(title: "路演/电话会议/荐读分析师")
         searchBtn?.addTarget(self, action: #selector(searchBtnClick), for: .touchUpInside)
+        
+        let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 40))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftView)
         
         let userImgView = UIView()
         userImgView.frame = CGRect(x: 0, y: 0, width: 50, height: 40)

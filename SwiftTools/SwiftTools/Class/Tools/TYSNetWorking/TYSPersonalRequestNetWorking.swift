@@ -18,7 +18,10 @@ func requestPersonalDetail(
     
     requestHanlder(paramterDic: paramterDic, cache: true, cacheCompletion: { (cacheValue) in
         
-        let resultDic = getDictionaryFromJSONString(jsonString: cacheValue as! String)
+        var resultDic = getDictionaryFromJSONString(jsonString: cacheValue as! String)
+        if resultDic["object"] is NSNull {
+            resultDic["object"] = {} as AnyObject
+        }
         let object = resultDic["object"]
         
         let obj: [String : Any] = object as! [String : Any]
@@ -26,7 +29,10 @@ func requestPersonalDetail(
         cacheCompletion(model)
         
     }, successCompletion: { (successValue) in
-        let resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
+        var resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
+        if resultDic["object"] is NSNull {
+            resultDic["object"] = {} as AnyObject
+        }
         let object = resultDic["object"]
         
         let obj: [String : Any] = object as! [String : Any]
