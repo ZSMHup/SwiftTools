@@ -30,6 +30,8 @@ func deleteDB() {
     let fileManager = FileManager.default
     do {
         try fileManager.removeItem(atPath: path)
+        
+        
     } catch {
         printLog("deleteError:\(error)")
     }

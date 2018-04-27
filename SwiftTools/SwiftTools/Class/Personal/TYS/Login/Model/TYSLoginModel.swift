@@ -49,7 +49,7 @@ class TYSLoginModel: HandyJSON {
     
     func getTable() -> Table {
         if table == nil {
-            table = Table("records")
+            table = Table("login")
             try! getDB().run(
                 table!.create(temporary: false, ifNotExists: true, withoutRowid: false, block: { (builder) in
                     builder.column(user_id_column)
@@ -104,6 +104,7 @@ class TYSLoginModel: HandyJSON {
         
         do {
             let count = try getDB().run(query.drop())
+            table = nil
             printLog("deleteSuccess: \(count)")
         } catch {
             printLog("deleteError: \(error)")

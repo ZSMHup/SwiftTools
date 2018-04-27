@@ -299,6 +299,7 @@ struct TYSPersonalModel: HandyJSON {
         
         do {
             let count = try getDB().run(query.drop())
+            table = nil
             printLog("deleteSuccess: \(count)")
         } catch {
             printLog("deleteError: \(error)")

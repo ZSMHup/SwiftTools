@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PKHUD
 
 let time = 1.5
 
@@ -34,5 +35,15 @@ func showOnlyText(text: String) {
     SwiftProgressHUD.showOnlyText(text)
     DispatchQueue.main.asyncAfter(deadline: .now() + time) {
         hidHUD()
+    }
+}
+
+func showHud(string: String) {
+    HUD.dimsBackground = false
+    HUD.allowsInteraction = true
+//    HUD.show(.label(string))
+    HUD.show(.systemActivity)
+    DispatchQueue.main.asyncAfter(deadline: .now() + time) {
+        HUD.hide()
     }
 }

@@ -34,7 +34,9 @@ class BaseViewController: UIViewController {
 extension BaseViewController {
     @objc private func loginOut() {
         UserDefaults.standard.saveCustomObject(customObject: false as NSCoding, key: "LoginState")
-        deleteDB()
+//        deleteDB()
+        TYSLoginModel.manager.deleteLoginTable()
+        TYSPersonalModel.manager.deletePersonalTable()
         removeAllCache { (remove) in }
         let loginVc = TYSLoginViewController()
         let loginNav = NavigationViewController(rootViewController: loginVc)

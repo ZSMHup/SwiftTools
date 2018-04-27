@@ -9,6 +9,7 @@
 import UIKit
 import MJRefresh
 
+
 class TYSPersonalViewController: BaseViewController {
     
     private lazy var tableView: UITableView = {
@@ -171,7 +172,8 @@ extension TYSPersonalViewController: UITableViewDataSource, UITableViewDelegate 
         switch indexPath.row {
         case 8:
             navigationController?.pushViewController(TYSSettingViewController(), animated: true)
-            
+        case 0:
+            showHud(string: "000")
         default:
             break
         }
