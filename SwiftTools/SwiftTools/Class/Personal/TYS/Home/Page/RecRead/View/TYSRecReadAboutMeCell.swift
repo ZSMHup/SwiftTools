@@ -59,34 +59,42 @@ class TYSRecReadAboutMeCell: UITableViewCell {
                 }
                 
                 contentLabelClick(block: { (link) in
-                    
                     if link == "user" {
-                        
                         printLog("用户: \(userId)")
-                        
                     } else if link == "read" {
-                        
                         printLog("荐读: \(readId)")
                         let detailVc = TYSRecReadDetailViewController()
                         detailVc.readTitle = read
                         detailVc.readId = readId
                         getCurrentController()?.navigationController?.pushViewController(detailVc, animated: true)
-                        
                     } else {
                         printLog("all")
                     }
-                    
                 })
                 
                 let att1: NSAttributedString = NSAttributedString(string: contentArr?[0] ?? "", attributes: [.font: UIFont.systemFont(ofSize: 17), .foregroundColor: tys_middleDarkColor])
                 
-                let userNameAtt: NSAttributedString = NSAttributedString(string: userName, attributes:[.link: "user", .font: UIFont.systemFont(ofSize: 17), .foregroundColor: hexString("5AA5DA")])
+                let userNameAtt: NSAttributedString = NSAttributedString(string: userName, attributes:[
+
+                    .link: "user",
+                    .font: UIFont.systemFont(ofSize: 17),
+                    .foregroundColor: hexString("5AA5DA"),
+                    .underlineColor: UIColor.clear])
                 
-                let att2: NSAttributedString = NSAttributedString(string: contentArr?[2] ?? "", attributes: [.font: UIFont.systemFont(ofSize: 17), .foregroundColor: tys_middleDarkColor])
+                let att2: NSAttributedString = NSAttributedString(string: contentArr?[2] ?? "", attributes: [
+                    .font: UIFont.systemFont(ofSize: 17),
+                    .foregroundColor: tys_middleDarkColor])
                 
-                let readAtt: NSAttributedString = NSAttributedString(string: read, attributes: [.link: "read",.font: UIFont.systemFont(ofSize: 17), .foregroundColor: hexString("5AA5DA")])
+                let readAtt: NSAttributedString = NSAttributedString(string: read, attributes: [
+                    .link: "read",
+                    .font: UIFont.systemFont(ofSize: 17),
+                    .foregroundColor: hexString("5AA5DA"),
+                    .underlineColor: UIColor.clear
+                    ])
                 
-                let att3: NSAttributedString = NSAttributedString(string: contentArr?[4] ?? "", attributes: [.font: UIFont.systemFont(ofSize: 17), .foregroundColor: tys_middleDarkColor])
+                let att3: NSAttributedString = NSAttributedString(string: contentArr?[4] ?? "", attributes: [
+                    .font: UIFont.systemFont(ofSize: 17),
+                    .foregroundColor: tys_middleDarkColor])
                 
                 attributedStrM.append(att1)
                 attributedStrM.append(userNameAtt)
@@ -116,9 +124,17 @@ class TYSRecReadAboutMeCell: UITableViewCell {
                     
                 })
                 
-                let att1: NSAttributedString = NSAttributedString(string: contentArr?[0] ?? "", attributes: [.font: UIFont.systemFont(ofSize: 17), .foregroundColor: tys_middleDarkColor])
-                let readAtt: NSAttributedString = NSAttributedString(string: read, attributes: [.link: "read", .font: UIFont.systemFont(ofSize: 17), .foregroundColor: hexString("5AA5DA")])
-                let att3: NSAttributedString = NSAttributedString(string: contentArr?[2] ?? "", attributes: [.font: UIFont.systemFont(ofSize: 17), .foregroundColor: tys_middleDarkColor])
+                let att1: NSAttributedString = NSAttributedString(string: contentArr?[0] ?? "", attributes: [
+                    .font: UIFont.systemFont(ofSize: 17),
+                    .foregroundColor: tys_middleDarkColor])
+                let readAtt: NSAttributedString = NSAttributedString(string: read, attributes: [
+                    .link: "read",
+                    .font: UIFont.systemFont(ofSize: 17),
+                    .foregroundColor: hexString("5AA5DA"),
+                    .underlineColor: UIColor.clear])
+                let att3: NSAttributedString = NSAttributedString(string: contentArr?[2] ?? "", attributes: [
+                    .font: UIFont.systemFont(ofSize: 17),
+                    .foregroundColor: tys_middleDarkColor])
                 
                 attributedStrM.append(att1)
                 attributedStrM.append(readAtt)

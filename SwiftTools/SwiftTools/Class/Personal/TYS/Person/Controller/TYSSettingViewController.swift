@@ -20,7 +20,7 @@ class TYSSettingViewController: BaseViewController {
         return tempTableView
     }()
     
-    var configDataSource = ["清除缓存", "当前版本"]
+    var configDataSource = ["清除缓存", "当前版本", "关于我的", "帮助中心", "推荐有奖", "个人中心"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +71,7 @@ extension TYSSettingViewController: UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.row == 0 {
             cell.rightLabel?.text = getFileSize()
-        } else {
+        } else if indexPath.row == 1 {
             cell.rightLabel?.text = "V4.0.5"
         }
         
@@ -103,10 +103,21 @@ extension TYSSettingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
+        let vc = TYSCommonWebViewController()
+        navigationController?.pushViewController(vc, animated: true)
+        
         if indexPath.row == 0 {
             TYSLoginModel.manager.deleteLoginTable()
         } else if indexPath.row == 1 {
             
+        } else if indexPath.row == 2 {
+            vc.liveWebUrl = webUrl + "Personal/Setting/AboutMe"
+        } else if indexPath.row == 3 {
+            vc.liveWebUrl = webUrl + "Personal/Setting/HelpCenter"
+        } else if indexPath.row == 4 {
+            vc.liveWebUrl = webUrl + "Personal/Setting/RecommendReward"
+        } else if indexPath.row == 5 {
+            vc.liveWebUrl = webUrl + "Personal"
         }
     }
 }

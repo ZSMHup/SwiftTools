@@ -86,6 +86,8 @@
 		E1771B842063A9EE0050C244 /* TYSHomeTabCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1771B832063A9EE0050C244 /* TYSHomeTabCollectionViewCell.swift */; };
 		E1771B862063AB1B0050C244 /* TYSHomeTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1771B852063AB1B0050C244 /* TYSHomeTabCell.swift */; };
 		E1771B882063B77B0050C244 /* TYSPersonalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1771B872063B77B0050C244 /* TYSPersonalViewController.swift */; };
+		E1794C3B2092BC38001DE05E /* TYSLiveAudioBackWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1794C3A2092BC38001DE05E /* TYSLiveAudioBackWebViewController.swift */; };
+		E1794C3D20931144001DE05E /* TYSCommonWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1794C3C20931144001DE05E /* TYSCommonWebViewController.swift */; };
 		E17A07DA2060CB5200887C69 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17A07D92060CB5200887C69 /* AppDelegate.swift */; };
 		E17A07E42060CB5200887C69 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E17A07E22060CB5200887C69 /* LaunchScreen.storyboard */; };
 		E17A07EF2060D0D800887C69 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17A07EE2060D0D800887C69 /* BaseViewController.swift */; };
@@ -119,7 +121,6 @@
 		E1BE3C282089C2E800C2D936 /* TYSCreateDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE3C272089C2E800C2D936 /* TYSCreateDB.swift */; };
 		E1BF054C2079C18C00B31104 /* AYBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BF054B2079C18C00B31104 /* AYBaseViewController.swift */; };
 		E1CD5462208DBAB8001F2323 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E17A07E02060CB5200887C69 /* Assets.xcassets */; };
-		E1CD5464208DC289001F2323 /* TYSLaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CD5463208DC289001F2323 /* TYSLaunchViewController.swift */; };
 		E1CD5474208DCCB6001F2323 /* AYLaunchAdPageHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CD5473208DCCB6001F2323 /* AYLaunchAdPageHUD.swift */; };
 		E1EF4A9D206CC3E500C93303 /* TYSHotLiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4A9C206CC3E400C93303 /* TYSHotLiveViewController.swift */; };
 		E1EF4A9F206CC77F00C93303 /* TYSRecLiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4A9E206CC77F00C93303 /* TYSRecLiveViewController.swift */; };
@@ -214,6 +215,8 @@
 		E1771B832063A9EE0050C244 /* TYSHomeTabCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSHomeTabCollectionViewCell.swift; sourceTree = "<group>"; };
 		E1771B852063AB1B0050C244 /* TYSHomeTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSHomeTabCell.swift; sourceTree = "<group>"; };
 		E1771B872063B77B0050C244 /* TYSPersonalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSPersonalViewController.swift; sourceTree = "<group>"; };
+		E1794C3A2092BC38001DE05E /* TYSLiveAudioBackWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSLiveAudioBackWebViewController.swift; sourceTree = "<group>"; };
+		E1794C3C20931144001DE05E /* TYSCommonWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSCommonWebViewController.swift; sourceTree = "<group>"; };
 		E17A07D62060CB5200887C69 /* SwiftTools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftTools.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E17A07D92060CB5200887C69 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E17A07E02060CB5200887C69 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -249,7 +252,6 @@
 		E197E55B2073602100B18E86 /* AYWKWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AYWKWebView.swift; sourceTree = "<group>"; };
 		E1BE3C272089C2E800C2D936 /* TYSCreateDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSCreateDB.swift; sourceTree = "<group>"; };
 		E1BF054B2079C18C00B31104 /* AYBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AYBaseViewController.swift; sourceTree = "<group>"; };
-		E1CD5463208DC289001F2323 /* TYSLaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSLaunchViewController.swift; sourceTree = "<group>"; };
 		E1CD5473208DCCB6001F2323 /* AYLaunchAdPageHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AYLaunchAdPageHUD.swift; sourceTree = "<group>"; };
 		E1EF4A9C206CC3E400C93303 /* TYSHotLiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSHotLiveViewController.swift; sourceTree = "<group>"; };
 		E1EF4A9E206CC77F00C93303 /* TYSRecLiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSRecLiveViewController.swift; sourceTree = "<group>"; };
@@ -539,6 +541,7 @@
 				E16A77972074A10900980B78 /* TYSLiveAudioBackViewController.swift */,
 				E16A77992074AA9600980B78 /* TYSLivePersonalRoomViewController.swift */,
 				E16A779B2074AAB100980B78 /* TYSLiveOtherPeopleRoomViewController.swift */,
+				E1794C3A2092BC38001DE05E /* TYSLiveAudioBackWebViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -866,7 +869,7 @@
 		E197E54C207313C900B18E86 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				E1CD5463208DC289001F2323 /* TYSLaunchViewController.swift */,
+				E1794C3C20931144001DE05E /* TYSCommonWebViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1109,7 +1112,6 @@
 				E1645269207DAC6F00BEB18A /* TYSLiveDetailModel.swift in Sources */,
 				E17A07F72060EBCF00887C69 /* TabBarItemContentView.swift in Sources */,
 				E1029F222069E8F000157324 /* TYSNetTools.swift in Sources */,
-				E1CD5464208DC289001F2323 /* TYSLaunchViewController.swift in Sources */,
 				E15191BD2071E2A900C419A0 /* TYSRecReadContentViewController.swift in Sources */,
 				E164526B207DAEEF00BEB18A /* TYSLiveRequest.swift in Sources */,
 				E1771B722063586A0050C244 /* WRCycleCell.swift in Sources */,
@@ -1125,6 +1127,7 @@
 				E17A081B206113EC00887C69 /* TYSLoginViewController.swift in Sources */,
 				E13964BA206B8F76002B4023 /* TYSInterestedPeopleModel.swift in Sources */,
 				E18BF7DA20917EC000EAEC02 /* TYSLiveFileModel.swift in Sources */,
+				E1794C3B2092BC38001DE05E /* TYSLiveAudioBackWebViewController.swift in Sources */,
 				E1771B732063586A0050C244 /* WRCycleScrollView.swift in Sources */,
 				E1771B742063586A0050C244 /* WRPageControl.swift in Sources */,
 				E1800EE9207DC5A900A3A6AA /* UserDefaults+Save.swift in Sources */,
@@ -1162,6 +1165,7 @@
 				E1427237207B53EC001FC52D /* TYSLoginModel.swift in Sources */,
 				E1577AD6207F303E008D1FF4 /* TYSRecReadDetailModel.swift in Sources */,
 				E18AE3C42064A53800655AD2 /* TextField.swift in Sources */,
+				E1794C3D20931144001DE05E /* TYSCommonWebViewController.swift in Sources */,
 				E1EF4AAF206CECFD00C93303 /* AYPageMenu.swift in Sources */,
 				E164526D207DB41300BEB18A /* TYSLiveSignupModel.swift in Sources */,
 				E197E55C2073602100B18E86 /* AYWKWebView.swift in Sources */,

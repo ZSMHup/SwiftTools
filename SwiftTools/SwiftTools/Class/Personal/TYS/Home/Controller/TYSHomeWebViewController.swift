@@ -36,7 +36,7 @@ class TYSHomeWebViewController: BaseViewController {
         let rightBtn3Item = UIBarButtonItem(customView: rightBtn3)
         
         navigationItem.rightBarButtonItems = [rightBtn2Item, rightBtn1Item, rightBtn3Item]
-
+        
         wkWebView = AYWKWebView.createWKWebView(frame: view.bounds)
         wkWebView?.loadRequest(urlString: url)
         wkWebView?.delegate = self

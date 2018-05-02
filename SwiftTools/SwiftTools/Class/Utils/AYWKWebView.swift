@@ -42,6 +42,7 @@ import MJRefresh
 class AYWKWebView: UIView {
     private let ay_kNavigationBarHeight = UIApplication.shared.statusBarFrame.size.height + 44.0
     private let progressViewHeight: CGFloat = 2.0
+    private var config: WKWebViewConfiguration? = nil
     
     weak var delegate: AYWKWebViewDelegate?
     /// 进度条颜色(默认蓝色)
@@ -79,18 +80,7 @@ class AYWKWebView: UIView {
     
     private lazy var wkWebView: WKWebView = {
         
-        var javascript = String()
-        javascript.append("var meta = document.createElement('meta');meta.name = 'viewport';meta.content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no\";document.getElementsByTagName('head')[0].appendChild(meta);")
-//        javascript.append("document.documentElement.style.webkitTouchCallout='none';")
-//        javascript.append("document.documentElement.style.webkitUserSelect='none';")
-        javascript.append("document.getElementsByTagName('body')[0].style.background='#FFFFFF'")
-        let userScript = WKUserScript(source: javascript, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
-        let userContentCtrl = WKUserContentController()
-        userContentCtrl.addUserScript(userScript)
-        let configuration = WKWebViewConfiguration()
-        configuration.userContentController = userContentCtrl
-        
-        let tempWkWebView = WKWebView(frame: self.bounds, configuration: configuration)
+        let tempWkWebView = WKWebView(frame: self.bounds, configuration: config ?? WKWebViewConfiguration())
         tempWkWebView.uiDelegate = self
         tempWkWebView.navigationDelegate = self
         tempWkWebView.addObserver(self, forKeyPath: "estimatedProgress", options: NSKeyValueObservingOptions.new, context: nil)
@@ -113,6 +103,13 @@ class AYWKWebView: UIView {
     
     public class func createWKWebView(frame: CGRect) -> AYWKWebView {
         let webView = AYWKWebView(frame: frame)
+        webView.addSubViews()
+        return webView
+    }
+    
+    public class func createWKWebView(frame: CGRect, configuration: WKWebViewConfiguration) -> AYWKWebView {
+        let webView = AYWKWebView(frame: frame)
+        webView.config = configuration
         webView.addSubViews()
         return webView
     }
@@ -156,6 +153,10 @@ extension AYWKWebView {
         if wkWebView.canGoBack {
             wkWebView.goBack()
         }
+    }
+    
+    func wkCanGoBack() -> Bool {
+        return wkWebView.canGoBack
     }
     
     /// 前进

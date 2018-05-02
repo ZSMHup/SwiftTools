@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WebKit
 import IQKeyboardManagerSwift
 
 class TYSRecReadDetailViewController: BaseViewController {
@@ -29,9 +30,20 @@ class TYSRecReadDetailViewController: BaseViewController {
     
     private lazy var wkWebView: AYWKWebView = {
         
+        var javascript = String()
+        javascript.append("var meta = document.createElement('meta');meta.name = 'viewport';meta.content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no\";document.getElementsByTagName('head')[0].appendChild(meta);")
+        javascript.append("document.documentElement.style.webkitTouchCallout='none';")
+        javascript.append("document.documentElement.style.webkitUserSelect='none';")
+        javascript.append("document.getElementsByTagName('body')[0].style.background='#FFFFFF'")
+        let userScript = WKUserScript(source: javascript, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+        let userContentCtrl = WKUserContentController()
+        userContentCtrl.addUserScript(userScript)
+        let configuration = WKWebViewConfiguration()
+        configuration.userContentController = userContentCtrl
+        
         let headerViewH = ay_getHeight(string: readTitle, fontSize: 20, width: kScreenW - AdaptW(w: 46), maxHeight: 72.0)
         
-        let tempWkWebView = AYWKWebView.createWKWebView(frame: CGRect(x: 0, y: headerViewH + 80 + kNavigationBarHeight, width: kScreenW, height: kScreenH - (headerViewH + 80 + kNavigationBarHeight + 60)))
+        let tempWkWebView = AYWKWebView.createWKWebView(frame: CGRect(x: 0, y: headerViewH + 80 + kNavigationBarHeight, width: kScreenW, height: kScreenH - (headerViewH + 80 + kNavigationBarHeight + 60)), configuration: configuration)
         tempWkWebView.delegate = self
         tempWkWebView.isNavigationBarOrTranslucent = false
         return tempWkWebView

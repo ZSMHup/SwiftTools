@@ -34,7 +34,6 @@ class BaseViewController: UIViewController {
 extension BaseViewController {
     @objc private func loginOut() {
         UserDefaults.standard.saveCustomObject(customObject: false as NSCoding, key: "LoginState")
-//        deleteDB()
         TYSLoginModel.manager.deleteLoginTable()
         TYSPersonalModel.manager.deletePersonalTable()
         removeAllCache { (remove) in }
@@ -64,9 +63,11 @@ extension BaseViewController {
             let liveState = liveDetailModel.state!
             
             if liveState == "3" {
-                let vc = TYSLiveAudioBackViewController()
+//                let vc = TYSLiveAudioBackViewController()
+//                vc.liveDetailModel = liveDetailModel
+                let vc = TYSLiveAudioBackWebViewController()
                 vc.navigationItem.title = liveDetailModel.subject!
-                vc.liveDetailModel = liveDetailModel
+                vc.liveWebUrl = webUrl + "LiveAudioBack"
                 getCurrentController()?.navigationController?.pushViewController(vc, animated: true)
             } else {
                 if liveDetailModel.is_melive! == "1" {

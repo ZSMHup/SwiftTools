@@ -66,7 +66,7 @@ class NavigationViewController: UINavigationController, UIGestureRecognizerDeleg
         return outImg!
     }
     
-    @objc private func backBtnClick() {
+    @objc func backBtnClick() {
         self.popViewController(animated: true)
     }
     

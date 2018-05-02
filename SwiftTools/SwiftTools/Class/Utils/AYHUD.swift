@@ -41,8 +41,7 @@ func showOnlyText(text: String) {
 func showHud(string: String) {
     HUD.dimsBackground = false
     HUD.allowsInteraction = true
-//    HUD.show(.label(string))
-    HUD.show(.systemActivity)
+    HUD.show(.label(string))
     DispatchQueue.main.asyncAfter(deadline: .now() + time) {
         HUD.hide()
     }
