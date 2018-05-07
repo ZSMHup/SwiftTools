@@ -14,16 +14,31 @@ class TYSCommonWebViewController: BaseViewController {
     private var wkWebView: AYWKWebView?
     
     var liveWebUrl = ""
+    private var dataSource = [Dictionary<String, Any>]()
+    private var urlArray = [String : String]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let url: NSURL = Bundle.main.url(forResource: "WebViewConfig", withExtension: "plist")! as NSURL
+        let configDic: NSMutableDictionary = NSMutableDictionary(contentsOf: url as URL)!
+        
+        configDic.enumerateKeysAndObjects { (key, obj, stop) in
+            dataSource.append(obj as! [String : Any])
+        }
+        
+        addSubViews()
+    }
+}
+
+extension TYSCommonWebViewController {
+    private func addSubViews() {
         let leftBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 20, height: 40))
         leftBtn.setImage(UIImage(named:"default_nav_back"), for: .normal)
         leftBtn.setTitleColor(UIColor.black, for: .normal)
         leftBtn.addTarget(self, action: #selector(leftBtnClick), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftBtn)
-        
         
         var javascript = String()
         javascript.append("var meta = document.createElement('meta');meta.name = 'viewport';meta.content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no\";document.getElementsByTagName('head')[0].appendChild(meta);")
@@ -33,18 +48,15 @@ class TYSCommonWebViewController: BaseViewController {
         
         let userContentCtrl = WKUserContentController()
         userContentCtrl.addUserScript(userScript)
-        
         let config = WKWebViewConfiguration()
         config.userContentController = userContentCtrl
-        config.userContentController.add(self as WKScriptMessageHandler, name: "RewardClick")
-        config.userContentController.add(self as WKScriptMessageHandler, name: "Auth")
-        config.userContentController.add(self as WKScriptMessageHandler, name: "BindingSocialPlatform")
-        config.userContentController.add(self as WKScriptMessageHandler, name: "PerfectInformation")
-        config.userContentController.add(self as WKScriptMessageHandler, name: "AddressManage")
-        config.userContentController.add(self as WKScriptMessageHandler, name: "Recommend")
-        config.userContentController.add(self as WKScriptMessageHandler, name: "HelpCenter")
-        config.userContentController.add(self as WKScriptMessageHandler, name: "Setting")
-        config.userContentController.add(self as WKScriptMessageHandler, name: "Income")
+        
+        if dataSource.count > 0 {
+            for index in 0..<dataSource.count {
+                config.userContentController.add(self as WKScriptMessageHandler, name: dataSource[index]["name"] as! String)
+                urlArray[dataSource[index]["name"] as! String] = dataSource[index]["url"] as? String
+            }
+        }
         wkWebView = AYWKWebView.createWKWebView(frame: view.bounds, configuration: config)
         wkWebView?.loadRequest(urlString: liveWebUrl)
         wkWebView?.delegate = self
@@ -64,29 +76,8 @@ class TYSCommonWebViewController: BaseViewController {
 extension TYSCommonWebViewController: AYWKWebViewDelegate, WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         let webVc = TYSCommonWebViewController()
+        webVc.liveWebUrl = webUrl + urlArray[message.name]!
         navigationController?.pushViewController(webVc, animated: true)
-        switch message.name {
-        case "RewardClick":
-            showHud(string: message.body as! String)
-        case "Auth" :
-            showHud(string: message.body as! String)
-        case "BindingSocialPlatform" :
-            showHud(string: message.body as! String)
-        case "PerfectInformation" :
-            showHud(string: message.body as! String)
-        case "AddressManage" :
-            showHud(string: message.body as! String)
-        case "Recommend" :
-            webVc.liveWebUrl = webUrl + "Personal/Setting/RecommendReward"
-        case "HelpCenter" :
-            webVc.liveWebUrl = webUrl + "Personal/Setting/HelpCenter"
-        case "Setting" :
-            showHud(string: message.body as! String)
-        case "Income" :
-            webVc.liveWebUrl = webUrl + "Personal/Detail"
-        default:
-            break
-        }
     }
     
     func wkWebView(wkWebView: AYWKWebView, didCommitWithURL: URL) {

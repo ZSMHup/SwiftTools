@@ -1,140 +1,95 @@
 //
-//  SwiftProgressHUD.swift
-//  SwiftProgressHUDDemo
+//  SwiftNotice.swift
+//  SwiftNotice
 //
-//  Created by YJHou on 2016/3/12.
-//  Copyright © 2016年 houmanager@hotmail.com . All rights reserved.
+//  Created by JohnLui on 15/4/15.
+//  Copyright (c) 2015年 com.lvwenhan. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
-/// Current_Version：0.0.6
-/// Github: https://github.com/stackhou/SwiftProgressHUD
+private let sn_topBar: Int = 1001
 
-private let yj_topBarTag: Int = 1001
-private let yj_showHUDBackColor = UIColor(red:0, green:0, blue:0, alpha: 0.8)
+extension UIResponder {
+    /// wait with your own animated images
+    @discardableResult
+    func pleaseWaitWithImages(_ imageNames: Array<UIImage>, timeInterval: Int) -> UIWindow{
+        return SwiftNotice.wait(imageNames, timeInterval: timeInterval)
+    }
+    // api changed from v3.3
+    @discardableResult
+    func noticeTop(_ text: String, autoClear: Bool = true, autoClearTime: Int = 1) -> UIWindow{
+        return SwiftNotice.noticeOnStatusBar(text, autoClear: autoClear, autoClearTime: autoClearTime)
+    }
+    
+    // new apis from v3.3
+    @discardableResult
+    func noticeSuccess(_ text: String, autoClear: Bool = false, autoClearTime: Int = 3) -> UIWindow{
+        return SwiftNotice.showNoticeWithText(NoticeType.success, text: text, autoClear: autoClear, autoClearTime: autoClearTime)
+    }
+    @discardableResult
+    func noticeError(_ text: String, autoClear: Bool = false, autoClearTime: Int = 3) -> UIWindow{
+        return SwiftNotice.showNoticeWithText(NoticeType.error, text: text, autoClear: autoClear, autoClearTime: autoClearTime)
+    }
+    @discardableResult
+    func noticeInfo(_ text: String, autoClear: Bool = false, autoClearTime: Int = 3) -> UIWindow{
+        return SwiftNotice.showNoticeWithText(NoticeType.info, text: text, autoClear: autoClear, autoClearTime: autoClearTime)
+    }
+    
+    // old apis
+    @discardableResult
+    func successNotice(_ text: String, autoClear: Bool = true) -> UIWindow{
+        return SwiftNotice.showNoticeWithText(NoticeType.success, text: text, autoClear: autoClear, autoClearTime: 3)
+    }
+    @discardableResult
+    func errorNotice(_ text: String, autoClear: Bool = true) -> UIWindow{
+        return SwiftNotice.showNoticeWithText(NoticeType.error, text: text, autoClear: autoClear, autoClearTime: 3)
+    }
+    @discardableResult
+    func infoNotice(_ text: String, autoClear: Bool = true) -> UIWindow{
+        return SwiftNotice.showNoticeWithText(NoticeType.info, text: text, autoClear: autoClear, autoClearTime: 3)
+    }
+    @discardableResult
+    func notice(_ text: String, type: NoticeType, autoClear: Bool, autoClearTime: Int = 3) -> UIWindow{
+        return SwiftNotice.showNoticeWithText(type, text: text, autoClear: autoClear, autoClearTime: autoClearTime)
+    }
+    @discardableResult
+    func pleaseWait() -> UIWindow{
+        return SwiftNotice.wait()
+    }
+    @discardableResult
+    func noticeOnlyText(_ text: String) -> UIWindow{
+        return SwiftNotice.showText(text)
+    }
+    func clearAllNotice() {
+        SwiftNotice.clear()
+    }
+}
 
-/// Display type
-public enum SwiftProgressHUDType{
+enum NoticeType{
     case success
-    case fail
+    case error
     case info
 }
 
-//------------- API START -------------
-public class SwiftProgressHUD {
+class SwiftNotice: NSObject {
     
-    /// Set keyWindow Mask background color
-    static public var hudBackgroundColor: UIColor = UIColor.clear {
-        didSet{
-            SwiftProgress.hudBackgroundColor = hudBackgroundColor
-        }
-    }
-    
-    /// Setting the number of manual hides
-    static public var hideHUDTaps: Int = 0 {
-        didSet{
-            SwiftProgress.hideHUDTaps = hideHUDTaps
-        }
-    }
-    
-    /// Wait for loading...
-    @discardableResult
-    public class func showWait() -> UIWindow? {
-        if let _ = UIApplication.shared.keyWindow {
-            return SwiftProgress.wait()
-        }
-        return nil
-    }
-    
-    /// Success
-    @discardableResult
-    public class func showSuccess(_ text: String, autoClear: Bool = false, autoClearTime: Int = 3) -> UIWindow? {
-        if let _ = UIApplication.shared.keyWindow {
-            return SwiftProgress.showNoticeWithText(SwiftProgressHUDType.success, text: text, autoClear: autoClear, autoClearTime: autoClearTime)
-        }
-        return nil
-    }
-    
-    /// Fail
-    @discardableResult
-    public class func showFail(_ text: String, autoClear: Bool = false, autoClearTime: Int = 3) -> UIWindow? {
-        if let _ = UIApplication.shared.keyWindow {
-            return SwiftProgress.showNoticeWithText(SwiftProgressHUDType.fail, text: text, autoClear: autoClear, autoClearTime: autoClearTime)
-        }
-        return nil
-    }
-    
-    /// Hint information
-    @discardableResult
-    public class func showInfo(_ text: String, autoClear: Bool = false, autoClearTime: Int = 3) -> UIWindow? {
-        if let _ = UIApplication.shared.keyWindow {
-            return SwiftProgress.showNoticeWithText(SwiftProgressHUDType.info, text: text, autoClear: autoClear, autoClearTime: autoClearTime)
-        }
-        return nil
-    }
-    
-    /// Prompt free type
-    @discardableResult
-    public class func show(_ text: String, type: SwiftProgressHUDType, autoClear: Bool, autoClearTime: Int = 3) -> UIWindow? {
-        if let _ = UIApplication.shared.keyWindow {
-            return SwiftProgress.showNoticeWithText(type, text: text, autoClear: autoClear, autoClearTime: autoClearTime)
-        }
-        return nil
-    }
-    
-    /// Only display text
-    @discardableResult
-    public class func showOnlyText(_ text: String) -> UIWindow? {
-        if let _ = UIApplication.shared.keyWindow {
-            return SwiftProgress.showText(text)
-        }
-        return nil
-    }
-    
-    /// Status bar prompt
-    @discardableResult
-    public class func showOnNavigation(_ text: String, autoClear: Bool = true, autoClearTime: Int = 1, textColor: UIColor = UIColor.black, fontSize:CGFloat = 13, backgroundColor: UIColor = UIColor.white) -> UIWindow? {
-        if let _ = UIApplication.shared.keyWindow {
-            
-            return SwiftProgress.noticeOnNavigationBar(text, autoClear: autoClear, autoClearTime: autoClearTime, textColor: textColor, fontSize: fontSize, backgroundColor: backgroundColor)
-        }
-        return nil
-    }
-    
-    /// Animated picture array
-    @discardableResult
-    public class func showAnimationImages(_ imageNames: Array<UIImage>, timeMilliseconds: Int, backgroundColor: UIColor = UIColor.clear, scale: Double = 1.0) -> UIWindow? {
-        if let _ = UIApplication.shared.keyWindow {
-            return SwiftProgress.wait(imageNames, timeMilliseconds: timeMilliseconds, backgroundColor: backgroundColor, scale: scale)
-        }
-        return nil
-    }
-
-    /// Clear all
-    public class func hideAllHUD() {
-        SwiftProgress.clear()
-    }
-}
-//----------------- API END -------------------
-
-
-class SwiftProgress: NSObject {
-    
-    static var hudBackgroundColor: UIColor = UIColor.clear
-    static var hideHUDTaps: Int = 0
-    static var windows = Array<UIWindow!>()
-    static let rv = UIApplication.shared.keyWindow?.subviews.first as UIView!
+    static var windows = Array<UIWindow?>()
+    static let rv = UIApplication.shared.keyWindow?.subviews.first as UIView?
     static var timer: DispatchSource!
     static var timerTimes = 0
     
-    /* just for iOS 8 */
+    /* just for iOS 8
+     */
     static var degree: Double {
         get {
             return [0, 0, 180, 270, 90][UIApplication.shared.statusBarOrientation.hashValue] as Double
         }
     }
     
+    // fix https://github.com/johnlui/SwiftNotice/issues/2
+    // thanks broccolii(https://github.com/broccolii) and his PR https://github.com/johnlui/SwiftNotice/pull/5
     static func clear() {
         self.cancelPreviousPerformRequests(withTarget: self)
         if let _ = timer {
@@ -146,18 +101,17 @@ class SwiftProgress: NSObject {
     }
     
     @discardableResult
-    static func noticeOnNavigationBar(_ text: String, autoClear: Bool, autoClearTime: Int, textColor: UIColor, fontSize:CGFloat, backgroundColor: UIColor) -> UIWindow{
-        let statusBarFrame = UIApplication.shared.statusBarFrame
-        let frame = CGRect(x: 0, y: 0, width: statusBarFrame.width, height: (statusBarFrame.height + 44))
+    static func noticeOnStatusBar(_ text: String, autoClear: Bool, autoClearTime: Int) -> UIWindow{
+        let frame = UIApplication.shared.statusBarFrame
         let window = UIWindow()
-        window.rootViewController = UIViewController()
         window.backgroundColor = UIColor.clear
         let view = UIView()
-        view.backgroundColor = backgroundColor
-        let label = UILabel(frame: CGRect(x: 0, y: statusBarFrame.height, width: frame.width, height: (frame.height - 44)))
+        view.backgroundColor = UIColor(red: 0x6a/0x100, green: 0xb4/0x100, blue: 0x9f/0x100, alpha: 1)
+        
+        let label = UILabel(frame: frame.height > 20 ? CGRect(x: frame.origin.x, y: frame.origin.y + frame.height - 17, width: frame.width, height: 20) : frame)
         label.textAlignment = NSTextAlignment.center
-        label.font = UIFont.systemFont(ofSize: fontSize)
-        label.textColor = textColor
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.textColor = UIColor.white
         label.text = text
         view.addSubview(label)
         
@@ -187,55 +141,36 @@ class SwiftProgress: NSObject {
         var origPoint = view.frame.origin
         origPoint.y = -(view.frame.size.height)
         let destPoint = view.frame.origin
-        view.tag = yj_topBarTag
+        view.tag = sn_topBar
         
         view.frame = CGRect(origin: origPoint, size: view.frame.size)
         UIView.animate(withDuration: 0.3, animations: {
             view.frame = CGRect(origin: destPoint, size: view.frame.size)
         }, completion: { b in
             if autoClear {
-                
-                DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + .seconds(autoClearTime), execute: {
-                    DispatchQueue.main.async {
-                        UIView.animate(withDuration: 0.3, animations: {
-                            /// Vanishing animation
-                            view.frame = CGRect(origin: origPoint, size: view.frame.size)
-                        }, completion: { (b) in
-                            let selector = #selector(SwiftProgress.hideNotice(_:))
-                            self.perform(selector, with: window, afterDelay: TimeInterval(autoClearTime))
-                        })
-                    }
-                })
+                self.perform(.hideNotice, with: window, afterDelay: TimeInterval(autoClearTime))
             }
         })
         return window
     }
     
     @discardableResult
-    static func wait(_ imageNames: Array<UIImage> = Array<UIImage>(), timeMilliseconds: Int = 0, backgroundColor: UIColor = yj_showHUDBackColor, scale: Double = 1.0) -> UIWindow {
+    static func wait(_ imageNames: Array<UIImage> = Array<UIImage>(), timeInterval: Int = 0) -> UIWindow {
         let frame = CGRect(x: 0, y: 0, width: 78, height: 78)
         let window = UIWindow()
-        window.backgroundColor = hudBackgroundColor
-        window.rootViewController = UIViewController()
+        window.backgroundColor = UIColor.clear
         let mainView = UIView()
         mainView.layer.cornerRadius = 12
-        mainView.backgroundColor = backgroundColor
-        
-        /// add tapGesture
-        let tapGesture = UITapGestureRecognizer.init(target: self, action: #selector(tapHideGesture(gesture:)))
-        tapGesture.numberOfTapsRequired = hideHUDTaps
-        window.addGestureRecognizer(tapGesture)
-        
-        let imgViewFrame = CGRect(x: Double(frame.size.width) * (1 - scale) * 0.5, y: Double(frame.size.height) * (1 - scale) * 0.5, width: Double(frame.size.width) * scale, height: Double(frame.size.height) * scale)
+        mainView.backgroundColor = UIColor(red:0, green:0, blue:0, alpha: 0.8)
         
         if imageNames.count > 0 {
             if imageNames.count > timerTimes {
-                let iv = UIImageView(frame: imgViewFrame)
+                let iv = UIImageView(frame: frame)
                 iv.image = imageNames.first!
                 iv.contentMode = UIViewContentMode.scaleAspectFit
                 mainView.addSubview(iv)
                 timer = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags(rawValue: UInt(0)), queue: DispatchQueue.main) as! DispatchSource
-                timer.schedule(deadline: DispatchTime.now(), repeating: DispatchTimeInterval.milliseconds(timeMilliseconds))
+                timer.schedule(deadline: DispatchTime.now(), repeating: DispatchTimeInterval.milliseconds(timeInterval))
                 timer.setEventHandler(handler: { () -> Void in
                     let name = imageNames[timerTimes % imageNames.count]
                     iv.image = name
@@ -250,9 +185,9 @@ class SwiftProgress: NSObject {
             mainView.addSubview(ai)
         }
         
-        window.frame = rv!.bounds
+        window.frame = frame
         mainView.frame = frame
-        mainView.center = rv!.center
+        window.center = rv!.center
         
         if let version = Double(UIDevice.current.systemVersion),
             version < 9.0 {
@@ -275,18 +210,12 @@ class SwiftProgress: NSObject {
     }
     
     @discardableResult
-    static func showText(_ text: String, autoClear: Bool=true, autoClearTime: Int = 2) -> UIWindow {
+    static func showText(_ text: String, autoClear: Bool=true, autoClearTime: Int=2) -> UIWindow {
         let window = UIWindow()
-        window.backgroundColor = hudBackgroundColor
-        window.rootViewController = UIViewController()
+        window.backgroundColor = UIColor.clear
         let mainView = UIView()
         mainView.layer.cornerRadius = 12
-        mainView.backgroundColor = yj_showHUDBackColor
-        
-        /// add tapGesture
-        let tapGesture = UITapGestureRecognizer.init(target: self, action: #selector(tapHideGesture(gesture:)))
-        tapGesture.numberOfTapsRequired = hideHUDTaps
-        window.addGestureRecognizer(tapGesture)
+        mainView.backgroundColor = UIColor(red:0, green:0, blue:0, alpha: 0.8)
         
         let label = UILabel()
         label.text = text
@@ -299,12 +228,11 @@ class SwiftProgress: NSObject {
         mainView.addSubview(label)
         
         let superFrame = CGRect(x: 0, y: 0, width: label.frame.width + 50 , height: label.frame.height + 30)
-        
-        window.frame = rv!.bounds
+        window.frame = superFrame
         mainView.frame = superFrame
         
         label.center = mainView.center
-        mainView.center = rv!.center
+        window.center = rv!.center
         
         if let version = Double(UIDevice.current.systemVersion),
             version < 9.0 {
@@ -320,35 +248,28 @@ class SwiftProgress: NSObject {
         windows.append(window)
         
         if autoClear {
-            let selector = #selector(SwiftProgress.hideNotice(_:))
-            self.perform(selector, with: window, afterDelay: TimeInterval(autoClearTime))
+            self.perform(.hideNotice, with: window, afterDelay: TimeInterval(autoClearTime))
         }
         return window
     }
     
     @discardableResult
-    static func showNoticeWithText(_ type: SwiftProgressHUDType,text: String, autoClear: Bool, autoClearTime: Int) -> UIWindow {
+    static func showNoticeWithText(_ type: NoticeType,text: String, autoClear: Bool, autoClearTime: Int) -> UIWindow {
         let frame = CGRect(x: 0, y: 0, width: 90, height: 90)
         let window = UIWindow()
-        window.backgroundColor = hudBackgroundColor
-        window.rootViewController = UIViewController()
+        window.backgroundColor = UIColor.clear
         let mainView = UIView()
         mainView.layer.cornerRadius = 10
-        mainView.backgroundColor = yj_showHUDBackColor
-        
-        /// add tapGesture
-        let tapGesture = UITapGestureRecognizer.init(target: self, action: #selector(tapHideGesture(gesture:)))
-        tapGesture.numberOfTapsRequired = hideHUDTaps
-        window.addGestureRecognizer(tapGesture)
+        mainView.backgroundColor = UIColor(red:0, green:0, blue:0, alpha: 0.7)
         
         var image = UIImage()
         switch type {
         case .success:
-            image = SwiftProgressSDK.imageOfCheckmark
-        case .fail:
-            image = SwiftProgressSDK.imageOfCross
+            image = SwiftNoticeSDK.imageOfCheckmark
+        case .error:
+            image = SwiftNoticeSDK.imageOfCross
         case .info:
-            image = SwiftProgressSDK.imageOfInfo
+            image = SwiftNoticeSDK.imageOfInfo
         }
         let checkmarkView = UIImageView(image: image)
         checkmarkView.frame = CGRect(x: 27, y: 15, width: 36, height: 36)
@@ -361,9 +282,9 @@ class SwiftProgress: NSObject {
         label.textAlignment = NSTextAlignment.center
         mainView.addSubview(label)
         
-        window.frame = rv!.bounds
+        window.frame = frame
         mainView.frame = frame
-        mainView.center = rv!.center
+        window.center = rv!.center
         
         if let version = Double(UIDevice.current.systemVersion),
             version < 9.0 {
@@ -385,32 +306,9 @@ class SwiftProgress: NSObject {
         })
         
         if autoClear {
-            let selector = #selector(SwiftProgress.hideNotice(_:))
-            self.perform(selector, with: window, afterDelay: TimeInterval(autoClearTime))
+            self.perform(.hideNotice, with: window, afterDelay: TimeInterval(autoClearTime))
         }
         return window
-    }
-    
-    /// Repair window has not been removed
-    @objc static func hideNotice(_ sender: AnyObject) {
-        if let window = sender as? UIWindow {
-            
-            if let v = window.subviews.first {
-                UIView.animate(withDuration: 0.2, animations: {
-                    
-                    if v.tag == yj_topBarTag {
-                        v.frame = CGRect(x: 0, y: -v.frame.height, width: v.frame.width, height: v.frame.height)
-                    }
-                    v.alpha = 0
-                }, completion: { b in
-                    if let index = windows.index(where: { (item) -> Bool in
-                        return item == window
-                    }) {
-                        windows.remove(at: index)
-                    }
-                })
-            }
-        }
     }
     
     // just for iOS 8
@@ -421,21 +319,15 @@ class SwiftProgress: NSObject {
             return rv!.center
         }
     }
-    
-    /// tap Hide HUD
-    @objc
-    static func tapHideGesture(gesture: UITapGestureRecognizer) {
-        clear()
-    }
 }
 
-class SwiftProgressSDK {
+class SwiftNoticeSDK {
     struct Cache {
         static var imageOfCheckmark: UIImage?
         static var imageOfCross: UIImage?
         static var imageOfInfo: UIImage?
     }
-    class func draw(_ type: SwiftProgressHUDType) {
+    class func draw(_ type: NoticeType) {
         let checkmarkShapePath = UIBezierPath()
         
         // draw circle
@@ -450,7 +342,7 @@ class SwiftProgressSDK {
             checkmarkShapePath.addLine(to: CGPoint(x: 27, y: 13))
             checkmarkShapePath.move(to: CGPoint(x: 10, y: 18))
             checkmarkShapePath.close()
-        case .fail: // draw X
+        case .error: // draw X
             checkmarkShapePath.move(to: CGPoint(x: 10, y: 10))
             checkmarkShapePath.addLine(to: CGPoint(x: 26, y: 26))
             checkmarkShapePath.move(to: CGPoint(x: 10, y: 26))
@@ -484,7 +376,7 @@ class SwiftProgressSDK {
         }
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 36, height: 36), false, 0)
         
-        SwiftProgressSDK.draw(SwiftProgressHUDType.success)
+        SwiftNoticeSDK.draw(NoticeType.success)
         
         Cache.imageOfCheckmark = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -496,7 +388,7 @@ class SwiftProgressSDK {
         }
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 36, height: 36), false, 0)
         
-        SwiftProgressSDK.draw(SwiftProgressHUDType.fail)
+        SwiftNoticeSDK.draw(NoticeType.error)
         
         Cache.imageOfCross = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -508,7 +400,7 @@ class SwiftProgressSDK {
         }
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 36, height: 36), false, 0)
         
-        SwiftProgressSDK.draw(SwiftProgressHUDType.info)
+        SwiftNoticeSDK.draw(NoticeType.info)
         
         Cache.imageOfInfo = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -518,6 +410,38 @@ class SwiftProgressSDK {
 
 extension UIWindow{
     func hide(){
-        SwiftProgress.hideNotice(self)
+        SwiftNotice.hideNotice(self)
     }
+}
+
+fileprivate extension Selector {
+    static let hideNotice = #selector(SwiftNotice.hideNotice(_:))
+}
+
+@objc extension SwiftNotice {
+    
+    // fix https://github.com/johnlui/SwiftNotice/issues/2
+    static func hideNotice(_ sender: AnyObject) {
+        if let window = sender as? UIWindow {
+            
+            if let v = window.subviews.first {
+                UIView.animate(withDuration: 0.2, animations: {
+                    
+                    if v.tag == sn_topBar {
+                        v.frame = CGRect(x: 0, y: -v.frame.height, width: v.frame.width, height: v.frame.height)
+                    }
+                    v.alpha = 0
+                }, completion: { b in
+                    
+                    if let index = windows.index(where: { (item) -> Bool in
+                        return item == window
+                    }) {
+                        windows.remove(at: index)
+                    }
+                })
+            }
+            
+        }
+    }
+    
 }

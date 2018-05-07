@@ -13,6 +13,7 @@ let kNetEaseCaptchaId = "e824e40907644c15b93b0ce1d677ff57"
 
 // web地址
 let webUrl = "http://192.168.20.18:3000/"
+//let webUrl = "http://116.85.32.253:443/"
 
 let kLoginModel = TYSLoginModel.manager.readData()
 let kPersonalModel = TYSPersonalModel.manager.readPersonalData()

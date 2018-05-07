@@ -24,7 +24,7 @@ class TYSRecReadAboutMeCell: UITableViewCell {
     
     func setModel(model: TYSRecReadAboutMeModel) {
         contentLabel?.attributedText = getAttrContent(model: model)
-        timeLabel?.text = formatDate(date: model.create_time ?? "")
+        timeLabel?.text = formatDate(date: model.create_time ?? "2018-01-01 00:00:00")
     }
     
     func contentLabelClick(block: @escaping (String) -> ()) {

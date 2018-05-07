@@ -24,6 +24,7 @@ class BaseViewController: UIViewController {
     deinit {
         printLog("deinit: \(self.classForCoder)")
         NotificationCenter.default.removeObserver(self)
+        hidHUD()
     }
     
     private func addNotification() {

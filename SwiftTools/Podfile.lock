@@ -6,7 +6,6 @@ PODS:
   - IQKeyboardManagerSwift (5.0.6)
   - Kingfisher (4.3.1)
   - MJRefresh (3.1.15.1)
-  - PKHUD (5.0.0)
   - SnapKit (4.0.0)
   - SQLite.swift (0.11.4):
     - SQLite.swift/standard (= 0.11.4)
@@ -22,7 +21,6 @@ DEPENDENCIES:
   - IQKeyboardManagerSwift
   - Kingfisher
   - MJRefresh
-  - PKHUD
   - SnapKit
   - SQLite.swift
   - SwiftyJSON
@@ -36,12 +34,11 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 02bfbb0dff71c66d0ab77d80d25dfce0c3717735
   Kingfisher: 75541c4b62f02e1fde6f9772303de3d9ebe8f5b3
   MJRefresh: 5f8552bc25ca8751c010f621c1098dbdaacbccd6
-  PKHUD: 3c001512c6e002091184197a8de7a20420786e3b
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SQLite.swift: 3e3bee21da701b5b9f87c4a672cb54f233505692
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
   VerifyCode: 4b53458bf56f35cabe00f28e385bf2cd15888a9f
 
-PODFILE CHECKSUM: 5ebaea7a0806ff11127bf5b9e4dd559cb182a9ed
+PODFILE CHECKSUM: 4ab955a7bb170fba342e7a43383afa902d27067c
 
 COCOAPODS: 1.4.0

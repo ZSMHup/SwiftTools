@@ -173,7 +173,13 @@ extension TYSPersonalViewController: UITableViewDataSource, UITableViewDelegate 
         case 8:
             navigationController?.pushViewController(TYSSettingViewController(), animated: true)
         case 0:
-            showHud(string: "000")
+            showFail(text: "1234566666")
+        case 3:
+            showOnlyText(text: "000000000000000000000000000000000000000000000000000")
+        case 4:
+            showWait()
+        case 5:
+            showSuccess(text: "qwertyu")
         default:
             break
         }

@@ -53,7 +53,7 @@ class TYSRecReadContentCell: UITableViewCell {
             recNameLabel?.text = model.tj_user_name ?? "暂无数据"
             recContentLabel?.text = model.title ?? "暂无数据"
         }
-        timeLabel?.text = formatDate(date: model.create_time ?? "")
+        timeLabel?.text = formatDate(date: model.create_time ?? "2018-01-01 00:00:00")
         msgBtn?.setTitle(model.msg_count ?? "0", for: .normal)
         collectionBtn?.setTitle(model.collection_count ?? "0", for: .normal)
         likeBtn?.setTitle(model.like_count ?? "0", for: .normal)

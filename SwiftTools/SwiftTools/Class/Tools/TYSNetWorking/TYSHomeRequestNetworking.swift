@@ -20,24 +20,24 @@ func requestHomeListData(
         
         var resultDic = getDictionaryFromJSONString(jsonString: cacheValue as! String)
         if resultDic["object"] is NSNull {
-            resultDic["object"] = {} as AnyObject
+            cacheCompletion(TYSHomeLiveModel())
+        } else {
+            let object = resultDic["object"]
+            let obj: [String : Any] = object as! [String : Any]
+            let model = JSONDeserializer<TYSHomeLiveModel>.deserializeFrom(dict: obj)!
+            cacheCompletion(model)
         }
-        let object = resultDic["object"]
-        
-        let obj: [String : Any] = object as! [String : Any]
-        let model = JSONDeserializer<TYSHomeLiveModel>.deserializeFrom(dict: obj)!
-        cacheCompletion(model)
-        
     }, successCompletion: { (successValue) in
         var resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
-        if resultDic["object"] is NSNull {
-            resultDic["object"] = {} as AnyObject
-        }
-        let object = resultDic["object"]
         
-        let obj: [String : Any] = object as! [String : Any]
-        let model = JSONDeserializer<TYSHomeLiveModel>.deserializeFrom(dict: obj)!
-        successCompletion(model)
+        if resultDic["object"] is NSNull {
+            successCompletion(TYSHomeLiveModel())
+        } else {
+            let object = resultDic["object"]
+            let obj: [String : Any] = object as! [String : Any]
+            let model = JSONDeserializer<TYSHomeLiveModel>.deserializeFrom(dict: obj)!
+            successCompletion(model)
+        }
     }) { (error) in
         failureCompletion(error)
     }
@@ -53,24 +53,23 @@ func requestInterestedPeople(
     requestHanlder(paramterDic: paramterDic, cache: true, cacheCompletion: { (cacheValue) in
         var resultDic = getDictionaryFromJSONString(jsonString: cacheValue as! String)
         if resultDic["object"] is NSNull {
-            resultDic["object"] = [] as AnyObject
+            cacheCompletion([TYSInterestedPeopleModel()])
+        } else {
+            let object: [Any] = resultDic["object"] as! [Any]
+            let model = JSONDeserializer<TYSInterestedPeopleModel>.deserializeModelArrayFrom(array: object)
+            cacheCompletion(model! as! [TYSInterestedPeopleModel])
         }
-        let object: [Any] = resultDic["object"] as! [Any]
-        
-        let model = JSONDeserializer<TYSInterestedPeopleModel>.deserializeModelArrayFrom(array: object)
-        
-        cacheCompletion(model! as! [TYSInterestedPeopleModel])
         
     }, successCompletion: { (successValue) in
         var resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
-        if resultDic["object"] is NSNull {
-            resultDic["object"] = [] as AnyObject
-        }
-        let object: [Any] = resultDic["object"] as! [Any]
         
-        let model = JSONDeserializer<TYSInterestedPeopleModel>.deserializeModelArrayFrom(array: object)
-      
-        successCompletion(model! as! [TYSInterestedPeopleModel])
+        if resultDic["object"] is NSNull {
+            successCompletion([TYSInterestedPeopleModel()])
+        } else {
+            let object: [Any] = resultDic["object"] as! [Any]
+            let model = JSONDeserializer<TYSInterestedPeopleModel>.deserializeModelArrayFrom(array: object)
+            successCompletion(model! as! [TYSInterestedPeopleModel])
+        }
         
     }) { (error) in
         failureCompletion(error)
@@ -87,24 +86,22 @@ func requestAnalystList(
     requestHanlder(paramterDic: paramterDic, cache: true, cacheCompletion: { (cacheValue) in
         var resultDic = getDictionaryFromJSONString(jsonString: cacheValue as! String)
         if resultDic["object"] is NSNull {
-            resultDic["object"] = [] as AnyObject
+            cacheCompletion([TYSInterestedPeopleModel()])
+        } else {
+            let object: [Any] = resultDic["object"] as! [Any]
+            let model = JSONDeserializer<TYSInterestedPeopleModel>.deserializeModelArrayFrom(array: object)
+            cacheCompletion(model! as! [TYSInterestedPeopleModel])
         }
-        let object: [Any] = resultDic["object"] as! [Any]
-        
-        let model = JSONDeserializer<TYSInterestedPeopleModel>.deserializeModelArrayFrom(array: object)
-        
-        cacheCompletion(model! as! [TYSInterestedPeopleModel])
         
     }, successCompletion: { (successValue) in
         var resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
         if resultDic["object"] is NSNull {
-            resultDic["object"] = [] as AnyObject
+            successCompletion([TYSInterestedPeopleModel()])
+        } else {
+            let object: [Any] = resultDic["object"] as! [Any]
+            let model = JSONDeserializer<TYSInterestedPeopleModel>.deserializeModelArrayFrom(array: object)
+            successCompletion(model! as! [TYSInterestedPeopleModel])
         }
-        let object: [Any] = resultDic["object"] as! [Any]
-        
-        let model = JSONDeserializer<TYSInterestedPeopleModel>.deserializeModelArrayFrom(array: object)
-        
-        successCompletion(model! as! [TYSInterestedPeopleModel])
     }) { (error) in
         failureCompletion(error)
     }
@@ -120,24 +117,22 @@ func requestHomeAD(
     requestHanlder(paramterDic: paramterDic, cache: true, cacheCompletion: { (cacheValue) in
         var resultDic = getDictionaryFromJSONString(jsonString: cacheValue as! String)
         if resultDic["object"] is NSNull {
-            resultDic["object"] = [] as AnyObject
+            cacheCompletion([TYSHomeADModel()])
+        } else {
+            let object: [Any] = resultDic["object"] as! [Any]
+            let model = JSONDeserializer<TYSHomeADModel>.deserializeModelArrayFrom(array: object)
+            cacheCompletion(model! as! [TYSHomeADModel])
         }
-        let object: [Any] = resultDic["object"] as! [Any]
-        
-        let model = JSONDeserializer<TYSHomeADModel>.deserializeModelArrayFrom(array: object)
-        
-        cacheCompletion(model! as! [TYSHomeADModel])
         
     }, successCompletion: { (successValue) in
         var resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
         if resultDic["object"] is NSNull {
-            resultDic["object"] = [] as AnyObject
+            successCompletion([TYSHomeADModel()])
+        } else {
+            let object: [Any] = resultDic["object"] as! [Any]
+            let model = JSONDeserializer<TYSHomeADModel>.deserializeModelArrayFrom(array: object)
+            successCompletion(model! as! [TYSHomeADModel])
         }
-        let object: [Any] = resultDic["object"] as! [Any]
-        
-        let model = JSONDeserializer<TYSHomeADModel>.deserializeModelArrayFrom(array: object)
-        
-        successCompletion(model! as! [TYSHomeADModel])
         
     }) { (error) in
         failureCompletion(error)
@@ -153,23 +148,21 @@ func requestLiveList(
     requestHanlder(paramterDic: paramterDic, cache: true, cacheCompletion: { (cacheValue) in
         var resultDic = getDictionaryFromJSONString(jsonString: cacheValue as! String)
         if resultDic["object"] is NSNull {
-            resultDic["object"] = [] as AnyObject
+            cacheCompletion([TYSLiveCommonModel()])
+        } else {
+            let object: [Any] = resultDic["object"] as! [Any]
+            let model = JSONDeserializer<TYSLiveCommonModel>.deserializeModelArrayFrom(array: object)
+            cacheCompletion(model! as! [TYSLiveCommonModel])
         }
-        let object: [Any] = resultDic["object"] as! [Any]
-        
-        let model = JSONDeserializer<TYSLiveCommonModel>.deserializeModelArrayFrom(array: object)
-        
-        cacheCompletion(model! as! [TYSLiveCommonModel])
     }, successCompletion: { (successValue) in
         var resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
         if resultDic["object"] is NSNull {
-            resultDic["object"] = [] as AnyObject
+            successCompletion([TYSLiveCommonModel()])
+        } else {
+            let object: [Any] = resultDic["object"] as! [Any]
+            let model = JSONDeserializer<TYSLiveCommonModel>.deserializeModelArrayFrom(array: object)
+            successCompletion(model! as! [TYSLiveCommonModel])
         }
-        let object: [Any] = resultDic["object"] as! [Any]
-        
-        let model = JSONDeserializer<TYSLiveCommonModel>.deserializeModelArrayFrom(array: object)
-        
-        successCompletion(model! as! [TYSLiveCommonModel])
     }) { (error) in
         failureCompletion(error)
     }
@@ -183,21 +176,24 @@ func requestRecReadList(
     failureCompletion: @escaping (Any)->()) {
     requestHanlder(paramterDic: paramterDic, cache: true, cacheCompletion: { (cacheValue) in
         var resultDic = getDictionaryFromJSONString(jsonString: cacheValue as! String)
+
         if resultDic["object"] is NSNull {
-            resultDic["object"] = [] as AnyObject
+            cacheCompletion([TYSRecReadModel()])
+        } else {
+            let object: [Any] = resultDic["object"] as! [Any]
+            let model = JSONDeserializer<TYSRecReadModel>.deserializeModelArrayFrom(array: object)
+            cacheCompletion(model! as! [TYSRecReadModel])
         }
-        let object: [Any] = resultDic["object"] as! [Any]
         
-        let model = JSONDeserializer<TYSRecReadModel>.deserializeModelArrayFrom(array: object)
-        
-        cacheCompletion(model! as! [TYSRecReadModel])
     }, successCompletion: { (successValue) in
         let resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
-        let object: [Any] = resultDic["object"] as! [Any]
-        
-        let model = JSONDeserializer<TYSRecReadModel>.deserializeModelArrayFrom(array: object)
-        
-        successCompletion(model! as! [TYSRecReadModel])
+        if resultDic["object"] is NSNull {
+            successCompletion([TYSRecReadModel()])
+        } else {
+            let object: [Any] = resultDic["object"] as! [Any]
+            let model = JSONDeserializer<TYSRecReadModel>.deserializeModelArrayFrom(array: object)
+            successCompletion(model! as! [TYSRecReadModel])
+        }
     }) { (error) in
         failureCompletion(error)
     }
@@ -214,12 +210,13 @@ func requestRecReadDetail(
     }, successCompletion: { (successValue) in
         var resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
         if resultDic["object"] is NSNull {
-            resultDic["object"] = {} as AnyObject
+            successCompletion(TYSRecReadDetailModel())
+        } else {
+            let object = resultDic["object"]
+            let obj: [String : Any] = object as! [String : Any]
+            let model = JSONDeserializer<TYSRecReadDetailModel>.deserializeFrom(dict: obj)!
+            successCompletion(model)
         }
-        let object = resultDic["object"]
-        let obj: [String : Any] = object as! [String : Any]
-        let model = JSONDeserializer<TYSRecReadDetailModel>.deserializeFrom(dict: obj)!
-        successCompletion(model)
     }) { (error) in
         failureCompletion(error)
     }
@@ -234,23 +231,21 @@ func requestRecReadAboutMeList(
     requestHanlder(paramterDic: paramterDic, cache: true, cacheCompletion: { (cacheValue) in
         var resultDic = getDictionaryFromJSONString(jsonString: cacheValue as! String)
         if resultDic["object"] is NSNull {
-            resultDic["object"] = [] as AnyObject
+            cacheCompletion([TYSRecReadAboutMeModel()])
+        } else {
+            let object: [Any] = resultDic["object"] as! [Any]
+            let model = JSONDeserializer<TYSRecReadAboutMeModel>.deserializeModelArrayFrom(array: object)
+            cacheCompletion(model! as! [TYSRecReadAboutMeModel])
         }
-        let object: [Any] = resultDic["object"] as! [Any]
-        
-        let model = JSONDeserializer<TYSRecReadAboutMeModel>.deserializeModelArrayFrom(array: object)
-        
-        cacheCompletion(model! as! [TYSRecReadAboutMeModel])
     }, successCompletion: { (successValue) in
         var resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
         if resultDic["object"] is NSNull {
-            resultDic["object"] = [] as AnyObject
+            successCompletion([TYSRecReadAboutMeModel()])
+        } else {
+            let object: [Any] = resultDic["object"] as! [Any]
+            let model = JSONDeserializer<TYSRecReadAboutMeModel>.deserializeModelArrayFrom(array: object)
+            successCompletion(model! as! [TYSRecReadAboutMeModel])
         }
-        let object: [Any] = resultDic["object"] as! [Any]
-        
-        let model = JSONDeserializer<TYSRecReadAboutMeModel>.deserializeModelArrayFrom(array: object)
-        
-        successCompletion(model! as! [TYSRecReadAboutMeModel])
     }) { (error) in
         failureCompletion(error)
     }

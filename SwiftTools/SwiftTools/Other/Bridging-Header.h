@@ -10,7 +10,7 @@
 #define Bridging_Header_h
 
 #import <VodSDK/VodSDK.h>
-#import "AYKeychain.h"
 #import <VerifyCode/NTESVerifyCodeManager.h>
+#import "AYKeychain.h"
 
 #endif /* Bridging_Header_h */

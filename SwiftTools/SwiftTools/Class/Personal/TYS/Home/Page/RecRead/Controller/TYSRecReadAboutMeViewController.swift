@@ -92,7 +92,6 @@ extension TYSRecReadAboutMeViewController {
     }
 }
 
-
 // MARK: delegate
 extension TYSRecReadAboutMeViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -108,8 +107,12 @@ extension TYSRecReadAboutMeViewController: UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        printLog("\(classForCoder) --- \(indexPath.row)")
-        printLog("\(String(describing: getCurrentController()))")
+        
+        let model = self.dataSource[indexPath.row]
+        let detailVC = TYSRecReadDetailViewController()
+        detailVC.readTitle = model.title ?? ""
+        detailVC.readId = model.pk_id ?? ""
+        getCurrentController()?.navigationController?.pushViewController(detailVC, animated: true)
     }
     
 }

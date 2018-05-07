@@ -34,7 +34,7 @@ class TYSRecReadDetailHeaderView: UIView {
         let url = URL(string: model.head_img ?? "")
         userImgView?.kf.setImage(with: url, placeholder: UIImage(named: "defaut_avatar"))
         nameLabel?.text = model.name ?? "暂无数据"
-        timeLabel?.text = formatDate(date: model.create_time ?? "暂无数据")
+        timeLabel?.text = formatDate(date: model.create_time ?? "2018-01-01 00:00:00")
         browseBtn?.setTitle(model.browse_count ?? "0", for: .normal)
         msgBtn?.setTitle(model.msg_count ?? "0", for: .normal)
         collectionBtn?.setTitle(model.collection_count ?? "0", for: .normal)

@@ -38,7 +38,7 @@ func requestHanlder(
                 let resultDic = getDictionaryFromJSONString(jsonString: string)
                 let msg: String = resultDic["msg"] as! String
                 let statusCode: String = resultDic["statusCode"] as! String
-                let object = resultDic["object"]
+                
                 
                 if resultDic.count == 0 {
                     showOnlyText(text: "服务器异常")
@@ -54,7 +54,8 @@ func requestHanlder(
                     }
                     return
                 }
-                
+                /*
+                let object = resultDic["object"]
                 var objc: Any?
                 
                 if object is Array<Any> {
@@ -74,6 +75,8 @@ func requestHanlder(
                 } else if object is NSNull {
                     printLog("NSNull")
                 }
+                */
+                
                 if stringValue.isCacheData {
                     cacheCompletion(string as Any)
                 } else {

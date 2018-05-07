@@ -12,7 +12,6 @@ import IQKeyboardManagerSwift
 
 class TYSRecReadDetailViewController: BaseViewController {
 
-    var recReadModel = TYSRecReadModel()
     var readTitle: String = ""
     var readId: String = ""
     

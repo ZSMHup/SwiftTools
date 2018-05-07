@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>推荐有奖</key>
+	<dict>
+		<key>name</key>
+		<string>Recommend</string>
+		<key>url</key>
+		<string>Personal/RecommendReward</string>
+	</dict>
+	<key>收入</key>
+	<dict>
+		<key>name</key>
+		<string>Income</string>
+		<key>url</key>
+		<string>Personal/Detail</string>
+	</dict>
+	<key>物品库</key>
+	<dict>
+		<key>name</key>
+		<string>GoodsList</string>
+		<key>url</key>
+		<string>Personal/GoodsList</string>
+	</dict>
+	<key>积分</key>
+	<dict>
+		<key>name</key>
+		<string>IntegralList</string>
+		<key>url</key>
+		<string>Personal/IntegralList</string>
+	</dict>
+	<key>关于我们</key>
+	<dict>
+		<key>name</key>
+		<string>AboutMe</string>
+		<key>url</key>
+		<string>Personal/Setting/AboutMe</string>
+	</dict>
+	<key>帮助中心</key>
+	<dict>
+		<key>name</key>
+		<string>HelpCenter</string>
+		<key>url</key>
+		<string>Personal/HelpCenter</string>
+	</dict>
+	<key>实名认证</key>
+	<dict>
+		<key>name</key>
+		<string>Auth</string>
+		<key>url</key>
+		<string>Personal/Auth</string>
+	</dict>
+</dict>
+</plist>
