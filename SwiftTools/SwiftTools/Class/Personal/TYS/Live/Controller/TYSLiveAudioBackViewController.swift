@@ -194,6 +194,14 @@ extension TYSLiveAudioBackViewController {
 
 extension TYSLiveAudioBackViewController {
     private func addSubviews() {
+        
+        let liveDetailBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 20, height: 40))
+        liveDetailBtn.setTitleColor(tys_middleDarkColor, for: .normal)
+        liveDetailBtn.titleLabel?.font = SystemFont(fontSize: 16)
+        liveDetailBtn.setTitle("详情", for: .normal)
+        liveDetailBtn.addTarget(self, action: #selector(liveDetailBtnClick), for: .touchUpInside)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: liveDetailBtn)
+        
         view.addSubview(scrollView)
         view.addSubview(headerView)
         view.addSubview(pageMenu)
@@ -208,6 +216,17 @@ extension TYSLiveAudioBackViewController {
         self.addChildViewController(questionVC)
         self.addChildViewController(fileVC)
         scrollView.addSubview(self.childViewControllers[0].view)
+    }
+}
+
+// MARK:
+extension TYSLiveAudioBackViewController {
+    @objc private func liveDetailBtnClick() {
+        let webVc = TYSCommonWebViewController()
+        
+        webVc.liveWebUrl = String(format:"%@%@/%@/%@/%@", webUrl, "Live/LiveDetail", kLoginModel.access_token ?? "", kLoginModel.user_id ?? "", liveDetailModel.id ?? "")
+        printLog(webVc.liveWebUrl)
+        navigationController?.pushViewController(webVc, animated: true)
     }
 }
 

@@ -102,14 +102,12 @@ extension TYSSettingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
         let vc = TYSCommonWebViewController()
         
-        
         if indexPath.row == 0 {
-            
         } else if indexPath.row == 1 {
-            
+            vc.liveWebUrl = "http://192.168.20.18:3000/Live/LiveDetail/3ae871adf8c13566506e55be21f63034/110430/3050"
+            navigationController?.pushViewController(vc, animated: true)
         } else if indexPath.row == 2 {
             vc.liveWebUrl = webUrl + "Personal/Setting/AboutMe"
             navigationController?.pushViewController(vc, animated: true)

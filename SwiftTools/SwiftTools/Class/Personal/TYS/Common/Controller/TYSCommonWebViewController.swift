@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import HandyJSON
 
 class TYSCommonWebViewController: BaseViewController {
 
@@ -57,6 +58,11 @@ extension TYSCommonWebViewController {
                 urlArray[dataSource[index]["name"] as! String] = dataSource[index]["url"] as? String
             }
         }
+        
+        config.userContentController.add(self as WKScriptMessageHandler, name: "LiveAudioBack")
+        config.userContentController.add(self as WKScriptMessageHandler, name: "LivePersonalRoom")
+        config.userContentController.add(self as WKScriptMessageHandler, name: "LiveOtherPersonalRoom")
+        
         wkWebView = AYWKWebView.createWKWebView(frame: view.bounds, configuration: config)
         wkWebView?.loadRequest(urlString: liveWebUrl)
         wkWebView?.delegate = self
@@ -75,9 +81,37 @@ extension TYSCommonWebViewController {
 
 extension TYSCommonWebViewController: AYWKWebViewDelegate, WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        let webVc = TYSCommonWebViewController()
-        webVc.liveWebUrl = webUrl + urlArray[message.name]!
-        navigationController?.pushViewController(webVc, animated: true)
+        
+        if message.name == "LiveAudioBack" {
+            let object = message.body
+            let obj: [String : Any] = object as! [String : Any]
+            let model = JSONDeserializer<TYSLiveDetailModel>.deserializeFrom(dict: obj)!
+            let vc = TYSLiveAudioBackViewController()
+            vc.liveDetailModel = model
+            vc.navigationItem.title = model.subject!
+            getCurrentController()?.navigationController?.pushViewController(vc, animated: true)
+        } else if message.name == "LivePersonalRoom" {
+            let object = message.body
+            let obj: [String : Any] = object as! [String : Any]
+            let model = JSONDeserializer<TYSLiveDetailModel>.deserializeFrom(dict: obj)!
+            
+            let vc = TYSLivePersonalRoomViewController()
+            vc.navigationItem.title = model.subject!
+            getCurrentController()?.navigationController?.pushViewController(vc, animated: true)
+        } else if message.name == "LiveOtherPersonalRoom" {
+            let object = message.body
+            let obj: [String : Any] = object as! [String : Any]
+            let model = JSONDeserializer<TYSLiveDetailModel>.deserializeFrom(dict: obj)!
+            let vc = TYSLiveOtherPeopleRoomViewController()
+            vc.liveDetailModel = model
+            vc.navigationItem.title = model.subject!
+            getCurrentController()?.navigationController?.pushViewController(vc, animated: true)
+        }
+        else {
+            let webVc = TYSCommonWebViewController()
+            webVc.liveWebUrl = webUrl + urlArray[message.name]!
+            navigationController?.pushViewController(webVc, animated: true)
+        }
     }
     
     func wkWebView(wkWebView: AYWKWebView, didCommitWithURL: URL) {

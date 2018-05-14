@@ -303,7 +303,14 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
                     break
                     
                 default:
+                    /*
                     self?.navigationController?.pushViewController(TYSConnectionViewController(), animated: true)
+                    */
+                    let webVc = TYSCommonWebViewController()
+                    webVc.liveWebUrl = String(format:"%@%@/%@/%@", webUrl, "Home/Connection", kLoginModel.access_token ?? "", kLoginModel.user_id ?? "")
+                    printLog(webVc.liveWebUrl)
+                    self?.navigationController?.pushViewController(webVc, animated: true)
+                    
                     break
                 }
             })
@@ -374,11 +381,25 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
                 })
             case 2:
                 sectionView.addRightBtnAction(tempRightBtnAction: {[weak self] (button) in
+                    
+                    let webVc = TYSCommonWebViewController()
+                    webVc.liveWebUrl = String(format:"%@%@/%@/%@", webUrl, "Live/HotLiveList", kLoginModel.access_token ?? "", kLoginModel.user_id ?? "")
+                    printLog(webVc.liveWebUrl)
+                    self?.navigationController?.pushViewController(webVc, animated: true)
+                    /*
                     self?.navigationController?.pushViewController(TYSHotLiveViewController(), animated: true)
+                    */
                 })
             case 3:
                 sectionView.addRightBtnAction(tempRightBtnAction: {[weak self] (button) in
+                    
+                    let webVc = TYSCommonWebViewController()
+                    webVc.liveWebUrl = String(format:"%@%@/%@/%@", webUrl, "Live/RecLiveList", kLoginModel.access_token ?? "", kLoginModel.user_id ?? "")
+                    printLog(webVc.liveWebUrl)
+                    self?.navigationController?.pushViewController(webVc, animated: true)
+                    /*
                     self?.navigationController?.pushViewController(TYSRecLiveViewController(), animated: true)
+                    */
                 })
             default:
                 break

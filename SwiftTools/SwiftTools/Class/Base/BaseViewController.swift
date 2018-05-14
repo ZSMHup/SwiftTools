@@ -64,11 +64,11 @@ extension BaseViewController {
             let liveState = liveDetailModel.state!
             
             if liveState == "3" {
-//                let vc = TYSLiveAudioBackViewController()
-//                vc.liveDetailModel = liveDetailModel
-                let vc = TYSLiveAudioBackWebViewController()
+                let vc = TYSLiveAudioBackViewController()
+                vc.liveDetailModel = liveDetailModel
+//                let vc = TYSLiveAudioBackWebViewController()
+//                vc.liveWebUrl = webUrl + "LiveAudioBack"
                 vc.navigationItem.title = liveDetailModel.subject!
-                vc.liveWebUrl = webUrl + "LiveAudioBack"
                 getCurrentController()?.navigationController?.pushViewController(vc, animated: true)
             } else {
                 if liveDetailModel.is_melive! == "1" {
