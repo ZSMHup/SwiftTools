@@ -205,9 +205,13 @@ extension TYSHomeViewController {
 // MARK: event response
 extension TYSHomeViewController {
     @objc private func personalCenter() {
-        let personalVc = TYSPersonalViewController()
-
-        navigationController?.pushViewController(personalVc, animated: true)
+//        let personalVc = TYSPersonalViewController()
+//        navigationController?.pushViewController(personalVc, animated: true)
+        
+        let webVc = TYSPersonalWebViewController()
+        webVc.personalUrl = String(format:"%@%@/%@/%@", webUrl, "TYSPersonal", kLoginModel.access_token ?? "", kLoginModel.user_id ?? "")
+        navigationController?.pushViewController(webVc, animated: true)
+        
     }
     
     @objc private func searchBtnClick() {
@@ -308,7 +312,6 @@ extension TYSHomeViewController: UICollectionViewDelegate, UICollectionViewDataS
                     */
                     let webVc = TYSCommonWebViewController()
                     webVc.liveWebUrl = String(format:"%@%@/%@/%@", webUrl, "Home/Connection", kLoginModel.access_token ?? "", kLoginModel.user_id ?? "")
-                    printLog(webVc.liveWebUrl)
                     self?.navigationController?.pushViewController(webVc, animated: true)
                     
                     break

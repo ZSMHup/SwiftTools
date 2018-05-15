@@ -28,7 +28,7 @@ class TYSCommonWebViewController: BaseViewController {
         configDic.enumerateKeysAndObjects { (key, obj, stop) in
             dataSource.append(obj as! [String : Any])
         }
-        
+        printLog(liveWebUrl)
         addSubViews()
     }
 }

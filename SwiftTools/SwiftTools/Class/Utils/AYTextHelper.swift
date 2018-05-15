@@ -22,7 +22,6 @@ class AYTextHelper: NSObject {
         textContainer = NSTextContainer()
         textStorage?.addLayoutManager(layoutManager!)
         layoutManager?.addTextContainer(textContainer!)
-        
     }
     
     func select(location: CGPoint, label: UILabel, selectedBlock: @escaping (Int, NSAttributedString) -> ()) {
@@ -100,3 +99,4 @@ extension UILabel {
         })
     }   
 }
+

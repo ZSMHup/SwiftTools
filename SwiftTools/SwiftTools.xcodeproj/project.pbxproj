@@ -99,6 +99,7 @@
 		E17A08062061127000887C69 /* UIColor+HexString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17A08052061127000887C69 /* UIColor+HexString.swift */; };
 		E17A0808206112BD00887C69 /* UIButton+Countdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17A0807206112BD00887C69 /* UIButton+Countdown.swift */; };
 		E17A081B206113EC00887C69 /* TYSLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17A081A206113EC00887C69 /* TYSLoginViewController.swift */; };
+		E17FE0CB20AA86CD00A85561 /* TYSPersonalWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17FE0CA20AA86CD00A85561 /* TYSPersonalWebViewController.swift */; };
 		E1800EE9207DC5A900A3A6AA /* UserDefaults+Save.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1800EE8207DC5A900A3A6AA /* UserDefaults+Save.swift */; };
 		E1800EEB207DE48C00A3A6AA /* TYSLiveJoinLiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1800EEA207DE48C00A3A6AA /* TYSLiveJoinLiveModel.swift */; };
 		E1800EED207E0E4E00A3A6AA /* TYSLiveQuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1800EEC207E0E4E00A3A6AA /* TYSLiveQuestionModel.swift */; };
@@ -232,6 +233,7 @@
 		E17A08052061127000887C69 /* UIColor+HexString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HexString.swift"; sourceTree = "<group>"; };
 		E17A0807206112BD00887C69 /* UIButton+Countdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Countdown.swift"; sourceTree = "<group>"; };
 		E17A081A206113EC00887C69 /* TYSLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSLoginViewController.swift; sourceTree = "<group>"; };
+		E17FE0CA20AA86CD00A85561 /* TYSPersonalWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSPersonalWebViewController.swift; sourceTree = "<group>"; };
 		E1800EE8207DC5A900A3A6AA /* UserDefaults+Save.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Save.swift"; sourceTree = "<group>"; };
 		E1800EEA207DE48C00A3A6AA /* TYSLiveJoinLiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSLiveJoinLiveModel.swift; sourceTree = "<group>"; };
 		E1800EEC207E0E4E00A3A6AA /* TYSLiveQuestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TYSLiveQuestionModel.swift; sourceTree = "<group>"; };
@@ -842,6 +844,7 @@
 			isa = PBXGroup;
 			children = (
 				E1771B872063B77B0050C244 /* TYSPersonalViewController.swift */,
+				E17FE0CA20AA86CD00A85561 /* TYSPersonalWebViewController.swift */,
 				E158E408207CB92100D09EAC /* TYSSettingViewController.swift */,
 			);
 			path = Controller;
@@ -1107,6 +1110,7 @@
 				E1577ADA207F35DA008D1FF4 /* TYSRecReadDetailHeaderView.swift in Sources */,
 				E1577AD2207EEAEA008D1FF4 /* TYSLiveQuestionCell.swift in Sources */,
 				E1029F1F2069E8F000157324 /* AYRequestManager.swift in Sources */,
+				E17FE0CB20AA86CD00A85561 /* TYSPersonalWebViewController.swift in Sources */,
 				E15191BC2071E2A900C419A0 /* TYSRecReadAboutMeViewController.swift in Sources */,
 				E17A0808206112BD00887C69 /* UIButton+Countdown.swift in Sources */,
 				E16A77982074A10900980B78 /* TYSLiveAudioBackViewController.swift in Sources */,
