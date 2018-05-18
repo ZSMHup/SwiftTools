@@ -2,7 +2,7 @@ PODS:
   - Alamofire (4.5.1)
   - Cache (4.1.2)
   - ESTabBarController-swift (2.5)
-  - HandyJSON (4.0.0-beta.1)
+  - HandyJSON (4.1.1)
   - IQKeyboardManagerSwift (5.0.6)
   - Kingfisher (4.3.1)
   - MJRefresh (3.1.15.1)
@@ -17,7 +17,7 @@ DEPENDENCIES:
   - Alamofire
   - Cache
   - ESTabBarController-swift
-  - HandyJSON (= 4.0.0-beta.1)
+  - HandyJSON (= 4.1.1)
   - IQKeyboardManagerSwift
   - Kingfisher
   - MJRefresh
@@ -26,11 +26,25 @@ DEPENDENCIES:
   - SwiftyJSON
   - VerifyCode
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - Cache
+    - ESTabBarController-swift
+    - HandyJSON
+    - IQKeyboardManagerSwift
+    - Kingfisher
+    - MJRefresh
+    - SnapKit
+    - SQLite.swift
+    - SwiftyJSON
+    - VerifyCode
+
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
   Cache: bd0233fc688b5e83a27bcd87807db7e6f23adcc5
   ESTabBarController-swift: 8daa432f2a9be8ebd25101dc46c84472fd760512
-  HandyJSON: 428bb18e2c34c2a77361accebf90cf64e4f74118
+  HandyJSON: 3a3de917c4118767ffe41c29b5acba23409649f4
   IQKeyboardManagerSwift: 02bfbb0dff71c66d0ab77d80d25dfce0c3717735
   Kingfisher: 75541c4b62f02e1fde6f9772303de3d9ebe8f5b3
   MJRefresh: 5f8552bc25ca8751c010f621c1098dbdaacbccd6
@@ -39,6 +53,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
   VerifyCode: 4b53458bf56f35cabe00f28e385bf2cd15888a9f
 
-PODFILE CHECKSUM: 4ab955a7bb170fba342e7a43383afa902d27067c
+PODFILE CHECKSUM: 8250892123c535e4a6529d28382d16c534400d78
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.2
