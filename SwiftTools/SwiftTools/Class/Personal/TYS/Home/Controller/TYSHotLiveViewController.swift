@@ -118,6 +118,7 @@ extension TYSHotLiveViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         liveDetail(liveListModel: dataSource[indexPath.item])
+        
     }
     
 }
