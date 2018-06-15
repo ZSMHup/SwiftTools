@@ -17,16 +17,10 @@ func requestMobileLogin(
     
     requestHanlder(paramterDic: paramterDic, cache: false, cacheCompletion: { (cacheValue) in
     }, successCompletion: { (successValue) in
-        var resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
-        
-        if resultDic["object"] is NSNull {
-            successCompletion(TYSLoginModel())
-        } else {
-            let object = resultDic["object"]
-            let obj: [String : Any] = object as! [String : Any]
-            let model = JSONDeserializer<TYSLoginModel>.deserializeFrom(dict: obj)!
-            successCompletion(model)
-        }
+            
+        let object: [Any] = successValue as! [Any]
+        let model = JSONDeserializer<TYSLoginModel>.deserializeModelArrayFrom(array: object)
+        successCompletion((model?.first ?? TYSLoginModel())!)
         
     }) { (error) in
         failureCompletion(error)
@@ -42,15 +36,9 @@ func requestGetCaptcha(
     requestHanlder(paramterDic: paramterDic, cache: false, cacheCompletion: { (cacheValue) in
         
     }, successCompletion: { (successValue) in
-        var resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
-        if resultDic["object"] is NSNull {
-            successCompletion(TYSLoginGetCaptcha())
-        } else {
-            let object = resultDic["object"]
-            let obj: [String : Any] = object as! [String : Any]
-            let model = JSONDeserializer<TYSLoginGetCaptcha>.deserializeFrom(dict: obj)!
-            successCompletion(model)
-        }
+        let object: [Any] = successValue as! [Any]
+        let model = JSONDeserializer<TYSLoginGetCaptcha>.deserializeModelArrayFrom(array: object)
+        successCompletion((model?.first ?? TYSLoginGetCaptcha())!)
     }) { (error) in
         failureCompletion(error)
     }

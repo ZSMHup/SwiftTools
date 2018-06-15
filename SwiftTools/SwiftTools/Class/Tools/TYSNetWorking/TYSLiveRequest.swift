@@ -18,15 +18,11 @@ func requestLiveDetail(
     requestHanlder(paramterDic: paramterDic, cache: false, cacheCompletion: { (cacheValue) in
         
     }, successCompletion: { (successValue) in
-        var resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
-        if resultDic["object"] is NSNull {
-            successCompletion(TYSLiveDetailModel())
-        } else {
-            let object = resultDic["object"]
-            let obj: [String : Any] = object as! [String : Any]
-            let model = JSONDeserializer<TYSLiveDetailModel>.deserializeFrom(dict: obj)!
-            successCompletion(model)
-        }
+
+        let object: [Any] = successValue as! [Any]
+        let model = JSONDeserializer<TYSLiveDetailModel>.deserializeModelArrayFrom(array: object)
+        successCompletion((model?.first ?? TYSLiveDetailModel())!)
+        
     }) { (error) in
         failureCompletion(error)
     }
@@ -41,15 +37,11 @@ func requestLiveSignUp(
     requestHanlder(paramterDic: paramterDic, cache: false, cacheCompletion: { (cacheValue) in
         
     }, successCompletion: { (successValue) in
-        var resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
-        if resultDic["object"] is NSNull {
-            successCompletion(TYSLiveSignupModel())
-        } else {
-            let object = resultDic["object"]
-            let obj: [String : Any] = object as! [String : Any]
-            let model = JSONDeserializer<TYSLiveSignupModel>.deserializeFrom(dict: obj)!
-            successCompletion(model)
-        }
+
+        let object: [Any] = successValue as! [Any]
+        let model = JSONDeserializer<TYSLiveSignupModel>.deserializeModelArrayFrom(array: object)
+        successCompletion((model?.first ?? TYSLiveSignupModel())!)
+        
     }) { (error) in
         failureCompletion(error)
     }
@@ -64,15 +56,11 @@ func requestLiveJoinLive(
     requestHanlder(paramterDic: paramterDic, cache: false, cacheCompletion: { (cacheValue) in
         
     }, successCompletion: { (successValue) in
-        var resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
-        if resultDic["object"] is NSNull {
-            successCompletion(TYSLiveJoinLiveModel())
-        } else {
-            let object = resultDic["object"]
-            let obj: [String : Any] = object as! [String : Any]
-            let model = JSONDeserializer<TYSLiveJoinLiveModel>.deserializeFrom(dict: obj)!
-            successCompletion(model)
-        }
+        
+        let object: [Any] = successValue as! [Any]
+        let model = JSONDeserializer<TYSLiveJoinLiveModel>.deserializeModelArrayFrom(array: object)
+        successCompletion((model?.first ?? TYSLiveJoinLiveModel())!)
+
     }) { (error) in
         failureCompletion(error)
     }
@@ -86,25 +74,17 @@ func requestLiveQuestionList(
     failureCompletion: @escaping (Any)->()) {
     
     requestHanlder(paramterDic: paramterDic, cache: true, cacheCompletion: { (cacheValue) in
-        var resultDic = getDictionaryFromJSONString(jsonString: cacheValue as! String)
-        if resultDic["object"] is NSNull {
-            cacheCompletion(TYSLiveQuestionModel())
-        } else {
-            let object = resultDic["object"]
-            let obj: [String : Any] = object as! [String : Any]
-            let model = JSONDeserializer<TYSLiveQuestionModel>.deserializeFrom(dict: obj)!
-            cacheCompletion(model)
-        }
+
+        let obj: [String : Any] = cacheValue as! [String : Any]
+        let model = JSONDeserializer<TYSLiveQuestionModel>.deserializeFrom(dict: obj)!
+        cacheCompletion(model)
+
     }, successCompletion: { (successValue) in
-        var resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
-        if resultDic["object"] is NSNull {
-            successCompletion(TYSLiveQuestionModel())
-        } else {
-            let object = resultDic["object"]
-            let obj: [String : Any] = object as! [String : Any]
-            let model = JSONDeserializer<TYSLiveQuestionModel>.deserializeFrom(dict: obj)!
-            successCompletion(model)
-        }
+
+        let obj: [String : Any] = successValue as! [String : Any]
+        let model = JSONDeserializer<TYSLiveQuestionModel>.deserializeFrom(dict: obj)!
+        successCompletion(model)
+
     }) { (error) in
         failureCompletion(error)
     }
@@ -118,23 +98,17 @@ func requestLiveFileList(
     failureCompletion: @escaping (Any)->()) {
     
     requestHanlder(paramterDic: paramterDic, cache: true, cacheCompletion: { (cacheValue) in
-        var resultDic = getDictionaryFromJSONString(jsonString: cacheValue as! String)
-        if resultDic["object"] is NSNull {
-            cacheCompletion([TYSLiveFileModel()])
-        } else {
-            let object: [Any] = resultDic["object"] as! [Any]
-            let model = JSONDeserializer<TYSLiveFileModel>.deserializeModelArrayFrom(array: object)
-            cacheCompletion(model! as! [TYSLiveFileModel])
-        }
+
+        let object: [Any] = cacheValue as! [Any]
+        let model = JSONDeserializer<TYSLiveFileModel>.deserializeModelArrayFrom(array: object)
+        cacheCompletion(model! as! [TYSLiveFileModel])
+
     }, successCompletion: { (successValue) in
-        var resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
-        if resultDic["object"] is NSNull {
-            successCompletion([TYSLiveFileModel()])
-        } else {
-            let object: [Any] = resultDic["object"] as! [Any]
-            let model = JSONDeserializer<TYSLiveFileModel>.deserializeModelArrayFrom(array: object)
-            successCompletion(model! as! [TYSLiveFileModel])
-        }
+
+        let object: [Any] = successValue as! [Any]
+        let model = JSONDeserializer<TYSLiveFileModel>.deserializeModelArrayFrom(array: object)
+        successCompletion(model! as! [TYSLiveFileModel])
+        
     }) { (error) in
         failureCompletion(error)
     }

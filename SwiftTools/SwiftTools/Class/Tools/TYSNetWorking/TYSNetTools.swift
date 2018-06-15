@@ -18,8 +18,8 @@ private var modelClass: String?
 func requestHanlder(
     paramterDic: Dictionary<String, Any>,
     cache: Bool,
-    cacheCompletion: @escaping (Any)->(),
-    successCompletion: @escaping (Any)->(),
+    cacheCompletion: @escaping (AnyObject)->(),
+    successCompletion: @escaping (AnyObject)->(),
     failureCompletion: @escaping (Any)->()) {
     
     let params = configParameters(paramterDic: paramterDic)
@@ -38,6 +38,7 @@ func requestHanlder(
                 let resultDic = getDictionaryFromJSONString(jsonString: string)
                 let msg: String = resultDic["msg"] as! String
                 let statusCode: String = resultDic["statusCode"] as! String
+                var object = resultDic["object"]
                 
                 
                 if resultDic.count == 0 {
@@ -54,34 +55,25 @@ func requestHanlder(
                     }
                     return
                 }
-                /*
-                let object = resultDic["object"]
-                var objc: Any?
                 
                 if object is Array<Any> {
                     printLog("Array")
-                    var resultDic = getDictionaryFromJSONString(jsonString: string)
-                    let object: [AnyObject] = resultDic["object"] as! [AnyObject]
-                    objc = object
+                    
                 } else if object is Dictionary<String, Any> {
                     printLog("Dictionary")
-                    let resultDic = getDictionaryFromJSONString(jsonString: string)
-                    let object = resultDic["object"]
-                    let obj: [String : Any] = object as! [String : Any]
-                    objc = obj
+                    object = [object] as AnyObject
                 } else if object is String {
                     printLog("String")
-
+                    object = [object] as AnyObject
                 } else if object is NSNull {
                     printLog("NSNull")
+                    object = [] as AnyObject
                 }
-                */
                 
                 if stringValue.isCacheData {
-                    cacheCompletion(string as Any)
+                    cacheCompletion(object!)
                 } else {
-                    
-                    successCompletion(string as Any)
+                    successCompletion(object!)
                 }
             }
         case .failure(let error):

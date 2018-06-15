@@ -18,26 +18,16 @@ func requestPersonalDetail(
     
     requestHanlder(paramterDic: paramterDic, cache: true, cacheCompletion: { (cacheValue) in
         
-        var resultDic = getDictionaryFromJSONString(jsonString: cacheValue as! String)
-        if resultDic["object"] is NSNull {
-            cacheCompletion(TYSPersonalModel())
-        } else {
-            let object = resultDic["object"]
-            let obj: [String : Any] = object as! [String : Any]
-            let model = JSONDeserializer<TYSPersonalModel>.deserializeFrom(dict: obj)!
-            cacheCompletion(model)
-        }
+        let object: [Any] = cacheValue as! [Any]
+        let model = JSONDeserializer<TYSPersonalModel>.deserializeModelArrayFrom(array: object)
+        successCompletion((model?.first ?? TYSPersonalModel())!)
         
     }, successCompletion: { (successValue) in
-        var resultDic = getDictionaryFromJSONString(jsonString: successValue as! String)
-        if resultDic["object"] is NSNull {
-            successCompletion(TYSPersonalModel())
-        } else {
-            let object = resultDic["object"]
-            let obj: [String : Any] = object as! [String : Any]
-            let model = JSONDeserializer<TYSPersonalModel>.deserializeFrom(dict: obj)!
-            successCompletion(model)
-        }
+        
+        let object: [Any] = successValue as! [Any]
+        let model = JSONDeserializer<TYSPersonalModel>.deserializeModelArrayFrom(array: object)
+        successCompletion((model?.first ?? TYSPersonalModel())!)
+        
     }) { (error) in
         failureCompletion(error)
     }
