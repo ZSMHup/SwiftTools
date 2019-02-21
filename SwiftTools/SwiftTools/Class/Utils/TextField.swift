@@ -24,6 +24,8 @@ class TextField: UITextField {
     /** 最大限制文本长度, 默认不限制长度 */
     var maxLength: Int?
     
+    
+    
     private var changeHandler: TextFieldHandler?
     private var maxHandler: TextFieldHandler?
     
